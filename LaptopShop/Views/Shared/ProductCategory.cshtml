@@ -1,0 +1,28 @@
+﻿
+@model List<LaptopShop.Models.Catalog>
+
+@*<div class="header_bottom_left">
+        <div class="categories">
+            <ul>
+                <h3>Categories</h3>
+                @foreach (var item in Model)
+                {
+                    <li><a href="#">@item.Catalog_Name</a></li>
+                }
+
+            </ul>
+        </div>
+    </div>*@
+
+<div class="agileits-navi_search">
+    <form action="#" method="post">
+        <select id="agileinfo-nav_search" name="agileinfo_search" required="">
+            <option value="">All Categories</option>
+            @foreach (var item in Model)
+            {
+                <option value="@item.Catalog_Name">@item.Catalog_Name</option>
+            }
+
+        </select>
+    </form>
+</div>
