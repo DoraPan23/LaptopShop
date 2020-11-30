@@ -14,10 +14,14 @@ namespace LaptopShop.Controllers
         public ActionResult Index()
         {
             ViewBag.LaptopProducts = dao.getListProductLaptop(3);
+            ViewBag.MouseProducts  = dao.getListProductMouse(3);
+            ViewBag.SpeakerProducts = dao.getListProductSpeaker(3);
+            ViewBag.BrandProducts = dao.getListBrandProductLaptop();
+            ViewBag.CategoryProduct = new CatalogDao().getListCatalog();
             return View();
         }
 
-        [ChildActionOnly]
+        [ChildActionOnly] 
         public PartialViewResult ProductCategory()
         {
             var model = new CatalogDao().getListCatalog();

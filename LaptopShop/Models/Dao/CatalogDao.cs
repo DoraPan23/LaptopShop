@@ -17,5 +17,12 @@ namespace LaptopShop.Models
         {
             return db.Catalog.ToList();
         }
+
+        public string getNameById(int id)
+        {
+            var res = db.Catalog.Where(x => x.ID == id).SingleOrDefault();
+            string name = res.Catalog_Name.ToString();
+            return name;
+        }
     }
 }

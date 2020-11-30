@@ -27,5 +27,10 @@ namespace LaptopShop.Models
         public decimal? Discount { get; set; }
 
         public decimal? DiscountMoney { get; set; }
+
+        [StringLength(600)]
+        public string Detail { get; set; }
+
+        public int? Brand_ID { get; set; }
     }
 }

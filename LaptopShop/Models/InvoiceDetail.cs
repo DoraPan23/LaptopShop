@@ -11,22 +11,20 @@ namespace LaptopShop.Models
     {
         [Key]
         [Column(Order = 0)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Invoice_ID { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Product_ID { get; set; }
+        public int? Product_ID { get; set; }
 
         public int? Combo_ID { get; set; }
 
         [Key]
-        [Column(Order = 2)]
+        [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Amount { get; set; }
 
         [Key]
-        [Column(Order = 3)]
+        [Column(Order = 2)]
         public decimal Price { get; set; }
     }
 }
