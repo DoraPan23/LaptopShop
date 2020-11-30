@@ -15,11 +15,10 @@ namespace LaptopShop.Models
         public virtual DbSet<Catalog> Catalog { get; set; }
         public virtual DbSet<Combo> Combo { get; set; }
         public virtual DbSet<Customer> Customer { get; set; }
-        public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<Invoice> Invoice { get; set; }
         public virtual DbSet<Product> Product { get; set; }
-        public virtual DbSet<ProductDetail> ProductDetail { get; set; }
-        public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<Brand> Brand { get; set; }
+        public virtual DbSet<Cart> Cart { get; set; }
         public virtual DbSet<InvoiceDetail> InvoiceDetail { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -42,18 +41,6 @@ namespace LaptopShop.Models
 
             modelBuilder.Entity<Customer>()
                 .Property(e => e.password)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Employee>()
-                .Property(e => e.username)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Employee>()
-                .Property(e => e.password)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Employee>()
-                .Property(e => e.address)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Invoice>()

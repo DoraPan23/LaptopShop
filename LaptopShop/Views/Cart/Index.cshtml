@@ -1,0 +1,302 @@
+﻿@*@model List<LaptopShop.Models.CartItem>*@
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+    var ProductBrand = (List<LaptopShop.Models.Brand>)ViewBag.BrandProducts;
+    var stt = 1;
+}
+
+@section ban_top{
+    <div class="container">
+        @{
+            Html.RenderAction("ProductCategory", "Home");       <!--Category-->
+        }
+        <div class="top_nav_left">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                                aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav menu__list">
+                            <li class="active">
+                                <a class="nav-stylehead" href="../Home/Index">
+                                    Home
+                                    <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a class="nav-stylehead" href="about.html">About Us</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle nav-stylehead" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    Laptop
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu multi-column columns-3">
+                                    <div class="agile_inner_drop_nav_info">
+                                        @foreach (var item in ProductBrand)
+                                        {
+                                            if (item.ID % 2 == 0)
+                                            {
+                                                <div class="col-sm-4 multi-gd-img">
+                                                    <ul class="multi-column-dropdown">
+                                                        <li>
+                                                            <a href="http://localhost:14787/Product/Products/@item.ID">@item.Brand_Name</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="col-sm-4 multi-gd-img">
+                                                    <ul class="multi-column-dropdown">
+                                                        <li>
+                                                            <a href="http://localhost:14787/Product/Products/@item.ID">@item.Brand_Name</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            }
+
+                                        }
+                                        <div class="col-sm-4 multi-gd-img">
+                                            <img src="~/Assets/Layout2/images/nav.png" alt="">
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle nav-stylehead" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    Household
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu multi-column columns-3">
+                                    <div class="agile_inner_drop_nav_info">
+                                        <div class="col-sm-6 multi-gd-img">
+                                            <ul class="multi-column-dropdown">
+                                                <li>
+                                                    <a href="product2.html">Kitchen & Dining</a>
+                                                </li>
+                                                <li>
+                                                    <a href="product2.html">Detergents</a>
+                                                </li>
+                                                <li>
+                                                    <a href="product2.html">Utensil Cleaners</a>
+                                                </li>
+                                                <li>
+                                                    <a href="product2.html">Floor & Other Cleaners</a>
+                                                </li>
+                                                <li>
+                                                    <a href="product2.html">Disposables, Garbage Bag</a>
+                                                </li>
+                                                <li>
+                                                    <a href="product2.html">Repellents & Fresheners</a>
+                                                </li>
+                                                <li>
+                                                    <a href="product2.html"> Dishwash</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-sm-6 multi-gd-img">
+                                            <ul class="multi-column-dropdown">
+                                                <li>
+                                                    <a href="product2.html">Pet Care</a>
+                                                </li>
+                                                <li>
+                                                    <a href="product2.html">Cleaning Accessories</a>
+                                                </li>
+                                                <li>
+                                                    <a href="product2.html">Pooja Needs</a>
+                                                </li>
+                                                <li>
+                                                    <a href="product2.html">Crackers</a>
+                                                </li>
+                                                <li>
+                                                    <a href="product2.html">Festive Decoratives</a>
+                                                </li>
+                                                <li>
+                                                    <a href="product2.html">Plasticware</a>
+                                                </li>
+                                                <li>
+                                                    <a href="product2.html">Home Care</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="">
+                                <a class="nav-stylehead" href="faqs.html">Faqs</a>
+                            </li>
+                            <li class="dropdown">
+                                <a class="nav-stylehead dropdown-toggle" href="#" data-toggle="dropdown">
+                                    Pages
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu agile_short_dropdown">
+                                    <li>
+                                        <a href="icons.html">Web Icons</a>
+                                    </li>
+                                    <li>
+                                        <a href="typography.html">Typography</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="">
+                                <a class="nav-stylehead" href="contact.html">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+}
+
+<div class="privacy">
+    <div class="container">
+        <!-- tittle heading -->
+        <h3 class="tittle-w3l">
+            Checkout
+            <span class="heading-style">
+                <i></i>
+                <i></i>
+                <i></i>
+            </span>
+        </h3>
+        <!-- //tittle heading -->
+        <div class="checkout-right">
+            <h4>
+                Your shopping cart contains:
+                <span>@Model.Count Products</span>
+            </h4>
+            <div class="table-responsive">
+                <table class="timetable_sub">
+                    <thead>
+                        <tr>
+                            <th>SL No.</th>
+                            <th>Product</th>
+                            <th>Quality</th>
+                            <th>Product Name</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Count > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr id="row_@item.Product_id" class="rem"@stt>
+                                    <td class="invert">@stt</td>
+                                    <td class="invert-image">
+                                        <a href="../Product/DetailProduct/@item.Product_id">
+                                            <img src="@(Url.Content(item.LinkImage))" alt="@item.ProductName" class="img-responsive">
+                                        </a>
+                                    </td>
+                                    <td class="invert">
+                                        <div class="quantity">
+                                            <div class="quantity-select">
+                                                <div class="entry value-minus">&nbsp;</div>
+                                                <div class="entry value">
+                                                    <span>@item.Quantity</span>
+                                                </div>
+                                                <div class="entry value-plus active">&nbsp;</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="invert">@item.ProductName</td>
+                                    <td class="invert">@item.Price</td>
+                                    <td class="invert">@(item.Price*item.Quantity)</td>
+                                    <td>
+                                        @Ajax.ActionLink("Xóa", "Delete", new { @id = @item.Product_id }, new AjaxOptions
+                               {
+                                   Confirm = "Bạn có thật sự muốn xóa?",
+                                   OnComplete = "$('#row_" + @item.Product_id + "').remove()",
+                                   HttpMethod = "Delete"
+                               })
+                                    </td>
+                                    <td class="invert">
+                                        <div class="rem">
+                                            <div class="close"@stt> </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <span>Nothing in cart</span>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="checkout-left">
+            <div class="address_form_agile">
+                <h4>Add a new Details</h4>
+                <form action="payment.html" method="post" class="creditly-card-form agileinfo_form">
+                    <div class="creditly-wrapper wthree, w3_agileits_wrapper">
+                        <div class="information-wrapper">
+                            <div class="first-row">
+                                <div class="controls">
+                                    <input class="billing-address-name" type="text" name="name" placeholder="Full Name" required="">
+                                </div>
+                                <div class="w3_agileits_card_number_grids">
+                                    <div class="w3_agileits_card_number_grid_left">
+                                        <div class="controls">
+                                            <input type="text" placeholder="Mobile Number" name="number" required="">
+                                        </div>
+                                    </div>
+                                    <div class="w3_agileits_card_number_grid_right">
+                                        <div class="controls">
+                                            <input type="text" placeholder="Landmark" name="landmark" required="">
+                                        </div>
+                                    </div>
+                                    <div class="clear"> </div>
+                                </div>
+                                <div class="controls">
+                                    <input type="text" placeholder="Town/City" name="city" required="">
+                                </div>
+                                <div class="controls">
+                                    <select class="option-w3ls">
+                                        <option>Select Address type</option>
+                                        <option>Office</option>
+                                        <option>Home</option>
+                                        <option>Commercial</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <button class="submit check_out">Delivery to this Address</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="checkout-right-basket">
+                    <a href="payment.html">
+                        Make a Payment
+                        <span class="fa fa-hand-o-right" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>
+
+@section footer{
+    @{
+        Html.RenderAction("Footer", "Home");       <!--Footer Category-->
+    }
+}

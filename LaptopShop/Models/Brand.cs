@@ -6,13 +6,12 @@ namespace LaptopShop.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Role")]
-    public partial class Role
+    [Table("Brand")]
+    public partial class Brand
     {
         public int ID { get; set; }
 
-        [Required]
-        [StringLength(25)]
-        public string Role_Name { get; set; }
+        [StringLength(30)]
+        public string Brand_Name { get; set; }
     }
 }
