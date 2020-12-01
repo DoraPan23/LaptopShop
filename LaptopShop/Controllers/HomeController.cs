@@ -16,6 +16,7 @@ namespace LaptopShop.Controllers
             ViewBag.LaptopProducts = dao.getListProductLaptop(3);
             ViewBag.MouseProducts  = dao.getListProductMouse(3);
             ViewBag.SpeakerProducts = dao.getListProductSpeaker(3);
+            ViewBag.KeyBoardProducts = dao.getListProductKeyBoard(3);
             ViewBag.BrandProducts = dao.getListBrandProductLaptop();
             ViewBag.CategoryProduct = new CatalogDao().getListCatalog();
             return View();

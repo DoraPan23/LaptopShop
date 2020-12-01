@@ -88,7 +88,7 @@ namespace LaptopShop.Controllers
             return RedirectToAction("Index");
         }
         [HttpPost]
-        public ActionResult Add(int id, int quantity)
+        public void Add(int id, int quantity)
         {
             var list = cartDao.getListCart();
             Cart cart = new Cart();
@@ -105,7 +105,7 @@ namespace LaptopShop.Controllers
                 cart.Quantity = quantity;
                 int cartId = cartDao.Insert(cart);
             }
-            return RedirectToAction("Index");
+            //return RedirectToAction("Index");
         }
 
         [HttpDelete]

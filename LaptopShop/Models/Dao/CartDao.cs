@@ -75,7 +75,7 @@ namespace LaptopShop.Models.Dao
         {
             try
             {
-                var cart = db.Cart.Find(id);
+                var cart = db.Cart.Where(x=>x.Product_Id==id).SingleOrDefault();
                 db.Cart.Remove(cart);
                 db.SaveChanges();
                 return true;

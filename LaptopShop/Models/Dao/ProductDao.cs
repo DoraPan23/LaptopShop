@@ -23,7 +23,11 @@ namespace LaptopShop.Models
         }
         public List<Product> getListProductSpeaker(int quantity)
         {
-            return db.Product.Where(x => x.Catalog_ID == 3).Take(quantity).ToList();
+            return db.Product.Where(x => x.Catalog_ID == 5).Take(quantity).ToList();
+        }
+        public List<Product> getListProductKeyBoard (int quantity)
+        {
+            return db.Product.Where(x => x.Catalog_ID == 2).Take(quantity).ToList();
         }
         public Product getDetailProduct(int id)
         {
