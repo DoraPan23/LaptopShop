@@ -17,7 +17,6 @@ namespace LaptopShop.Controllers
             ViewBag.MouseProducts  = dao.getListProductMouse(3);
             ViewBag.SpeakerProducts = dao.getListProductSpeaker(3);
             ViewBag.KeyBoardProducts = dao.getListProductKeyBoard(3);
-            ViewBag.BrandProducts = dao.getListBrandProductLaptop();
             ViewBag.CategoryProduct = new CatalogDao().getListCatalog();
             return View();
         }
@@ -29,6 +28,14 @@ namespace LaptopShop.Controllers
             return PartialView(model);
         }
 
+
+
+        [ChildActionOnly]
+        public PartialViewResult ban_top()
+        {
+            ViewBag.BrandProducts = dao.getListBrandProductLaptop();
+            return PartialView();
+        }
         [ChildActionOnly]
         public PartialViewResult Footer()
         {

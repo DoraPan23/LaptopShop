@@ -1,4 +1,4 @@
-﻿namespace LaptopShop.Models
+namespace LaptopShop.Models
 {
     using System;
     using System.Collections.Generic;
@@ -11,8 +11,12 @@
     {
         public int ID { get; set; }
 
-        public int Product_Id { get; set; }
+        public int? Product_Id { get; set; }
 
-        public int Quantity { get; set; }
+        public int? Quantity { get; set; }
+
+        public int? Combo_Id { get; set; }
+
+        public int? Customer_Id { get; set; }
     }
 }

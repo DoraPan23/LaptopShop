@@ -7,10 +7,12 @@ namespace LaptopShop.Models
 {
     public class CartFormatDao
     {
+        int cart_id;
         int product_id;
         string linkImage;
         string productName;
-        decimal price;
+        double price;
+        int amount;
         int quantity;
 
         public string LinkImage
@@ -39,7 +41,7 @@ namespace LaptopShop.Models
             }
         }
 
-        public decimal Price
+        public double Price
         {
             get
             {
@@ -75,6 +77,32 @@ namespace LaptopShop.Models
             set
             {
                 product_id = value;
+            }
+        }
+
+        public int Amount
+        {
+            get
+            {
+                return amount;
+            }
+
+            set
+            {
+                amount = value;
+            }
+        }
+
+        public int Cart_id
+        {
+            get
+            {
+                return cart_id;
+            }
+
+            set
+            {
+                cart_id = value;
             }
         }
     }

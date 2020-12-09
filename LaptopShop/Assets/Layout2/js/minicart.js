@@ -2865,7 +2865,7 @@ View.prototype.bind = function bind(form) {
         });
     } else {
         events.add(form, 'submit', function (e) {
-            e.preventDefault(e);
+            //e.preventDefault(e);
             that.model.cart.add(forms.parse(form));
         });
     }

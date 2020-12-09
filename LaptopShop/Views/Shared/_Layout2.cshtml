@@ -28,6 +28,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<link href="~/Assets/Layout2/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="~/Assets/Layout2/css/style.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="~/Assets/Layout2/css/font-awesome.css" rel="stylesheet">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 	<!--pop-up-box-->
 	<link href="~/Assets/Layout2/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
 	<!--//pop-up-box-->
@@ -59,27 +60,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<!-- header-bot -->
 			<div class="col-md-8 header">
 				<!-- header lists -->
-				<ul>
-					<li>
-						<a class="play-icon popup-with-zoom-anim" href="#small-dialog1">
-							<span class="fa fa-map-marker" aria-hidden="true"></span> Shop Locator</a>
-					</li>
-					<li>
-						<a href="#" data-toggle="modal" data-target="#myModal1">
-							<span class="fa fa-truck" aria-hidden="true"></span>Track Order</a>
-					</li>
-					<li>
-						<span class="fa fa-phone" aria-hidden="true"></span> 001 234 5678
-					</li>
-					<li>
-						<a href="#" data-toggle="modal" data-target="#myModal1">
-							<span class="fa fa-unlock-alt" aria-hidden="true"></span> Sign In </a>
-					</li>
-					<li>
-						<a href="#" data-toggle="modal" data-target="#myModal2">
-							<span class="fa fa-pencil-square-o" aria-hidden="true"></span> Sign Up </a>
-					</li>
-				</ul>
+				@{Html.RenderAction("HeaderList", "Customer"); }
 				<!-- //header lists -->
 				<!-- search -->
 				<div class="agileits_search">
@@ -544,8 +525,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<p>
 							Come join the Grocery Shoppy! Let's set up your Account.
 						</p>
-						<form action="#" method="post">
-							<div class="styled-input agile-styled-input-top">
+						<form action="/Product" method="post">
+                        
+                            <div class="styled-input agile-styled-input-top">
 								<input type="text" placeholder="Name" name="Name" required="">
 							</div>
 							<div class="styled-input">
@@ -558,7 +540,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<input type="password" placeholder="Confirm Password" name="Confirm Password" id="password2" required="">
 							</div>
 							<input type="submit" value="Sign Up">
-						</form>
+                        
+                        </form>
 						<p>
 							<a href="#">By clicking register, I agree to your terms</a>
 						</p>
@@ -573,78 +556,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- //header-bot -->
 	<!-- navigation -->
 	<div class="ban-top">
-		@RenderSection("ban_top",required:false)
+		@{Html.RenderAction("ban_top", "Home"); }
 	</div>
 	<!-- //navigation -->
 	<!-- banner -->
-	<div id="myCarousel" class="carousel slide" data-ride="carousel">
-		<!-- Indicators-->
-		<ol class="carousel-indicators">
-			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-			<li data-target="#myCarousel" data-slide-to="1" class=""></li>
-			<li data-target="#myCarousel" data-slide-to="2" class=""></li>
-			<li data-target="#myCarousel" data-slide-to="3" class=""></li>
-		</ol>
-		<div class="carousel-inner" role="listbox">
-			<div class="item active">
-				<div class="container">
-					<div class="carousel-caption">
-						<h3>Big
-							<span>Save</span>
-						</h3>
-						<p>Get flat
-							<span>10%</span> Cashback</p>
-						<a class="button2" href="product.html">Shop Now </a>
-					</div>
-				</div>
-			</div>
-			<div class="item item2">
-				<div class="container">
-					<div class="carousel-caption">
-						<h3>Healthy
-							<span>Saving</span>
-						</h3>
-						<p>Get Upto
-							<span>30%</span> Off</p>
-						<a class="button2" href="product.html">Shop Now </a>
-					</div>
-				</div>
-			</div>
-			<div class="item item3">
-				<div class="container">
-					<div class="carousel-caption">
-						<h3>Big
-							<span>Deal</span>
-						</h3>
-						<p>Get Best Offer Upto
-							<span>20%</span>
-						</p>
-						<a class="button2" href="product.html">Shop Now </a>
-					</div>
-				</div>
-			</div>
-			<div class="item item4">
-				<div class="container">
-					<div class="carousel-caption">
-						<h3>Today
-							<span>Discount</span>
-						</h3>
-						<p>Get Now
-							<span>40%</span> Discount</p>
-						<a class="button2" href="product.html">Shop Now </a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-			<span class="sr-only">Previous</span>
-		</a>
-		<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-			<span class="sr-only">Next</span>
-		</a>
-	</div>
+    @RenderSection("banner",required:false)
+	
 	<!-- //banner -->
 
 	<!-- top Products -->
@@ -680,7 +597,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 	<!-- //newsletter -->
 	<!-- footer -->
-	@RenderSection("footer",required:true)
+	@{Html.RenderAction("Footer", "Home"); }
 	<!-- //footer -->
 	<!-- copyright -->
 	<div class="copy-right">
