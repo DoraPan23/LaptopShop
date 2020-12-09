@@ -46,16 +46,13 @@
                 <div class="left-side">
                     <h3 class="agileits-sear-head">Brand</h3>
                     <ul>
-                    
-                            @foreach (var item in BrandForCatalog)
-                            {
-                                <li>
-                                    <input type="checkbox" class="checked">
-                                    <span class="span">@item.Brand_Name</span>
-                                </li>
-                            }
-                    
-                    
+                        @foreach (var item in BrandForCatalog)
+                        {
+                            <li>
+                                <input type="checkbox" class="checked">
+                                <span class="span">@item.Brand_Name</span>
+                            </li>
+                        }
                     </ul>
                 </div>
             }
@@ -277,8 +274,14 @@
                                         <a href="http://localhost:14787/Product/DetailProduct/@item.ID">@item.Product_Name</a>
                                     </h4>
                                     <div class="info-product-price">
-                                        <span class="item_price">@item.Price</span>
-                                        <del>@(item.DiscountMoney.HasValue ? item.DiscountMoney.Value.ToString() : "")</del>
+                                        <span class="item_price">
+                                            @(item.Discount.HasValue ? Convert.ToDecimal(
+                                                        Decimal.ToDouble((decimal)item.Price) -
+                                                        Decimal.ToDouble((decimal)item.Price) * item.Discount / 100)
+                                                        : item.Price
+                                            )
+                                        </span>
+                                        <del>@(item.Discount.HasValue ? item.Price.ToString() : "")</del>
                                     </div>
                                     <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
                                         <form action="#" method="post">
@@ -302,6 +305,9 @@
                         </div>
 
                     }
+                    
+                    @*@Html.PagedListPager(Model,page=>Url.Action("Products",new {page }))*@
+                    <div class="clearfix"></div>
                     @*Phan trang*@
                     if (ViewBag.TotalPage > 1)
                     {
@@ -319,9 +325,9 @@
                                 @if (currentPage > ViewBag.First)
                                 {
                                     <li><a href="@link?page=@ViewBag.First" title="Trang đầu" class="first"><i class="fa fa-angle-double-left"></i></a></li>
-                                    <li>
-                                        <a href="@link?page=@ViewBag.Prev" title="Trang trước" class="prev"><i class="fa fa-angle-left"></i></a>
-                                    </li>
+                                        <li>
+                                            <a href="@link?page=@ViewBag.Prev" title="Trang trước" class="prev"><i class="fa fa-angle-left"></i></a>
+                                        </li>
 
                                 }
                                 @for (int i = startPageIndex; i <= endPageIndex; i++)
@@ -339,7 +345,7 @@
                                 @if (currentPage < totalPage)
                                 {
                                     <li><a href="@link?page=@ViewBag.Next" class="next" title="Trang sau"><i class="fa fa-angle-right"></i></a></li>
-                                    <li> <a href="@link?page=@ViewBag.Last" class="last" title="Trang cuối"><i class="fa fa-angle-double-right"></i></a></li>
+                                        <li> <a href="@link?page=@ViewBag.Last" class="last" title="Trang cuối"><i class="fa fa-angle-double-right"></i></a></li>
                                 }
 
                             </ul>
@@ -355,8 +361,6 @@
                 {
                     <span>Không có san pham loai nay</span>
                 }
-                    @*@Html.PagedListPager(Model,page=>Url.Action("Products",new {page }))*@
-                    <div class="clearfix"></div>
                 </div>
                 <!-- //first section -->
 
@@ -365,9 +369,3 @@
         <!-- //product right -->
     </div>
 </div>
-
-@section footer{
-    @{
-        Html.RenderAction("Footer", "Home");       <!--Footer Category-->
-    }
-}

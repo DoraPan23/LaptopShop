@@ -204,6 +204,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\ComboController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
@@ -215,17 +217,21 @@
     <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\Catalog.cs" />
     <Compile Include="Models\Combo.cs" />
+    <Compile Include="Models\ComboFormatDao.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Dao\CartDao.cs" />
     <Compile Include="Models\Dao\CatalogDao.cs" />
+    <Compile Include="Models\Dao\ComboDao.cs" />
+    <Compile Include="Models\Dao\OrderDao.cs" />
     <Compile Include="Models\Dao\ProductDao.cs" />
-    <Compile Include="Models\Invoice.cs" />
-    <Compile Include="Models\InvoiceDetail.cs" />
+    <Compile Include="Models\Dao\UserSingleTon.cs" />
     <Compile Include="Models\LaptopShopDbContext.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Layout2\js\cart.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\PagedList.css" />
@@ -270,9 +276,15 @@
     <Content Include="Views\Shared\Footer.cshtml" />
     <Content Include="Views\Product\DetailProduct.cshtml" />
     <Content Include="Views\Shared\RelatedProduct.cshtml" />
-    <Content Include="Views\Product\Products.cshtml" />
+    <Content Include="Views\Product\FillByBrand.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Product\FillByCatalog.cshtml" />
+    <Content Include="Views\Combo\Index.cshtml" />
+    <Content Include="Views\Product\DetailCombo.cshtml" />
+    <Content Include="Views\Product\Search.cshtml" />
+    <Content Include="Views\Customer\ViewOrder.cshtml" />
+    <Content Include="Views\Shared\HeaderList.cshtml" />
+    <Content Include="Views\Shared\ban_top.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -283,7 +295,6 @@
     <Folder Include="Assets\Layout2\css\" />
     <Folder Include="Assets\Layout2\fonts\" />
     <Folder Include="Assets\Layout2\images\" />
-    <Folder Include="Assets\Layout2\js\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
