@@ -20,6 +20,15 @@ namespace LaptopShop.Controllers
             ViewBag.CategoryProduct = new CatalogDao().getListCatalog();
             return View();
         }
+        public ActionResult Index_signin()
+        {
+            ViewBag.LaptopProducts = dao.getListProductLaptop(3);
+            ViewBag.MouseProducts = dao.getListProductMouse(3);
+            ViewBag.SpeakerProducts = dao.getListProductSpeaker(3);
+            ViewBag.BrandProducts = dao.getListBrandProductLaptop();
+            ViewBag.CategoryProduct = new CatalogDao().getListCatalog();
+            return View();
+        }
 
         [ChildActionOnly] 
         public PartialViewResult ProductCategory()
@@ -36,6 +45,12 @@ namespace LaptopShop.Controllers
             ViewBag.BrandProducts = dao.getListBrandProductLaptop();
             return PartialView();
         }
+        [ChildActionOnly]
+        public PartialViewResult HeaderList()
+        {
+            return PartialView();
+        }
+
         [ChildActionOnly]
         public PartialViewResult Footer()
         {

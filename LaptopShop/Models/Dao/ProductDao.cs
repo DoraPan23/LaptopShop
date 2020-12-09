@@ -1,4 +1,4 @@
-﻿using PagedList;
+﻿    using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +15,7 @@ namespace LaptopShop.Models
         }
         public List<Product> getListProductLaptop(int quantity)
         {
-            return db.Product.Where(x=>x.Catalog_ID==6).Take(quantity).ToList();
+            return db.Product.Where(x => x.Catalog_ID == 6).Take(quantity).ToList();
         }
         public List<Product> getListProductMouse(int quantity)
         {
