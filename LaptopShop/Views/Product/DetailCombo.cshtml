@@ -1,0 +1,126 @@
+﻿
+@{
+    ViewBag.Title = "DetailCombo";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+    var ProductCombo = (List<LaptopShop.Models.ComboFormatDao>)ViewBag.ComboProduct;
+    double total = 0;
+    int stt = 0;
+}
+
+<div class="banner-bootom-w3-agileits">
+    <div class="container">
+        <!-- tittle heading -->
+        <h3 class="tittle-w3l">
+            @ProductCombo[0].ComboName
+            <span class="heading-style">
+                <i></i>
+                <i></i>
+                <i></i>
+            </span>
+        </h3>
+        <!-- //tittle heading -->
+        <div class="col-md-5 single-right-left ">
+            <div class="grid images_3_of_2">
+                <div class="flexslider">
+
+                    <div class="clearfix"></div>
+                    @*<div class="flex-viewport" style="overflow: hidden; position: relative;">
+                        <ul class="slides" style="width: 1000%; transition-duration: 0s; transform: translate3d(-436px, 0px, 0px);">
+
+                            <li data-thumb="@(Url.Content(ProductCombo.Image))" class="" style="width: 436px; float: left; display: block;">
+                                <div class="thumb-image">
+                                    <img src="@(Url.Content(ProductCombo.Image))" data-imagezoom="true" class="img-responsive" alt="" draggable="false">
+                                </div>
+                            </li>
+                            <li data-thumb="@(Url.Content(ProductCombo.Image))" style="width: 436px; float: left; display: block;" class="clone" aria-hidden="true">
+                                <div class="thumb-image">
+                                    <img src="@(Url.Content(ProductCombo.Image))" data-imagezoom="true" class="img-responsive" alt="" draggable="false">
+                                </div>
+                            </li>
+                        </ul>
+                    </div>*@
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7 single-right-left simpleCart_shelfItem">
+            <h3>@ProductCombo[0].ComboName</h3>
+            <div class="rating1">
+                <span class="starRating">
+                    <input id="rating5" type="radio" name="rating" value="5">
+                    <label for="rating5">5</label>
+                    <input id="rating4" type="radio" name="rating" value="4">
+                    <label for="rating4">4</label>
+                    <input id="rating3" type="radio" name="rating" value="3" checked="">
+                    <label for="rating3">3</label>
+                    <input id="rating2" type="radio" name="rating" value="2">
+                    <label for="rating2">2</label>
+                    <input id="rating1" type="radio" name="rating" value="1">
+                    <label for="rating1">1</label>
+                </span>
+            </div>
+            <p>
+                
+                @foreach(var item in ProductCombo)
+                {
+                    total = total + item.ProductPrice;
+                }
+
+                <span class="item_price">@(total-(total*ProductCombo[0].Discount/100))</span>
+                <del>@total</del>
+                <label>Free delivery</label>
+            </p>
+            <div class="single-infoagile">
+                <ul>
+                    <li>
+                        Discount @(ProductCombo[0].Discount)%
+                    </li>
+                    <li>
+                        Cash on Delivery Eligible.  
+                    </li>
+                    <li>
+                        Shipping Speed to Delivery.
+                    </li>
+                </ul>
+            </div>
+            <div class="product-single-w3l">
+                <p>
+                    <i class="fa fa-hand-o-right" aria-hidden="true"></i>This is a
+                    <label>Combo include</label> products.
+                </p>
+                <ul>
+                    @foreach (var item in ProductCombo)
+                    {
+                        <li>
+                            @*<a href="http://localhost:14787/Product/DetailProduct/@item.ProductId">*@@item.ProductName   -   (@item.ProductPrice)
+                        </li>
+                    }
+                </ul>
+                <p>
+                    <i class="fa fa-refresh" aria-hidden="true"></i>This products are
+                    <label>returnable.</label>
+                </p>
+            </div>
+            <div class="occasion-cart">
+                <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+                    <form action="@Url.Action("AddCombo","Cart",new {id=ProductCombo[0].ComboId,quantity=1 })" method="post">
+                        <fieldset>
+                            <input type="hidden" name="cmd" value="_cart" />
+                            <input type="hidden" name="add" value="1" />
+                            <input type="hidden" name="business" value=" " />
+                            <input type="hidden" name="item_name" value="@ProductCombo[0].ProductName" />
+                            <input type="hidden" name="amount" value="@ProductCombo[0].ProductPrice" />
+                            <input type="hidden" name="discount_amount" value="" />
+                            <input type="hidden" name="currency_code" value="VND" />
+                            <input type="hidden" name="return" value=" " />
+                            <input type="hidden" name="cancel_return" value=" " />
+                            <input type="submit" name="submit" value="Add to cart" class="button" />
+                        </fieldset>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
