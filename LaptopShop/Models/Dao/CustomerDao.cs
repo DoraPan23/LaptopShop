@@ -61,7 +61,7 @@ namespace LaptopShop.Models.Dao
         public int SignUp(string user, string pass1, string pass2)
         {
             var result = db.Customer.SingleOrDefault(x => x.username == user);
-            if(user.Equals("") || result != null)
+            if (user.Equals("") || result != null)
             {
                 return 0;
             }
