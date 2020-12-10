@@ -1,14 +1,15 @@
 
 ﻿@model LaptopShop.Models.Customer
-    @{ 
-        string userName = ViewBag.UserName;
-    }
+@{
+    string userName = ViewBag.UserName;
+}
 <ul>
     <li>
         <a class="play-icon popup-with-zoom-anim" href="#small-dialog1">
             <span class="fa fa-map-marker" aria-hidden="true"></span> Shop Locator
         </a>
     </li>
+
     <li>
         <a href="#" data-toggle="modal" data-target="#myModal1">
             <span class="fa fa-truck" aria-hidden="true"></span>Track Order
@@ -17,25 +18,37 @@
     <li>
         <span class="fa fa-phone" aria-hidden="true"></span> 001 234 5678
     </li>
-    <li>
-        <a href="#" data-toggle="modal" data-target="#myModal1">
-            <span class="fa fa-unlock-alt" aria-hidden="true"></span> Sign In
-        </a>
-    </li>
-    <li>
-        @if (!userName.IsEmpty())
-        {
-        <a href="#" data-toggle="modal" data-target="#myModal2">
-            <span class="fa fa-pencil-square-o" aria-hidden="true"></span> Welcome @ViewBag.UserName
-        </a> 
-        }
-        else
-        {
+    @if (!userName.IsEmpty())
+    {
+        <li>
+            <a href="#">
+                <span class="fa fa-truck" aria-hidden="true"></span>Track Order
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="fa fa-unlock-alt" aria-hidden="true"></span>Welcome: @userName
+            </a>
+        </li>
+        <li>
+            <a href="../Customer/SignOut">
+                <span class="fa fa-pencil-square-o" aria-hidden="true"></span> Logout
+            </a>
+        </li>
+    }
+    else
+    {
+        <li>
+            <a href="#" data-toggle="modal" data-target="#myModal1">
+                <span class="fa fa-unlock-alt" aria-hidden="true"></span> Sign In
+            </a>
+        </li>
+        <li>
             <a href="#" data-toggle="modal" data-target="#myModal2">
                 <span class="fa fa-pencil-square-o" aria-hidden="true"></span> Sign Up
             </a>
-        }
-    </li>
+        </li>
+    }
 </ul>
 
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog">
@@ -58,8 +71,8 @@
                         </a>
                     </p>
                     @*<form action="#" method="post">*@
-                   @using (Html.BeginForm("Login", "Customer", FormMethod.Post))
-                     {
+                    @using (Html.BeginForm("Login", "Customer", FormMethod.Post))
+                    {
                         @Html.ValidationSummary(false, "", new { @class = "text-danger" });
                         <div class="styled-input agile-styled-input-top">
                             @*<input type="text" placeholder="User Name" name="Name" required="">*@
@@ -73,7 +86,7 @@
                         </div>
                         <input type="submit" value="Sign In">
                     }
-                            <div class="clearfix"></div>
+                    <div class="clearfix"></div>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -102,52 +115,52 @@
                     @using (Html.BeginForm("Create", "Customer", FormMethod.Post))
                     {
                         @Html.ValidationSummary(false, "", new { @class = "text-danger" });
+                        <div class="styled-input agile-styled-input-top">
+                            @*<input type="text" placeholder="Name" name="Name" required="">*@
+                            @Html.TextBoxFor(model => model.username, new { @placeholder = "Name", @name = "Name" })
+                            @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+                        </div>
 
-                    <div class="styled-input agile-styled-input-top">
-                        @*<input type="text" placeholder="Name" name="Name" required="">*@
-                        @Html.TextBoxFor(model => model.username, new { @placeholder = "Name", @name = "Name" })
-                        @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
-                    </div>
+                        <div class="styled-input">
+                            <input type="password" placeholder="Password" name="password" id="password1" required="">
+                            @*@Html.PasswordFor(model => model.password, new { @placeholder = "Password", @name = "password", @id = "password1" })*@
+                            @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                        </div>
 
-                    <div class="styled-input">
-                        <input type="password" placeholder="Password" name="password" id="password1" required="">
-                        @*@Html.PasswordFor(model => model.password, new { @placeholder = "Password", @name = "password", @id = "password1" })*@
-                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
-                    </div>
+                        <div class="styled-input">
+                            <input type="password" placeholder="Confirm Password" name="Confirm Password" id="password2" required="">
+                            @*@Html.PasswordFor(model => model.password, new { @placeholder = "Confirm Password", @name = "Confirm Password", @id = "password2" })*@
+                            @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                        </div>
 
-                    <div class="styled-input">
-                        <input type="password" placeholder="Confirm Password" name="Confirm Password" id="password2" required="">
-                        @*@Html.PasswordFor(model => model.password, new { @placeholder = "Confirm Password", @name = "Confirm Password", @id = "password2" })*@
-                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
-                    </div>
+                        <div class="styled-input agile-styled-input-top">
+                            @Html.TextBoxFor(model => model.firstName, new { @placeholder = "First Name", @name = "firstname" })
+                            @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" })
+                        </div>
 
-                    <div class="styled-input agile-styled-input-top">
-                        @Html.TextBoxFor(model => model.firstName, new { @placeholder = "First Name", @name = "firstname" })
-                        @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" })
-                    </div>
+                        <div class="styled-input agile-styled-input-top">
+                            @Html.TextBoxFor(model => model.lastName, new { @placeholder = "Last Name", @name = "lastname" })
+                            @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
+                        </div>
 
-                    <div class="styled-input agile-styled-input-top">
-                        @Html.TextBoxFor(model => model.lastName, new { @placeholder = "Last Name", @name = "lastname" })
-                        @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="styled-input">
-                        <input type="radio" name="gender" value="nam" checked />Nam
-                        <input type="radio" name="gender" value="nu" />Nữ
-                    </div>
-                    <br />
-                    <div class="styled-input agile-styled-input-top">
-                        Birth Day&emsp;<input type="date" name="birth" />
-                        @Html.ValidationMessageFor(model => model.birthDate, "", new { @class = "text-danger" })
-                    </div>
-                    <br />
-                    <div class="styled-input agile-styled-input-top">
-                        @Html.TextBoxFor(model => model.address, new { @placeholder = "Address", @name = "address" })
-                        @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
-                    </div>
-                    <p>
-                        <a href="#">By clicking register, I agree to your terms</a>
-                    </p>
+                        <div class="styled-input">
+                            <input type="radio" name="gender" value="Male" checked />Male
+                            <input type="radio" name="gender" value="Female" />Female
+                        </div>
+                        <br />
+                        <div class="styled-input agile-styled-input-top">
+                            Birth Day&emsp;<input type="date" name="birth" />
+                            @Html.ValidationMessageFor(model => model.birthDate, "", new { @class = "text-danger" })
+                        </div>
+                        <br />
+                        <div class="styled-input agile-styled-input-top">
+                            @Html.TextBoxFor(model => model.address, new { @placeholder = "Address", @name = "address" })
+                            @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+                        </div>
+                        <p>
+                            <a href="#">By clicking register, I agree to your terms</a>
+                        </p>
+                        <input type="submit" value="Sign Up">
                     }
                 </div>
             </div>
