@@ -24,7 +24,6 @@ namespace LaptopShop.Models.Dao
         {
             return db.Customer.Where(x => x.username == username).SingleOrDefault();
         }
-        
 
         public bool Delete(int id)
         {
@@ -41,8 +40,6 @@ namespace LaptopShop.Models.Dao
             }
 
         }
-
-
 
         public int Login(string username, string password)
         {
