@@ -36,7 +36,7 @@ namespace LaptopShop.Controllers
                     userSession.username = user.username;
                     userSession.ID = user.ID;
                     Session.Add(CommonConstants.USER_SESSION, userSession);
-                    return RedirectToAction("Index_signin", "Home");
+                    return RedirectToAction("Index", "Home");
                 }
                 else if (result == 0 && result == -2)
                 {
