@@ -5,32 +5,33 @@ using System.Web;
 
 namespace LaptopShop.Models.Dao
 {
-    public class CustomerDao
+    public class UserDao
     {
         LaptopShopDbContext db = null;
-        public CustomerDao()
+        public UserDao()
         {
             db = new LaptopShopDbContext();
         }
 
-        public int Insert(Customer cus)
+        public int Insert(User user)
         {
-            db.Customer.Add(cus);
+            db.User.Add(user);
             db.SaveChanges();
-            return cus.ID;
+            return user.ID;
         }
 
-        public Customer GetByName(string username)
+        public User GetByName(string userName)
         {
-            return db.Customer.Where(x => x.username == username).SingleOrDefault();
+            return db.User.SingleOrDefault(x => x.username == userName);
+            //return db.User.Where(x => x.username == username).SingleOrDefault();
         }
 
         public bool Delete(int id)
         {
             try
             {
-                var cus = db.Customer.Find(id);
-                db.Customer.Remove(cus);
+                var cus = db.User.Find(id);
+                db.User.Remove(cus);
                 db.SaveChanges();
                 return true;
             }
@@ -43,7 +44,7 @@ namespace LaptopShop.Models.Dao
 
         public int Login(string username, string password)
         {
-            var result = db.Customer.SingleOrDefault(x => x.username == username);
+            var result = db.User.SingleOrDefault(x => x.username == username);
             if (result == null)
             {
                 return 0;
@@ -58,18 +59,14 @@ namespace LaptopShop.Models.Dao
             }
         }
 
-        public int SignUp(string user, string pass1, string pass2)
+        public int SignUp(string user)
         {
-            var result = db.Customer.SingleOrDefault(x => x.username == user);
-            if (user.Equals("") || result != null)
+            var result = db.User.SingleOrDefault(x => x.username == user);
+            if (result != null)
             {
                 return 0;
             }
-            else if (pass1.Equals(pass2))
-            {
-                return 1;
-            }
-            return 0;
+            return 1;
         }
     }
 }

@@ -27,8 +27,7 @@ namespace LaptopShop.Models.Dao
                 var updateOrder = db.Order.Find(order.ID);
                 updateOrder.ID = order.ID;
                 updateOrder.Date = order.Date;
-                updateOrder.Cart_Id = order.Cart_Id;
-                updateOrder.Customer_Id = order.Customer_Id;
+                updateOrder.User_Id = order.User_Id;
                 updateOrder.Status = order.Status;
                 db.SaveChanges();
                 return true;
@@ -39,9 +38,9 @@ namespace LaptopShop.Models.Dao
             }
         }
 
-        public List<Order> getListOrderForCustomer(int id)
+        public List<Order> getListOrderForUser(int id)
         {
-            return db.Order.Where(x => x.Customer_Id == id).ToList();
+            return db.Order.Where(x => x.User_Id == id).ToList();
         }
     }
 }

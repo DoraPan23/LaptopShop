@@ -9,8 +9,11 @@
 
 }
 
-@section banner{
+@section banner{    
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <span id="message" hidden>
+        @ViewBag.Message 
+    </span>
     <!-- Indicators-->
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -263,7 +266,7 @@
                     <div class="col-md-4 product-men">
                         <div class="men-pro-item simpleCart_shelfItem">
                             <div class="men-thumb-item">
-                                <img src="@Url.Content(item.Image)"width="160px" height="150px" alt="">
+                                <img src="@(Url.Content(item.Image))"width="160px" height="150px" alt="">
                                 <div class="men-cart-pro">
                                     <div class="inner-men-cart-pro">
                                         <a href="../Product/DetailProduct/@item.ID" class="link-product-add-cart">Quick View</a>

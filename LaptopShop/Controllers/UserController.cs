@@ -1,22 +1,18 @@
-
-﻿using LaptopShop.Common;
-using LaptopShop.Models;
-using LaptopShop.Models.Dao;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using LaptopShop.Models.Dao;
 using LaptopShop.Models;
 using LaptopShop.Common;
+using System;
 
 namespace LaptopShop.Controllers
 {
-    public class CustomerController : Controller
+    public class UserController : Controller
     {
         OrderDao orderDao = new OrderDao();
-        // GET: Customer
+        // GET: User
         public ActionResult Index()
         {
             return View();
@@ -26,7 +22,7 @@ namespace LaptopShop.Controllers
         {
             if (ModelState.IsValid)
             {
-                var dao = new CustomerDao();
+                var dao = new UserDao();
                 var result = dao.Login(model.username, model.password); ;
                 if (result == 1)
                 {
@@ -36,19 +32,15 @@ namespace LaptopShop.Controllers
                     userSession.username = user.username;
                     userSession.ID = user.ID;
                     Session.Add(CommonConstants.USER_SESSION, userSession);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index","Home", new { id = 1 });
                 }
-                else if (result == 0 && result == -2)
+                else if (result == 0)
                 {
-                    ViewBag.Message = String.Format("Tài khoản hoặc mật khẩu không đúng", DateTime.Now.ToString());
+                    return RedirectToAction("Index", "Home", new { id = 2 });
                     //ModelState.AddModelError("", "Tài khoản hoặc mật khẩu không đúng");
                 }
-                else
-                {
-                    ViewBag.Message = String.Format("Tài khoản hoặc mật khẩu không đúng", DateTime.Now.ToString());
-                    //ModelState.AddModelError("", "Đăng nhập không đúng");
-                }
             }
+
             return RedirectToAction("Index", "Home");
         }
         public ActionResult SignOut()
@@ -64,41 +56,41 @@ namespace LaptopShop.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var dao = new CustomerDao();
+                    var dao = new UserDao();
                     var user = collection["username"];
                     var pass1 = collection["password"];
                     var pass2 = collection["Confirm Password"];
                     var g = collection["gender"];
-                    var result = dao.SignUp(user, pass1, pass2);
-                    Customer cus = new Customer();
+                    var result = dao.SignUp(user);
+                    User userN = new User();
                     if (result == 1)
                     {
-                        cus.username = user;
-                        cus.password = pass1;
-                        cus.firstName = collection["firstname"];
-                        cus.lastName = collection["lastname"];
+                        userN.username = user;
+                        userN.password = pass1;
+                        userN.firstName = collection["firstname"];
+                        userN.lastName = collection["lastname"];
                         if (g.Equals("Male"))
-                            cus.gender = true;
+                            userN.gender = true;
                         else
-                            cus.gender = false;
+                            userN.gender = false;
                         try
                         {
-                            cus.birthDate = Convert.ToDateTime(collection["birth"]);
+                            userN.birthDate = Convert.ToDateTime(collection["birth"]);
                         }
                         catch
                         {
-                            cus.birthDate = Convert.ToDateTime("1-1-1999");
+                            userN.birthDate = Convert.ToDateTime("1-1-1999");
                         }
 
-                        cus.address = collection["address"];
-                        cus.joinDate = DateTime.Now;
+                        userN.address = collection["address"];
+                        userN.joinDate = DateTime.Now;
                     }
                     else
                     {
                         return RedirectToAction("Index", "Home");
                     }
 
-                    long id = dao.Insert(cus);
+                    long id = dao.Insert(userN);
                     if (id > 0)
                     {
                         return RedirectToAction("Index", "Home");
@@ -120,7 +112,7 @@ namespace LaptopShop.Controllers
             if (id.HasValue)
             {
                 int idConvert = (int)id;
-                var model = orderDao.getListOrderForCustomer(idConvert);
+                var model = orderDao.getListOrderForUser(idConvert);
                 return View(model);
             }
             return View();

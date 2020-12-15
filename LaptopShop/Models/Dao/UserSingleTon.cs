@@ -8,13 +8,13 @@ namespace LaptopShop.Models.Dao
     public class UserSingleTon
     {
         private static readonly UserSingleTon instance = new UserSingleTon();
-        private Customer user;
+        private User user;
         static UserSingleTon()
         {
         }
         private UserSingleTon()
         {
-            User = new Customer();
+            User = new User();
         }
         public static UserSingleTon Instance
         {
@@ -24,6 +24,6 @@ namespace LaptopShop.Models.Dao
             }
         }
 
-        public Customer User { get; set; }
+        public User User { get; set; }
     }
 }

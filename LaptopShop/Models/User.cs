@@ -6,8 +6,8 @@ namespace LaptopShop.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Customer")]
-    public partial class Customer
+    [Table("User")]
+    public partial class User
     {
         public int ID { get; set; }
 
@@ -19,23 +19,25 @@ namespace LaptopShop.Models
         [StringLength(50)]
         public string password { get; set; }
 
-        [Required]
         [StringLength(50)]
         public string firstName { get; set; }
 
-        [Required]
         [StringLength(20)]
         public string lastName { get; set; }
 
         public bool gender { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime birthDate { get; set; }
+        public DateTime? birthDate { get; set; }
 
-        [StringLength(100)]
+        [Column(TypeName = "text")]
         public string address { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime joinDate { get; set; }
+        public DateTime? joinDate { get; set; }
+
+        public bool isDisable { get; set; }
+
+        public int Role_ID { get; set; }
     }
 }

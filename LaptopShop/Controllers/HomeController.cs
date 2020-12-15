@@ -11,13 +11,18 @@ namespace LaptopShop.Controllers
     {
         // GET: Home
         ProductDao dao = new ProductDao();
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
             ViewBag.LaptopProducts = dao.getListProductLaptop(3);
             ViewBag.MouseProducts  = dao.getListProductMouse(3);
             ViewBag.SpeakerProducts = dao.getListProductSpeaker(3);
             ViewBag.KeyBoardProducts = dao.getListProductKeyBoard(3);
             ViewBag.CategoryProduct = new CatalogDao().getListCatalog();
+            if (id == 1)
+            {
+                ViewBag.Message = ("LOG IN SUCCEEDED, WELCOME TO SHOP");
+            }
+
             return View();
         }
         public ActionResult Index_signin()
