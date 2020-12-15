@@ -28,7 +28,5 @@ namespace LaptopShop.Models
         public decimal totalMoney { get; set; }
 
         public int discount { get; set; }
-
-        public decimal discountMoney { get; set; }
     }
 }

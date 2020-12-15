@@ -6,18 +6,19 @@ namespace LaptopShop.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Order")]
-    public partial class Order
+    [Table("OrderDetail")]
+    public partial class OrderDetail
     {
         public int ID { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime? Date { get; set; }
+        public int? Order_Id { get; set; }
 
-        public double? Total_Price { get; set; }
+        public int? Product_Id { get; set; }
 
-        public int? Customer_Id { get; set; }
+        public int? Combo_Id { get; set; }
 
-        public int? Status { get; set; }
+        public int? Quantity { get; set; }
+
+        public double? Price { get; set; }
     }
 }

@@ -4,6 +4,8 @@
     Layout = "~/Views/Shared/_Layout2.cshtml";
     var stt = 1;
     double total = 0;
+
+    var orderDetail =  ViewBag.OrderDetail;
 }
 
 
@@ -27,7 +29,7 @@
                         <thead>
                             <tr>
                                 <th>SL No.</th>
-                                <th>Product</th>
+                                <th>Date</th>
                                 <th>Total rice</th>
                                 <th>Status</th>
                                 <th>#</th>
@@ -37,43 +39,34 @@
 
                             @foreach (var item in Model)
                             {
-                                total = total + (item.Price * item.Quantity);
-                                <tr id="row_@item.Cart_id" class="rem\@stt">
+                                <tr id="row_@item.ID" class="rem\@stt">
                                     <td class="invert">@stt</td>
 
-                                    <td class="invert-image">
-                                        <a href="../Product/DetailProduct/@item.Product_id">
-                                            <img src="@Url.Content(item.LinkImage)" alt="@item.ProductName" class="img-responsive">
-                                        </a>
-                                    </td>
-                                    <td class="invert">
-                                        <div class="quantity">
-                                            <div class="quantity-select">
-                                                <div class="entry value-minus" onclick="return DecreaseQuantity(@item.Product_id,@item.Quantity)">&nbsp;</div>
-                                                <div class="entry value">
-                                                    <span id="quantityId">@item.Quantity</span>
-                                                </div>
-                                                <div class="entry value-plus active" onclick="return IncreaseQuantity(@item.Product_id,@item.Quantity,@item.Amount)">&nbsp;</div>
-                                            </div>
+                                    <td class="invert">@item.Date</td>
+                                    <td class="invert">@item.Total_Price</td>
+                                    <td class="invert">@item.Status</td>
+                                    <td>
+                                        <input type="submit" value="Add to cart" class="button" onclick="popupDetail1()" />
+                                        <div id="PPminicartk">
+                                            <button type="button" class="minicartk-closer">×</button>
+                                            <ul>
+                                                @foreach (var product in orderDetail)
+                                                {
+                                                <li class="minicartk-item minicartk-item-changed" id="popupDetail">
+                                                    <div class="minicartk-details-name"><a class="minicartk-name" href="http://localhost:14787/Home/Index1">@product.ProductName</a><ul class="minicartk-attributes"></ul></div><div class="minicartk-details-quantity"><input class="minicartk-quantity" data-minicartk-idx="0" name="quantity_1" type="text" pattern="[0-9]*" value="@product.Quantity"></div><div class="minicartk-details-price"><span class="minicartk-price">@product.Price</span></div>
+                                                </li>
+                                                }
+                                             </ul>
                                         </div>
                                     </td>
-                                    <td class="invert">@item.ProductName</td>
-                                    <td class="invert">@item.Price</td>
-                                    <td class="invert">@(item.Price * item.Quantity)</td>
-
-                                    <td>
-                                        @Ajax.ActionLink("Delete", "Delete", new { @id = @item.Cart_id }, new AjaxOptions
+                                    @*<td>
+                                        @Ajax.ActionLink("Delete", "Delete", new { @id = @item.ID }, new AjaxOptions
                                    {
                                        Confirm = "Are you sure to delete this item?",
-                                       OnComplete = "$('#row_" + @item.Cart_id + "').remove()",
+                                       OnComplete = "$('#row_" + @item.ID + "').remove()",
                                        HttpMethod = "Delete"
                                    })
-                                    </td>
-                                    <td class="invert">
-                                        <div class="rem">
-                                            <div class="close" @stt> </div>
-                                        </div>
-                                    </td>
+                                    </td>*@
                                 </tr>
                                 stt = stt + 1;
                             }
@@ -89,54 +82,19 @@
                 <span> You don't have any order </span>
             }
         </div>
-        <div class="checkout-left">
-            <div class="address_form_agile">
-                <h4>Add a new Details</h4>
-                <form action="payment.html" method="post" class="creditly-card-form agileinfo_form">
-                    <div class="creditly-wrapper wthree, w3_agileits_wrapper">
-                        <div class="information-wrapper">
-                            <div class="first-row">
-                                <div class="controls">
-                                    <input class="billing-address-name" type="text" name="name" placeholder="Full Name" required="">
-                                </div>
-                                <div class="w3_agileits_card_number_grids">
-                                    <div class="w3_agileits_card_number_grid_left">
-                                        <div class="controls">
-                                            <input type="text" placeholder="Mobile Number" name="number" required="">
-                                        </div>
-                                    </div>
-                                    <div class="w3_agileits_card_number_grid_right">
-                                        <div class="controls">
-                                            <input type="text" placeholder="Landmark" name="landmark" required="">
-                                        </div>
-                                    </div>
-                                    <div class="clear"> </div>
-                                </div>
-                                <div class="controls">
-                                    <input type="text" placeholder="Town/City" name="city" required="">
-                                </div>
-                                <div class="controls">
-                                    <select class="option-w3ls">
-                                        <option>Select Address type</option>
-                                        <option>Office</option>
-                                        <option>Home</option>
-                                        <option>Commercial</option>
-
-                                    </select>
-                                </div>
-                            </div>
-                            <button class="submit check_out">Delivery to this Address</button>
-                        </div>
-                    </div>
-                </form>
-                <div class="checkout-right-basket">
-                    <a href="payment.html">
-                        Make a Payment
-                        <span class="fa fa-hand-o-right" aria-hidden="true"></span>
-                    </a>
-                </div>
-            </div>
-            <div class="clearfix"> </div>
-        </div>
     </div>
 </div>
+
+<script>
+    function popupDetail() {
+        var test = document.getElementById("popupDetail").innerHTML;
+        alert(test);
+         var s3 = ' ';
+        var popup =  s3;
+        alert(popup);
+        document.getElementById("popupDetail").innerHTML = popup;
+        var test1 = document.getElementById("popupDetail").innerHTML;
+        alert(test1);
+        
+    }
+</script>

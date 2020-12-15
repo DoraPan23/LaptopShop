@@ -1,10 +1,10 @@
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
+using System.Linq;
+
 namespace LaptopShop.Models
 {
-    using System;
-    using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-
     public partial class LaptopShopDbContext : DbContext
     {
         public LaptopShopDbContext()
@@ -17,6 +17,7 @@ namespace LaptopShop.Models
         public virtual DbSet<Combo> Combo { get; set; }
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<Order> Order { get; set; }
+        public virtual DbSet<OrderDetail> OrderDetail { get; set; }
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<Brand> Brand { get; set; }
 
@@ -28,10 +29,6 @@ namespace LaptopShop.Models
 
             modelBuilder.Entity<Combo>()
                 .Property(e => e.totalMoney)
-                .HasPrecision(10, 0);
-
-            modelBuilder.Entity<Combo>()
-                .Property(e => e.discountMoney)
                 .HasPrecision(10, 0);
 
             modelBuilder.Entity<Customer>()

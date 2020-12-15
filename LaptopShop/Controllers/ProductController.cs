@@ -27,14 +27,14 @@ namespace LaptopShop.Controllers
             return View(model);
         }
 
-        public ActionResult FillByBrand(int? id, int page = 1, int pageSize = 12)  // xuat ra cac san pham theo brand 
+        public ActionResult FillByBrand(int? id, int page = 1, int pageSize = 9)  // xuat ra cac san pham theo brand 
         {
             if (id > 0)
             {
                 int id1 = (int)id;
                 var productDetail = dao.getDetailProduct(id1);
                 ViewBag.DetailProduct = productDetail;
-                int totalRecord = 0;
+                double totalRecord = 0;
                 var model = new ProductDao().getListByBrand(id1, ref totalRecord, page, pageSize);  // ref: biến sài ref nó sẽ lưu giá trị khi kết thúc hàm
                 ViewBag.FillByBrand = model;
                 ViewBag.BrandName = dao.getNameById(id1);
@@ -42,11 +42,6 @@ namespace LaptopShop.Controllers
 
                 ViewBag.TotalRecord = totalRecord;  // totalRecord ở đây đã được gắn giá trị
                 ViewBag.Page = page;
-
-                if (totalRecord < 12)           //kiểm tra fill đầy trang
-                {
-                    pageSize = totalRecord;
-                }
 
                 int maxPage = 5;
                 int totalPage = 0;
@@ -63,7 +58,7 @@ namespace LaptopShop.Controllers
             return View();
         }
         
-        public ActionResult FillByCatalog(int id, int page = 1, int pageSize = 5)    // xuat ra tat ca san pham theo catalog id
+        public ActionResult FillByCatalog(int id, int page = 1, int pageSize = 9)    // xuat ra tat ca san pham theo catalog id
         {
             //lam fillter
             ViewBag.BrandForCatalog = dao.getListBrandForProduct(id);
@@ -73,20 +68,15 @@ namespace LaptopShop.Controllers
             ViewBag.IdCatelogy = id;
 
             // code phan trang
-            int totalRecord = 0;
+            double totalRecord = 0;
             var model = dao.getListByCatalog(id, ref totalRecord, page, pageSize);  // ref: biến sài ref nó sẽ lưu giá trị khi kết thúc hàm
             ViewBag.CategoryForProduct = model;
             ViewBag.TotalRecord = totalRecord;  // totalRecord ở đây đã được gắn giá trị
             ViewBag.Page = page;
 
-            if (totalRecord < 5)           //kiểm tra fill đầy trang
-            {
-                pageSize = totalRecord;
-            }
-
-            int maxPage = 5;
+            int maxPage = 9;
             int totalPage = 0;
-            totalPage = (int)Math.Ceiling((double)(totalRecord / pageSize));
+            totalPage = (int)Math.Ceiling(totalRecord / pageSize);
             ViewBag.TotalPage = totalPage;
             ViewBag.MaxPage = maxPage;
             ViewBag.First = 1;
@@ -94,6 +84,7 @@ namespace LaptopShop.Controllers
             ViewBag.Next = page + 1;
             ViewBag.Prev = page - 1;
             return View();
+
         }
       
         public ActionResult DetailCombo(int id)
@@ -104,7 +95,44 @@ namespace LaptopShop.Controllers
         }
 
         [HttpGet]
-        public ActionResult Search(string keyword, int? range, int page = 1, int pageSize = 5)    // xuat ra tat ca san pham theo catalog id
+        public ActionResult SearchInCatalog(string keyword, int? range,int id, int page = 1, int pageSize = 9)    // xuat ra tat ca san pham theo catalog id
+        {
+
+            // lay ten keyword
+            ViewBag.Keyword = keyword;
+
+            ViewBag.CatelogyName = new CatalogDao().getNameById(id);
+            ViewBag.IdCatelogy = id;
+
+            // code phan trang
+            int totalRecord = 0;
+            int rangeNew;
+            if (!range.HasValue) { rangeNew = 0; }
+            else { rangeNew = (int)range; }
+            var model = dao.getListProductByKeyword(keyword, rangeNew,id, ref totalRecord, page, pageSize);  // ref: biến sài ref nó sẽ lưu giá trị khi kết thúc hàm
+            ViewBag.ProductByKeyword = model;
+            ViewBag.TotalRecord = totalRecord;  // totalRecord ở đây đã được gắn giá trị
+            ViewBag.Page = page;
+
+            //if (totalRecord < 5)           //kiểm tra fill đầy trang
+            //{
+            //    pageSize = totalRecord;
+            //}
+
+            int maxPage = 9;
+            int totalPage = 0;
+            totalPage = (int)Math.Ceiling((double)(totalRecord / pageSize));
+            ViewBag.TotalPage = totalPage;
+            ViewBag.MaxPage = maxPage;
+            ViewBag.First = 1;
+            ViewBag.Last = maxPage;
+            ViewBag.Next = page + 1;
+            ViewBag.Prev = page - 1;
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Search(string keyword, int? range, int page = 1, int pageSize = 9)    // xuat ra tat ca san pham theo catalog id
         {
 
             // lay ten keyword
@@ -124,9 +152,46 @@ namespace LaptopShop.Controllers
             //    pageSize = totalRecord;
             //}
 
-            int maxPage = 5;
+            int maxPage = 9;
             int totalPage = 0;
             totalPage = (int)Math.Ceiling((double)(totalRecord / pageSize));
+            ViewBag.TotalPage = totalPage;
+            ViewBag.MaxPage = maxPage;
+            ViewBag.First = 1;
+            ViewBag.Last = maxPage;
+            ViewBag.Next = page + 1;
+            ViewBag.Prev = page - 1;
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult SearchInBrand(string keyword, int? range, int id, int page = 1, int pageSize = 9)
+        {
+
+            // lay ten keyword
+            ViewBag.Keyword = keyword;
+
+            ViewBag.IdBrand = id;
+            ViewBag.BrandName = dao.getNameById(id);
+
+            // code phan trang
+            double totalRecord = 0;
+            int rangeNew;
+            if (!range.HasValue) { rangeNew = 0; }
+            else { rangeNew = (int)range; }
+            var model = dao.getListBrandProductByKeyword(keyword, rangeNew, id, ref totalRecord, page, pageSize);  // ref: biến sài ref nó sẽ lưu giá trị khi kết thúc hàm
+            ViewBag.ProductByKeyword = model;
+            ViewBag.TotalRecord = totalRecord;  // totalRecord ở đây đã được gắn giá trị
+            ViewBag.Page = page;
+
+            //if (totalRecord < 5)           //kiểm tra fill đầy trang
+            //{
+            //    pageSize = totalRecord;
+            //}
+
+            int maxPage = 9;
+            int totalPage = 0;
+            totalPage = (int)Math.Ceiling(totalRecord / pageSize);
             ViewBag.TotalPage = totalPage;
             ViewBag.MaxPage = maxPage;
             ViewBag.First = 1;

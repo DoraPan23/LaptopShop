@@ -92,14 +92,71 @@ namespace LaptopShop.Models
 
         }
 
-        public List<Product> getListByBrand(int brand, ref int totalRecord, int page,int pageSize)
+        public List<Product> getListProductByKeyword(string keyword, int range,int idCatalog, ref int totalRecord, int page, int pageSize)
+        {
+            totalRecord = db.Product.Where(x => x.Product_Name.Contains(keyword)).Count();
+            var model = db.Product.Where(x => x.Product_Name.Contains(keyword)&&x.Catalog_ID==idCatalog).OrderByDescending(x => x.ID).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+
+            if (range == 1)
+            {
+                totalRecord = db.Product.Where(x => x.Product_Name.Contains(keyword) && x.Price < 15000000).Count();
+                model = db.Product.Where(x => x.Product_Name.Contains(keyword) && x.Price < 15000000 && x.Catalog_ID == idCatalog).OrderByDescending(x => x.ID).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            }
+            else if (range == 2)
+            {
+                totalRecord = db.Product.Where(x => x.Product_Name.Contains(keyword) && x.Price >= 15000000 && x.Price <= 25000000).Count();
+                model = db.Product.Where(x => x.Product_Name.Contains(keyword) && x.Price >= 15000000 && x.Price <= 25000000 && x.Catalog_ID == idCatalog).OrderByDescending(x => x.ID).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            }
+            else if (range == 3)
+            {
+                totalRecord = db.Product.Where(x => x.Product_Name.Contains(keyword) && x.Price > 25000000).Count();
+                model = db.Product.Where(x => x.Product_Name.Contains(keyword) && x.Price > 25000000 && x.Catalog_ID == idCatalog).OrderByDescending(x => x.ID).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            }
+
+            return model;
+
+        }
+
+        public List<Product> getListBrandProductByKeyword(string keyword, int range, int idBrand, ref double totalRecord, int page, int pageSize)
+        {
+            totalRecord = db.Product.Where(x => x.Product_Name.Contains(keyword)).Count();
+            var model = db.Product.Where(x => x.Product_Name.Contains(keyword) && x.Brand_ID == idBrand).OrderByDescending(x => x.ID).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+
+            if (range == 1)
+            {
+                totalRecord = db.Product.Where(x => x.Product_Name.Contains(keyword) && x.Price < 15000000).Count();
+                model = db.Product.Where(x => x.Product_Name.Contains(keyword) && x.Price < 15000000 && x.Brand_ID == idBrand).OrderByDescending(x => x.ID).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            }
+            else if (range == 2)
+            {
+                totalRecord = db.Product.Where(x => x.Product_Name.Contains(keyword) && x.Price >= 15000000 && x.Price <= 25000000).Count();
+                model = db.Product.Where(x => x.Product_Name.Contains(keyword) && x.Price >= 15000000 && x.Price <= 25000000 && x.Brand_ID == idBrand).OrderByDescending(x => x.ID).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            }
+            else if (range == 3)
+            {
+                totalRecord = db.Product.Where(x => x.Product_Name.Contains(keyword) && x.Price > 25000000).Count();
+                model = db.Product.Where(x => x.Product_Name.Contains(keyword) && x.Price > 25000000 && x.Brand_ID == idBrand).OrderByDescending(x => x.ID).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            }
+
+            return model;
+
+        }
+        public List<Product> getListByBrand(int brand, ref double totalRecord, int page,int pageSize)
         {
             totalRecord = db.Product.Where(x => x.Brand_ID == brand).Count();
-            var model= db.Product.Where(x => x.Brand_ID == brand && x.Catalog_ID==6).OrderByDescending(x=>x.ID).Skip((page-1)*pageSize).Take(pageSize).ToList();
+            var model= db.Product.Where(x => x.Brand_ID == brand).OrderByDescending(x=>x.ID).Skip((page-1)*pageSize).Take(pageSize).ToList();
             return model;
         }
 
-        public List<Product> getListByCatalog(int catalogId, ref int totalRecord, int page = 1, int pageSize = 2)
+        public List<Product> getListByCatalog(int catalogId, ref double totalRecord, int page, int pageSize)
         {
             totalRecord = db.Product.Where(x => x.Catalog_ID == catalogId).Count();
             var model= db.Product.Where(x => x.Catalog_ID == catalogId).OrderByDescending(x => x.ID).Skip((page - 1) * pageSize).Take(pageSize).ToList();
@@ -141,6 +198,16 @@ namespace LaptopShop.Models
             return name;
         }
 
-
+        public float getPriceProduct(int id)
+        {
+            var query = db.Product.Where(x => x.ID == id).SingleOrDefault();
+            float price =(float) query.Price;
+            if (query.Discount.HasValue)
+            {
+                float discount = (float)query.Discount;
+                price = price - (price * discount/100);
+            }
+            return price;
+        }
     }
 }

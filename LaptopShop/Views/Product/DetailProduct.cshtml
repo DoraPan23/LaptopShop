@@ -63,13 +63,13 @@
             </div>
             <p>
                 <span class="item_price">
-                    @(ProductDetail.Discount.HasValue ? Convert.ToDecimal(
+                    @(ProductDetail.Discount.Value==0 ? Convert.ToDecimal(
                                                         Decimal.ToDouble((decimal)ProductDetail.Price) -
                                                         Decimal.ToDouble((decimal)ProductDetail.Price) * ProductDetail.Discount / 100)
                                                         : ProductDetail.Price
-                )
+                     )
             </span>
-                <del>@(ProductDetail.Discount.HasValue ? ProductDetail.Price.ToString() : "")</del>
+                <del>@(ProductDetail.Discount.Value==0 ? ProductDetail.Price.ToString() : "")</del>
                 <label>Free delivery</label>
             </p>
             <div class="single-infoagile">
@@ -139,33 +139,31 @@
         </h3>
         <!-- //tittle heading -->
         <div class="content-bottom-in">
-            <div class="nbs-flexisel-container">
                 <div class="nbs-flexisel-inner">
                     <ul id="flexiselDemo1" class="nbs-flexisel-ul" style="left: -374.878px;">
-                    @foreach (var item in ProductRelated)
-                    {
-                        <li class="nbs-flexisel-item" style="width: 342.667px;">
-                            <div class="w3l-specilamk">
-                                <div class="speioffer-agile">
-                                    <a href="http://localhost:14787/Product/DetailProduct/@item.ID">
-                                        <img src="@(Url.Content(item.Image))" width="150px" height="150px" alt="@item.Product_Name">
-                                    </a>
-                                </div>
-                                <div class="product-name-w3l">
-                                    <h4>
-                                        <a href="http://localhost:14787/Product/DetailProduct/@item.ID">@item.Product_Name</a>
-                                    </h4>
-                                    <div class="w3l-pricehkj">
-                                        <h6>@item.Price</h6>
-                                        @(item.Discount.HasValue? "<p>Save" + item.Discount.Value.ToString()+ "%</p>" : "")
+                        @foreach (var item in ProductRelated)
+                        {
+                            <li class="nbs-flexisel-item" style="width: 342.667px;">
+                                <div class="w3l-specilamk">
+                                    <div class="speioffer-agile">
+                                        <a href="http://localhost:14787/Product/DetailProduct/@item.ID">
+                                            <img src="@(Url.Content(item.Image))" width="150px" height="150px" alt="@item.Product_Name">
+                                        </a>
+                                    </div>
+                                    <div class="product-name-w3l">
+                                        <h4>
+                                            <a href="http://localhost:14787/Product/DetailProduct/@item.ID">@item.Product_Name</a>
+                                        </h4>
+                                        <div class="w3l-pricehkj">
+                                            <h6>@item.Price</h6>
+                                            @(!item.Discount.Equals(0)? "Save" + item.Discount.Value.ToString()+ "%" : "")
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
-                    }
+                            </li>
+                        }
                     </ul><div class="nbs-flexisel-nav-left" style="top: 178px;"></div><div class="nbs-flexisel-nav-right" style="top: 178px;"></div>
                 </div>
             </div>
-        </div>
     </div>
 </div>

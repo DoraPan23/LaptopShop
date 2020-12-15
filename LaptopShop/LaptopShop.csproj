@@ -232,6 +232,7 @@
     <Compile Include="Models\LaptopShopDbContext.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderDetail.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -290,6 +291,9 @@
     <Content Include="Views\Customer\ViewOrder.cshtml" />
     <Content Include="Views\Shared\HeaderList.cshtml" />
     <Content Include="Views\Shared\ban_top.cshtml" />
+    <Content Include="Views\Cart\Checkout.cshtml" />
+    <Content Include="Views\Product\SearchInCatalog.cshtml" />
+    <Content Include="Views\Product\SearchInBrand.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,5 +1,4 @@
-
-﻿using LaptopShop.Common;
+using LaptopShop.Common;
 using LaptopShop.Models;
 using LaptopShop.Models.Dao;
 using System;
@@ -16,6 +15,7 @@ namespace LaptopShop.Controllers
     public class CustomerController : Controller
     {
         OrderDao orderDao = new OrderDao();
+        CartDao cartDao = new CartDao();
         // GET: Customer
         public ActionResult Index()
         {
@@ -55,6 +55,7 @@ namespace LaptopShop.Controllers
         {
             Session[CommonConstants.USER_SESSION] = null;
             UserSingleTon.Instance.User = null;
+            new CartDao().DeleteAll();
             return RedirectToAction("Index", "Home");
         }
         [HttpPost]
@@ -115,15 +116,39 @@ namespace LaptopShop.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-        public ActionResult ViewOrder(int? id)
+
+
+        [HttpPost]
+        public ActionResult AddOrder()
         {
-            if (id.HasValue)
+            Order order = new Order();
+            var record = cartDao.getListCart();
+            order.Customer_Id = UserSingleTon.Instance.User.ID;
+            order.Date = DateTime.Now;
+            order.Status = 1;   // 1 la tiep la tiep nhan don hang
+            int id=orderDao.Insert(order);
+            float totalPrice = 0;
+            foreach (var item in record)
             {
-                int idConvert = (int)id;
-                var model = orderDao.getListOrderForCustomer(idConvert);
-                return View(model);
+                OrderDetail orderDetail = new OrderDetail();
+                orderDetail.Product_Id = item.Product_Id;
+                orderDetail.Combo_Id = item.Combo_Id;
+                orderDetail.Quantity = item.Quantity;
+                float price = new ProductDao().getPriceProduct(item.ID);
+                totalPrice = totalPrice + price*(float)orderDetail.Quantity;        // them total price cho bang order
+                orderDetail.Price = price;
+                orderDetail.Order_Id = id;
+                orderDao.Insert(orderDetail);
             }
-            return View();
+            order.Total_Price = totalPrice;             
+            orderDao.Update(order);
+            return RedirectToAction("ViewOrder");
+        }
+        public ActionResult ViewOrder()
+        {
+            var model = orderDao.getListOrderForCustomer(UserSingleTon.Instance.User.ID);
+            ViewBag.OrderDetail = orderDao.getOrderDetail(model[0].ID);
+            return View(model);
         }
 
         [ChildActionOnly]

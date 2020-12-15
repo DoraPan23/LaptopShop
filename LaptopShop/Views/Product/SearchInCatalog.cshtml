@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Search";
+    ViewBag.Title = "SearchInCatalog";
     Layout = "~/Views/Shared/_Layout2.cshtml";
     var model = (List<LaptopShop.Models.Product>)ViewBag.ProductByKeyword;
 }
@@ -8,6 +8,15 @@
 <div class="ads-grid">
     <div class="container">
         <!-- tittle heading -->
+        <!-- tittle heading -->
+        <h3 class="tittle-w3l">
+            @ViewBag.CatelogyName
+            <span class="heading-style">
+                <i></i>
+                <i></i>
+                <i></i>
+            </span>
+        </h3>
         <h3 class="tittle-w3l">
             Result for keyword: @ViewBag.Keyword
             <span class="heading-style">
@@ -19,7 +28,7 @@
         <!-- //tittle heading -->
         <!-- product left -->
         <div class="side-bar col-md-3">
-            <form action="@Url.Action("Search","Product",new {keyword=this ,range="agileinfo-nav_search.value"}) " method="get">
+            <form action="@Url.Action("SearchInCatalog","Product",new {keyword=this ,range="agileinfo-nav_search.value",id=ViewBag.IdCatelogy}) " method="get">
                 <div class="search-hotel">
                     <h3 class="agileits-sear-head">Search Here..</h3>
                     <input type="search" id="txtKeyword" placeholder="Product name..." name="keyword">
@@ -110,7 +119,7 @@
                             var startPageIndex = Math.Max(1, currentPage - pageDisplay / 2);
                             var endPageIndex = Math.Min(totalPage, currentPage + pageDisplay / 2);
 
-                            var link = "/Product/Search?keyword=" + @ViewBag.Keyword;
+                            var link = "/Product/SearchInCatalog?keyword=" + @ViewBag.Keyword+"&id="+ViewBag.IdCatelogy+"&range=";
                             <nav>
                                 <ul class="pagination">
                                     @if (currentPage > ViewBag.First)
@@ -145,7 +154,7 @@
                         }
                         else
                         {
-                            
+
                         }
                     }
                     else
