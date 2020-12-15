@@ -24,9 +24,7 @@ namespace LaptopShop.Models
         [Column(TypeName = "text")]
         public string Image { get; set; }
 
-        public decimal? Discount { get; set; }
-
-        public decimal? DiscountMoney { get; set; }
+        public double? Discount { get; set; }
 
         [StringLength(600)]
         public string Detail { get; set; }

@@ -14,27 +14,57 @@ namespace LaptopShop.Models.Dao
         }
         public List<CartFormatDao> getListInCart()
         {
-            var query = from c in db.Cart
+            var queryProduct = from c in db.Cart
                         join p in db.Product on c.Product_Id equals p.ID
                         select new
                         {
+                            Id=c.ID,
                             product_id=p.ID,
                             image = p.Image,
                             name = p.Product_Name,
                             price = p.Price,
+                            amount=p.Amount,
                             quantity = c.Quantity,
                         };
             List<CartFormatDao> list = new List<CartFormatDao>();
-            foreach(var item in query)
+            foreach(var item in queryProduct)
             {
                 CartFormatDao cart = new CartFormatDao();
+                cart.Cart_id = item.Id;
                 cart.Product_id = item.product_id;
                 cart.LinkImage = item.image;
                 cart.ProductName = item.name;
-                cart.Price = item.price;
-                cart.Quantity = item.quantity;
+                cart.Price = (double)item.price;
+                cart.Quantity = (int)item.quantity;
+                cart.Amount = item.amount;
                 list.Add(cart);
             }
+            
+
+            var queryCombo   = from c in db.Cart
+                               join cb in db.Combo on c.Combo_Id equals cb.ID
+                               select new
+                               {
+                                   id=c.ID,
+                                   combo_Id=cb.ID,
+                                   //image = p.Image,
+                                   name = cb.Combo_Name,
+                                   price = cb.totalMoney,
+                                   quantity = c.Quantity
+                               };
+            foreach (var item in queryCombo)
+            {
+                CartFormatDao cart = new CartFormatDao();
+                cart.Cart_id = item.id;
+                cart.Product_id = item.combo_Id;
+                cart.LinkImage = "abc";                 /// sua link
+                cart.ProductName = item.name;
+                cart.Price = (double)item.price;
+                cart.Quantity = (int)item.quantity;
+                cart.Amount = 10;
+                list.Add(cart);
+            }
+
             return list;
         }
 
@@ -61,9 +91,13 @@ namespace LaptopShop.Models.Dao
             }
         }
 
-        public Cart getItemById(int id)
+        public Cart getItemByIdProduct(int id)
         {
             return db.Cart.Where(x => x.Product_Id == id).SingleOrDefault();
+        }
+        public Cart getItemByIdCombo(int id)
+        {
+            return db.Cart.Where(x => x.Combo_Id == id).SingleOrDefault();
         }
 
         public List<Cart> getListCart()
@@ -75,7 +109,7 @@ namespace LaptopShop.Models.Dao
         {
             try
             {
-                var cart = db.Cart.Find(id);
+                var cart = db.Cart.Where(x=>x.ID==id).SingleOrDefault();
                 db.Cart.Remove(cart);
                 db.SaveChanges();
                 return true;

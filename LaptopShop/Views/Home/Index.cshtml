@@ -3,166 +3,96 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout2.cshtml";
     var LaptopProducts = (List<LaptopShop.Models.Product>) ViewBag.LaptopProducts;
-    var ProductBrand = (List<LaptopShop.Models.Brand>)ViewBag.BrandProducts;
     var ProductCategory = (List<LaptopShop.Models.Catalog>)ViewBag.CategoryProduct;
-}
-@section ban_top{
-<div class="container">
-    @{
-        Html.RenderAction("ProductCategory", "Home");       <!--Category-->
-    }                    
-    <div class="top_nav_left">
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-                            aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav menu__list">
-                        <li class="active">
-                            <a class="nav-stylehead" href="../Home/Index">
-                                Home
-                                <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a class="nav-stylehead" href="about.html">About Us</a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle nav-stylehead" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                Laptop
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu multi-column columns-3">
-                                <div class="agile_inner_drop_nav_info">
-                                    @foreach (var item in ProductBrand)
-                                    {
-                                        if (item.ID % 2 == 0)
-                                        {
-                                            <div class="col-sm-4 multi-gd-img">
-                                                <ul class="multi-column-dropdown">
-                                                    <li>
-                                                        <a href="http://localhost:14787/Product/Products/@item.ID">@item.Brand_Name</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <div class="col-sm-4 multi-gd-img">
-                                                <ul class="multi-column-dropdown">
-                                                    <li>
-                                                        <a href="http://localhost:14787/Product/Products/@item.ID">@item.Brand_Name</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        }
+    var SpeakerProducts= (List<LaptopShop.Models.Product>)ViewBag.SpeakerProducts;
+    var KeyBoardProducts = (List<LaptopShop.Models.Product>)ViewBag.KeyBoardProducts;
 
-                                    }
-                                    <div class="col-sm-4 multi-gd-img">
-                                        <img src="~/Assets/Layout2/images/nav.png" alt="">
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle nav-stylehead" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                Household
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu multi-column columns-3">
-                                <div class="agile_inner_drop_nav_info">
-                                    <div class="col-sm-6 multi-gd-img">
-                                        <ul class="multi-column-dropdown">
-                                            <li>
-                                                <a href="product2.html">Kitchen & Dining</a>
-                                            </li>
-                                            <li>
-                                                <a href="product2.html">Detergents</a>
-                                            </li>
-                                            <li>
-                                                <a href="product2.html">Utensil Cleaners</a>
-                                            </li>
-                                            <li>
-                                                <a href="product2.html">Floor & Other Cleaners</a>
-                                            </li>
-                                            <li>
-                                                <a href="product2.html">Disposables, Garbage Bag</a>
-                                            </li>
-                                            <li>
-                                                <a href="product2.html">Repellents & Fresheners</a>
-                                            </li>
-                                            <li>
-                                                <a href="product2.html"> Dishwash</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-sm-6 multi-gd-img">
-                                        <ul class="multi-column-dropdown">
-                                            <li>
-                                                <a href="product2.html">Pet Care</a>
-                                            </li>
-                                            <li>
-                                                <a href="product2.html">Cleaning Accessories</a>
-                                            </li>
-                                            <li>
-                                                <a href="product2.html">Pooja Needs</a>
-                                            </li>
-                                            <li>
-                                                <a href="product2.html">Crackers</a>
-                                            </li>
-                                            <li>
-                                                <a href="product2.html">Festive Decoratives</a>
-                                            </li>
-                                            <li>
-                                                <a href="product2.html">Plasticware</a>
-                                            </li>
-                                            <li>
-                                                <a href="product2.html">Home Care</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </ul>
-                        </li>
-                        <li class="">
-                            <a class="nav-stylehead" href="faqs.html">Faqs</a>
-                        </li>
-                        <li class="dropdown">
-                            <a class="nav-stylehead dropdown-toggle" href="#" data-toggle="dropdown">
-                                Pages
-                                <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu agile_short_dropdown">
-                                <li>
-                                    <a href="icons.html">Web Icons</a>
-                                </li>
-                                <li>
-                                    <a href="typography.html">Typography</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="">
-                            <a class="nav-stylehead" href="contact.html">Contact</a>
-                        </li>
-                    </ul>
+}
+
+@section banner{    
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <span id="message" hidden>
+        @ViewBag.Message 
+    </span>
+    <!-- Indicators-->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1" class=""></li>
+        <li data-target="#myCarousel" data-slide-to="2" class=""></li>
+        <li data-target="#myCarousel" data-slide-to="3" class=""></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h3>
+                        Big
+                        <span>Save</span>
+                    </h3>
+                    <p>
+                        Get flat
+                        <span>10%</span> Cashback
+                    </p>
+                    <a class="button2" href="product.html">Shop Now </a>
                 </div>
             </div>
-        </nav>
+        </div>
+        <div class="item item2">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h3>
+                        Healthy
+                        <span>Saving</span>
+                    </h3>
+                    <p>
+                        Get Upto
+                        <span>30%</span> Off
+                    </p>
+                    <a class="button2" href="product.html">Shop Now </a>
+                </div>
+            </div>
+        </div>
+        <div class="item item3">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h3>
+                        Big
+                        <span>Deal</span>
+                    </h3>
+                    <p>
+                        Get Best Offer Upto
+                        <span>20%</span>
+                    </p>
+                    <a class="button2" href="product.html">Shop Now </a>
+                </div>
+            </div>
+        </div>
+        <div class="item item4">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h3>
+                        Today
+                        <span>Discount</span>
+                    </h3>
+                    <p>
+                        Get Now
+                        <span>40%</span> Discount
+                    </p>
+                    <a class="button2" href="product.html">Shop Now </a>
+                </div>
+            </div>
+        </div>
     </div>
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
 </div>
 }
-
 <div class="container">
     <!-- tittle heading -->
     <h3 class="tittle-w3l">
@@ -178,9 +108,9 @@
     <div class="side-bar col-md-3">
         <div class="search-hotel">
             <h3 class="agileits-sear-head">Search Here..</h3>
-            <form action="#" method="post">
-                <input type="search" placeholder="Product name..." name="search" required="">
-                <input type="submit" value=" ">
+            <form action="@Url.Action("Search","Product",new {keyword=this }) " method="get">
+                <input type="search" id="txtKeyword" placeholder="Product name..." name="keyword" required="">
+                <input type="submit" value=" " >
             </form>
         </div>
         <!-- category -->
@@ -273,36 +203,38 @@
                                     </div>
                                 </div>
                                 <span class="product-new-top">@(item.Discount.HasValue?'-'+item.Discount.Value.ToString()+'%' : "Sale")</span>
-                            </div>
+                            </div>  
                             <div class="item-info-product ">
                                 <h4>
                                     <a href="../Product/DetailProduct/@item.ID">@item.Product_Name</a>
                                 </h4>
                                 <div class="info-product-price">
-                                    <span class="item_price">@item.Price</span>
-                                    <del>@(item.DiscountMoney.HasValue?item.DiscountMoney.Value.ToString():"")</del>
+                                    <span class="item_price">
+                                        @(item.Discount.HasValue ? Convert.ToDecimal(
+                                                        Decimal.ToDouble((decimal)item.Price) -
+                                                        Decimal.ToDouble((decimal)item.Price) * item.Discount / 100)
+                                                        : item.Price
+                                    )
+                                </span>
+                                    <del>@(item.Discount.HasValue?item.Price.ToString():"")</del>
                                 </div>
+                                <span class="txtQuantity" data-id="@item.ID" hidden></span>
                                 <a href="http://localhost:14787/Cart/AddProduct?id=@item.ID&quantity=1"><input type="submit" name="submit" value="Add to cartmjgdmh" class="button" /></a>
                                 <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                    @*<form action="@Url.Action("Add","Cart")" method="post">*@
-                                    @using (Html.BeginForm("Add","Cart",FormMethod.Post))
-                                    {
-
-                                    
+                                    <form action="@Url.Action("Add","Cart",new {id=@item.ID,quantity=1 })" target="_blank" method="post">
                                         <fieldset>
                                             <input type="hidden" name="cmd" value="_cart" />
                                             <input type="hidden" name="add" value="1" />
-                                            <input type="hidden" name="business" value=" " />
+                                            <input type="hidden" name="business" value="@item.ID" />
                                             <input type="hidden" name="item_name" value="@item.Product_Name" />
                                             <input type="hidden" name="amount" value="@item.Price" />
                                             <input type="hidden" name="discount_amount" value="" />
                                             <input type="hidden" name="currency_code" value="VND" />
                                             <input type="hidden" name="return" value=" " />
                                             <input type="hidden" name="cancel_return" value=" " />
-                                            <input type="submit" name="submit" value="Add to cart" class="button" />
+                                            <input type="submit" name="submit" id="addtocart" value="Add to cart" class="button" />
                                         </fieldset>
-                                    }
-                                    @*</form>*@
+                                    </form>
                                 </div>
 
                             </div>
@@ -326,202 +258,98 @@
                 <div class="clearfix"></div>
             </div>
             <!-- //second section (nuts special) -->
-            <!-- third section (oils) -->
+            <!-- third section (speaker) -->
             <div class="product-sec1">
-                <h3 class="heading-tittle">Oils</h3>
-                <div class="col-md-4 product-men">
-                    <div class="men-pro-item simpleCart_shelfItem">
-                        <div class="men-thumb-item">
-                            <img src="~/Assets/Layout2/images/mk4.jpg" alt="">
-                            <div class="men-cart-pro">
-                                <div class="inner-men-cart-pro">
-                                    <a href="single.html" class="link-product-add-cart">Quick View</a>
+                <h3 class="heading-tittle">Speaker</h3>
+                @foreach (var item in SpeakerProducts)
+                {
+                    <div class="col-md-4 product-men">
+                        <div class="men-pro-item simpleCart_shelfItem">
+                            <div class="men-thumb-item">
+                                <img src="@(Url.Content(item.Image))"width="160px" height="150px" alt="">
+                                <div class="men-cart-pro">
+                                    <div class="inner-men-cart-pro">
+                                        <a href="../Product/DetailProduct/@item.ID" class="link-product-add-cart">Quick View</a>
+                                    </div>
                                 </div>
+                                <span class="product-new-top">New</span>
                             </div>
-                            <span class="product-new-top">New</span>
-                        </div>
-                        <div class="item-info-product ">
-                            <h4>
-                                <a href="single.html">Freedom Oil, 1L</a>
-                            </h4>
-                            <div class="info-product-price">
-                                <span class="item_price">$78.00</span>
-                                <del>$110.00</del>
-                            </div>
-                            <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                <form action="#" method="post">
-                                    <fieldset>
-                                        <input type="hidden" name="cmd" value="_cart" />
-                                        <input type="hidden" name="add" value="1" />
-                                        <input type="hidden" name="business" value=" " />
-                                        <input type="hidden" name="item_name" value="Freedom Sunflower Oil, 1L" />
-                                        <input type="hidden" name="amount" value="78.00" />
-                                        <input type="hidden" name="discount_amount" value="1.00" />
-                                        <input type="hidden" name="currency_code" value="USD" />
-                                        <input type="hidden" name="return" value=" " />
-                                        <input type="hidden" name="cancel_return" value=" " />
-                                        <input type="submit" name="submit" value="Add to cart" class="button" />
-                                    </fieldset>
-                                </form>
-                            </div>
+                            <div class="item-info-product ">
+                                <h4>
+                                    <a href="../Product/DetailProduct/@item.ID">@item.Product_Name</a>
+                                </h4>
+                                <div class="info-product-price">
+                                    <span class="item_price">
+                                        @(item.Discount.HasValue ? Convert.ToDecimal(
+                                                        Decimal.ToDouble((decimal)item.Price) -
+                                                        Decimal.ToDouble((decimal)item.Price) * item.Discount / 100)
+                                                        : item.Price
+                                    )
+                                </span>
+                                    <del>@(item.Discount.HasValue ? item.Price.ToString() : "")</del>
+                                </div>
+                                <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+                                    <form action="@Url.Action("Add","Cart",new {id=@item.ID,quantity=1 })" method="post">
+                                        <fieldset>
+                                            <input type="hidden" name="cmd" value="_cart" />
+                                            <input type="hidden" name="add" value="1" />
+                                            <input type="hidden" name="business" value=" " />
+                                            <input type="hidden" name="item_name" value="@item.Product_Name" />
+                                            <input type="hidden" name="amount" value="@item.Discount" />
+                                            <input type="hidden" name="discount_amount" value="1.00" />
+                                            <input type="hidden" name="currency_code" value="VND" />
+                                            <input type="hidden" name="return" value=" " />
+                                            <input type="hidden" name="cancel_return" value=" " />
+                                            <input type="submit" name="submit" value="Add to cart" class="button" />
+                                        </fieldset>
+                                    </form>
+                                </div>
 
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4 product-men">
-                    <div class="men-pro-item simpleCart_shelfItem">
-                        <div class="men-thumb-item">
-                            <img src="~/Assets/Layout2/images/mk5.jpg" alt="">
-                            <div class="men-cart-pro">
-                                <div class="inner-men-cart-pro">
-                                    <a href="single.html" class="link-product-add-cart">Quick View</a>
-                                </div>
-                            </div>
-                            <span class="product-new-top">New</span>
-
-                        </div>
-                        <div class="item-info-product ">
-                            <h4>
-                                <a href="single.html">Saffola Gold, 1L</a>
-                            </h4>
-                            <div class="info-product-price">
-                                <span class="item_price">$130.00</span>
-                                <del>$150.00</del>
-                            </div>
-                            <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                <form action="#" method="post">
-                                    <fieldset>
-                                        <input type="hidden" name="cmd" value="_cart" />
-                                        <input type="hidden" name="add" value="1" />
-                                        <input type="hidden" name="business" value=" " />
-                                        <input type="hidden" name="item_name" value="Saffola Gold, 1L" />
-                                        <input type="hidden" name="amount" value="130.00" />
-                                        <input type="hidden" name="discount_amount" value="1.00" />
-                                        <input type="hidden" name="currency_code" value="USD" />
-                                        <input type="hidden" name="return" value=" " />
-                                        <input type="hidden" name="cancel_return" value=" " />
-                                        <input type="submit" name="submit" value="Add to cart" class="button" />
-                                    </fieldset>
-                                </form>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 product-men">
-                    <div class="men-pro-item simpleCart_shelfItem">
-                        <div class="men-thumb-item">
-                            <img src="~/Assets/Layout2/images/mk6.jpg" alt="">
-                            <div class="men-cart-pro">
-                                <div class="inner-men-cart-pro">
-                                    <a href="single.html" class="link-product-add-cart">Quick View</a>
-                                </div>
-                            </div>
-                            <span class="product-new-top">New</span>
-
-                        </div>
-                        <div class="item-info-product ">
-                            <h4>
-                                <a href="single.html">Fortune Oil, 5L</a>
-                            </h4>
-                            <div class="info-product-price">
-                                <span class="item_price">$399.99</span>
-                                <del>$500.00</del>
-                            </div>
-                            <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                <form action="#" method="post">
-                                    <fieldset>
-                                        <input type="hidden" name="cmd" value="_cart" />
-                                        <input type="hidden" name="add" value="1" />
-                                        <input type="hidden" name="business" value=" " />
-                                        <input type="hidden" name="item_name" value="Fortune Oil, 5L" />
-                                        <input type="hidden" name="amount" value="399.99" />
-                                        <input type="hidden" name="discount_amount" value="1.00" />
-                                        <input type="hidden" name="currency_code" value="USD" />
-                                        <input type="hidden" name="return" value=" " />
-                                        <input type="hidden" name="cancel_return" value=" " />
-                                        <input type="submit" name="submit" value="Add to cart" class="button" />
-                                    </fieldset>
-                                </form>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
+                }
                 <div class="clearfix"></div>
             </div>
             <!-- //third section (oils) -->
             <!-- fourth section (noodles) -->
             <div class="product-sec1">
-                <h3 class="heading-tittle">Pasta & Noodles</h3>
+                <h3 class="heading-tittle">KeyBoard</h3>
+               @foreach (var item in KeyBoardProducts)
+               {
                 <div class="col-md-4 product-men">
                     <div class="men-pro-item simpleCart_shelfItem">
                         <div class="men-thumb-item">
-                            <img src="~/Assets/Layout2/images/mk7.jpg" alt="">
+                            <img src="@Url.Content(item.Image)" width="160px" height="150px" alt="">
                             <div class="men-cart-pro">
                                 <div class="inner-men-cart-pro">
-                                    <a href="single.html" class="link-product-add-cart">Quick View</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item-info-product ">
-                            <h4>
-                                <a href="single.html">Yippee Noodles, 65g</a>
-                            </h4>
-                            <div class="info-product-price">
-                                <span class="item_price">$15.00</span>
-                                <del>$25.00</del>
-                            </div>
-                            <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                <form action="#" method="post">
-                                    <fieldset>
-                                        <input type="hidden" name="cmd" value="_cart" />
-                                        <input type="hidden" name="add" value="1" />
-                                        <input type="hidden" name="business" value=" " />
-                                        <input type="hidden" name="item_name" value="YiPPee Noodles, 65g" />
-                                        <input type="hidden" name="amount" value="15.00" />
-                                        <input type="hidden" name="discount_amount" value="1.00" />
-                                        <input type="hidden" name="currency_code" value="USD" />
-                                        <input type="hidden" name="return" value=" " />
-                                        <input type="hidden" name="cancel_return" value=" " />
-                                        <input type="submit" name="submit" value="Add to cart" class="button" />
-                                    </fieldset>
-                                </form>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 product-men">
-                    <div class="men-pro-item simpleCart_shelfItem">
-                        <div class="men-thumb-item">
-                            <img src="~/Assets/Layout2/images/mk8.jpg" alt="">
-                            <div class="men-cart-pro">
-                                <div class="inner-men-cart-pro">
-                                    <a href="single.html" class="link-product-add-cart">Quick View</a>
+                                    <a href="../Product/DetailProduct/@item.ID" class="link-product-add-cart">Quick View</a>
                                 </div>
                             </div>
                             <span class="product-new-top">New</span>
-
                         </div>
                         <div class="item-info-product ">
                             <h4>
-                                <a href="single.html">Wheat Pasta, 500g</a>
+                                <a href="../Product/DetailProduct/@item.ID">@item.Product_Name</a>
                             </h4>
                             <div class="info-product-price">
-                                <span class="item_price">$98.00</span>
-                                <del>$120.00</del>
+                                <span class="item_price">@(item.Discount.HasValue ? Convert.ToDecimal(
+                                                        Decimal.ToDouble((decimal)item.Price) -
+                                                        Decimal.ToDouble((decimal)item.Price) * item.Discount / 100)
+                                                        : item.Price
+                                                        )</span>
+                                <del>@(item.Discount.HasValue ? item.Price.ToString() : "")</del>
                             </div>
                             <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                <form action="#" method="post">
+                                <form action="@Url.Action("Add","Cart",new {id=@item.ID,quantity=1 })" method="post">
                                     <fieldset>
                                         <input type="hidden" name="cmd" value="_cart" />
                                         <input type="hidden" name="add" value="1" />
                                         <input type="hidden" name="business" value=" " />
-                                        <input type="hidden" name="item_name" value="Wheat Pasta, 500g" />
-                                        <input type="hidden" name="amount" value="98.00" />
+                                        <input type="hidden" name="item_name" value="@item.Product_Name" />
+                                        <input type="hidden" name="amount" value="@item.Discount" />
                                         <input type="hidden" name="discount_amount" value="1.00" />
-                                        <input type="hidden" name="currency_code" value="USD" />
+                                        <input type="hidden" name="currency_code" value="VND" />
                                         <input type="hidden" name="return" value=" " />
                                         <input type="hidden" name="cancel_return" value=" " />
                                         <input type="submit" name="submit" value="Add to cart" class="button" />
@@ -532,46 +360,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 product-men">
-                    <div class="men-pro-item simpleCart_shelfItem">
-                        <div class="men-thumb-item">
-                            <img src="~/Assets/Layout2/images/mk9.jpg" alt="">
-                            <div class="men-cart-pro">
-                                <div class="inner-men-cart-pro">
-                                    <a href="single.html" class="link-product-add-cart">Quick View</a>
-                                </div>
-                            </div>
-                            <span class="product-new-top">New</span>
-
-                        </div>
-                        <div class="item-info-product ">
-                            <h4>
-                                <a href="single.html">Chinese Noodles, 68g</a>
-                            </h4>
-                            <div class="info-product-price">
-                                <span class="item_price">$11.99</span>
-                                <del>$15.00</del>
-                            </div>
-                            <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                <form action="#" method="post">
-                                    <fieldset>
-                                        <input type="hidden" name="cmd" value="_cart" />
-                                        <input type="hidden" name="add" value="1" />
-                                        <input type="hidden" name="business" value=" " />
-                                        <input type="hidden" name="item_name" value="Chinese Noodles, 68g" />
-                                        <input type="hidden" name="amount" value="11.99" />
-                                        <input type="hidden" name="discount_amount" value="1.00" />
-                                        <input type="hidden" name="currency_code" value="USD" />
-                                        <input type="hidden" name="return" value=" " />
-                                        <input type="hidden" name="cancel_return" value=" " />
-                                        <input type="submit" name="submit" value="Add to cart" class="button" />
-                                    </fieldset>
-                                </form>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
+               }
                 <div class="clearfix"></div>
             </div>
             <!-- //fourth section (noodles) -->
@@ -690,7 +479,7 @@
                                     <input type="hidden" name="currency_code" value="USD" />
                                     <input type="hidden" name="return" value=" " />
                                     <input type="hidden" name="cancel_return" value=" " />
-                                    <input type="submit" name="submit" value="Add to cart" class="button" />
+                                    <input type="submit" name="submit"  value="Add to cart" class="button" />
                                 </fieldset>
                             </form>
                         </div>
@@ -872,9 +661,85 @@
 </div>
 }
 
-@section footer{
-    @{
-        Html.RenderAction("Footer", "Home");       <!--Footer Category-->
-    }
-}
 
+
+
+@* nho xoa khuc duoi day  checkoutwith minicart*@
+var items = cart.items();
+var settings = cart.settings();
+var hasItems = !!items.length;
+var priceFormat = { format: true, currency: cart.settings("currency_code") };
+var totalFormat = { format: true, showCode: true };
+<form method="post" class=" if (!hasItems) { minicartk-empty } " action="= config.action " target="= config.target ">
+    <button type="button" class="minicartk-closer">&times;</button>
+    <ul>
+        for (var i= 0, idx = i + 1, len = items.length; i < len; i++, idx++) {
+        <li class="minicartk-item">
+            <div class="minicartk-details-name">
+                <a class="minicartk-name" href="= items[i].get(" href") ">= items[i].get(" item_name") </a>
+                <ul class="minicartk-attributes">
+                    if (items[i].get("item_number")) {
+                        <li>
+                            = items[i].get("item_number")
+                            <input type="hidden" name="item_number_= idx " value="= items[i].get(" item_number") " />
+                        </li>
+                    }                      
+                    if (items[i].discount()) {
+                        <li>                        
+                            = config.strings.discount  = items[i].discount(priceFormat)                         
+                            <input type="hidden" name="discount_amount_= idx " value="= items[i].discount() " />
+                        </li>
+                    }                      
+                    for (var options = items[i].options(), j = 0, len2 = options.length; j < len2; j++) {
+                        <li>                            
+                            = options[j].key : = options[j].value   
+                            <input type="hidden" name="on= j _= idx " value="= options[j].key " />                            
+                            <input type="hidden" name="os= j _= idx " value="= options[j].value " />                        
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="minicartk-details-quantity">
+                <input class="minicartk-quantity" data-minicartk-idx="= i " name="quantity_= idx " type="text" pattern="[0-9]*" value="= items[i].get(" quantity") " autocomplete="off" />            
+            </div>
+            <div class="minicartk-details-remove">                
+                <button type="button" class="minicartk-remove" data-minicartk-idx="= i ">&times;</button>            
+            </div>
+            <div class="minicartk-details-price">                
+                <span class="minicartk-price">= items[i].total(priceFormat) </span>            
+            </div>
+            <input type="hidden" name="item_name_= idx " value="= items[i].get(" item_name") " />            
+            <input type="hidden" name="amount_= idx " value="= items[i].amount() " />            
+            <input type="hidden" name="shipping_= idx " value="= items[i].get(" shipping") " />            
+            <input type="hidden" name="shipping2_= idx " value="= items[i].get(" shipping2") " />
+        </li> 
+        }
+    </ul>
+    <div class="minicartk-footer">
+        if (hasItems) {
+            <div class="minicartk-subtotal">                
+                = config.strings.subtotal  
+                = cart.total(totalFormat)             
+            </div>
+            <button class="minicartk-submit" type="submit" data-minicartk-alt="= config.strings.buttonAlt ">- config.strings.button </button>         
+        } 
+        else {
+            <p class="minicartk-empty-text">= config.strings.empty </p>
+        }
+    </div>
+    <input type="hidden" name="cmd" value="_cart" />    
+    <input type="hidden" name="upload" value="1" />     
+    for (var key in settings) {         
+        <input type="hidden" name="= key " value="= settings[key] " />    
+    }
+</form>
+
+<script>
+    function Search() {
+        var keyword = document.getElementById("txtKeyword").value;
+        if (keyword != "") { 
+            alert(keyword);
+            location.href = "http://localhost:14787/Product/Search?keyword=" + keyword ;
+        }
+    }
+</script>

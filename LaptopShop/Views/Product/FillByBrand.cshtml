@@ -5,164 +5,7 @@
     Layout = "~/Views/Shared/_Layout2.cshtml";
     var DetailProduct = (LaptopShop.Models.Product)ViewBag.DetailProduct;
     var ProductBrand = (List<LaptopShop.Models.Brand>)ViewBag.BrandProducts;
-    var Products = (List<LaptopShop.Models.Product>)ViewBag.Products;
-}
-
-@section ban_top{
-    <div class="container">
-        @{
-            Html.RenderAction("ProductCategory", "Home");       <!--Category-->
-        }
-        <div class="top_nav_left">
-            <nav class="navbar navbar-default">
-                <div class="container-fluid">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-                                aria-expanded="false">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                    </div>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav menu__list">
-                            <li class="active">
-                                <a class="nav-stylehead" href="http://localhost:14787/Home/Index">
-                                    Home
-                                    <span class="sr-only">(current)</span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a class="nav-stylehead" href="about.html">About Us</a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle nav-stylehead" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                    Laptop
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu multi-column columns-3">
-                                    <div class="agile_inner_drop_nav_info">
-                                        @foreach (var item in ProductBrand)
-                                        {
-                                            if (item.ID % 2 == 0)
-                                            {
-                                                <div class="col-sm-4 multi-gd-img">
-                                                    <ul class="multi-column-dropdown">
-                                                        <li>
-                                                            <a href="http://localhost:14787/Product/Products/@item.ID">@item.Brand_Name</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            }
-                                            else
-                                            {
-                                                <div class="col-sm-4 multi-gd-img">
-                                                    <ul class="multi-column-dropdown">
-                                                        <li>
-                                                            <a href="http://localhost:14787/Product/Products/@item.ID">@item.Brand_Name</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            }
-
-                                        }
-                                        <div class="col-sm-4 multi-gd-img">
-                                            <img src="~/Assets/Layout2/images/nav.png" alt="">
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle nav-stylehead" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                    Household
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu multi-column columns-3">
-                                    <div class="agile_inner_drop_nav_info">
-                                        <div class="col-sm-6 multi-gd-img">
-                                            <ul class="multi-column-dropdown">
-                                                <li>
-                                                    <a href="product2.html">Kitchen & Dining</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product2.html">Detergents</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product2.html">Utensil Cleaners</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product2.html">Floor & Other Cleaners</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product2.html">Disposables, Garbage Bag</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product2.html">Repellents & Fresheners</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product2.html"> Dishwash</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-sm-6 multi-gd-img">
-                                            <ul class="multi-column-dropdown">
-                                                <li>
-                                                    <a href="product2.html">Pet Care</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product2.html">Cleaning Accessories</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product2.html">Pooja Needs</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product2.html">Crackers</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product2.html">Festive Decoratives</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product2.html">Plasticware</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product2.html">Home Care</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </ul>
-                            </li>
-                            <li class="">
-                                <a class="nav-stylehead" href="faqs.html">Faqs</a>
-                            </li>
-                            <li class="dropdown">
-                                <a class="nav-stylehead dropdown-toggle" href="#" data-toggle="dropdown">
-                                    Pages
-                                    <b class="caret"></b>
-                                </a>
-                                <ul class="dropdown-menu agile_short_dropdown">
-                                    <li>
-                                        <a href="icons.html">Web Icons</a>
-                                    </li>
-                                    <li>
-                                        <a href="typography.html">Typography</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="">
-                                <a class="nav-stylehead" href="contact.html">Contact</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </div>
+    var FillByBrand = (List<LaptopShop.Models.Product>)ViewBag.FillByBrand;
 }
 
 <div class="ads-grid">
@@ -244,8 +87,8 @@
             </div>
             <!-- //discounts -->
             <!-- reviews -->
-            <div class="customer-rev left-side">
-                <h3 class="agileits-sear-head">Customer Review</h3>
+            <div class="User-rev left-side">
+                <h3 class="agileits-sear-head">User Review</h3>
                 <ul>
                     <li>
                         <a href="#">
@@ -409,7 +252,9 @@
             <div class="wrapper">
                 <!-- first section -->
                 <div class="product-sec1">
-                    @foreach (var item in Model)
+                @if (FillByBrand.Count > 0)
+                {
+                    foreach (var item in FillByBrand)
                     {
                         <div class="col-xs-4 product-men">
                             <div class="men-pro-item simpleCart_shelfItem">
@@ -420,18 +265,24 @@
                                             <a href="http://localhost:14787/Product/DetailProduct/@item.ID" class="link-product-add-cart">Quick View</a>
                                         </div>
                                     </div>
-                                    <span class="product-new-top">@*@(item.Discount.HasValue?'-'+item.Discount.Value.ToString()+'%' : "Sale")*@ @item.Discount</span>
+                                    <span class="product-new-top">@(item.Discount.HasValue?'-'+item.Discount.Value.ToString()+'%' : "Sale")</span>
                                 </div>
                                 <div class="item-info-product ">
                                     <h4>
                                         <a href="http://localhost:14787/Product/DetailProduct/@item.ID">@item.Product_Name</a>
                                     </h4>
                                     <div class="info-product-price">
-                                        <span class="item_price">@item.Price</span>
-                                        <del>@*@(item.DiscountMoney.HasValue ? item.DiscountMoney.Value.ToString() : "")*@ @item.DiscountMoney</del>
+                                        <span class="item_price">
+                                            @(item.Discount.HasValue ? Convert.ToDecimal(
+                                                                Decimal.ToDouble((decimal)item.Price) -
+                                                                Decimal.ToDouble((decimal)item.Price) * item.Discount / 100)
+                                                                : item.Price
+                                            )
+                                        </span>
+                                        <del>@(item.Discount.HasValue ? item.Price.ToString() : "")</del>
                                     </div>
                                     <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                        <form action="#" method="post">
+                                        <form action="@Url.Action("Add", "Cart", new { id = @item.ID, quantity = 1 })" target="_blank" method="post">
                                             <fieldset>
                                                 <input type="hidden" name="cmd" value="_cart">
                                                 <input type="hidden" name="add" value="1">
@@ -450,20 +301,23 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     }
+
+                    @*@Html.PagedListPager(Model,page=>Url.Action("Products",new {page }))*@
+                    <div class="clearfix"></div>
                     @*Phan trang*@
-                    @if (ViewBag.TotalPage > 1)
-                    {
-                        var pageDisplay = (int)ViewBag.MaxPage;
-                        int totalPage = (int)ViewBag.TotalPage;
-                        int currentPage = ((int)ViewBag.Page);
+                if (ViewBag.TotalPage > 1)
+                {
+                    var pageDisplay = (int)ViewBag.MaxPage;
+                    int totalPage = (int)ViewBag.TotalPage;
+                    int currentPage = ((int)ViewBag.Page);
 
-                        // Create numeric links
-                        var startPageIndex = Math.Max(1, currentPage - pageDisplay / 2);
-                        var endPageIndex = Math.Min(totalPage, currentPage + pageDisplay / 2);
+                    // Create numeric links
+                    var startPageIndex = Math.Max(1, currentPage - pageDisplay / 2);
+                    var endPageIndex = Math.Min(totalPage, currentPage + pageDisplay / 2);
 
-                        var link = "/Product/Products/"+ @ViewBag.IdBrand;
+                    var link = "/Product/FillByBrand/" + @ViewBag.IdBrand;
                         <nav>
                             <ul class="pagination">
                                 @if (currentPage > ViewBag.First)
@@ -496,13 +350,11 @@
                         </nav>
 
                     }
-                    else
-                    {
-                        <span>Không có bản ghi nào</span>
-                    }
-
-                    @*@Html.PagedListPager(Model,page=>Url.Action("Products",new {page }))*@
-                    <div class="clearfix"></div>
+                }
+                else
+                {
+                    <span>This product is not found</span>
+                }
                 </div>
                 <!-- //first section -->
 
@@ -511,9 +363,3 @@
         <!-- //product right -->
     </div>
 </div>
-
-@section footer{
-    @{
-        Html.RenderAction("Footer", "Home");       <!--Footer Category-->
-    }
-}

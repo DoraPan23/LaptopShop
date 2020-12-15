@@ -12,14 +12,14 @@ namespace LaptopShop.Models
         {
         }
 
+        public virtual DbSet<Cart> Cart { get; set; }
         public virtual DbSet<Catalog> Catalog { get; set; }
         public virtual DbSet<Combo> Combo { get; set; }
-        public virtual DbSet<Customer> Customer { get; set; }
-        public virtual DbSet<Invoice> Invoice { get; set; }
+        public virtual DbSet<Order> Order { get; set; }
+        public virtual DbSet<OrderDetail> OrderDetail { get; set; }
         public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Brand> Brand { get; set; }
-        public virtual DbSet<Cart> Cart { get; set; }
-        public virtual DbSet<InvoiceDetail> InvoiceDetail { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -31,22 +31,6 @@ namespace LaptopShop.Models
                 .Property(e => e.totalMoney)
                 .HasPrecision(10, 0);
 
-            modelBuilder.Entity<Combo>()
-                .Property(e => e.discountMoney)
-                .HasPrecision(10, 0);
-
-            modelBuilder.Entity<Customer>()
-                .Property(e => e.username)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Customer>()
-                .Property(e => e.password)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Invoice>()
-                .Property(e => e.totalMoney)
-                .HasPrecision(10, 0);
-
             modelBuilder.Entity<Product>()
                 .Property(e => e.Price)
                 .HasPrecision(10, 0);
@@ -55,17 +39,17 @@ namespace LaptopShop.Models
                 .Property(e => e.Image)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Product>()
-                .Property(e => e.Discount)
-                .HasPrecision(10, 0);
+            modelBuilder.Entity<User>()
+                .Property(e => e.username)
+                .IsUnicode(false);
 
-            modelBuilder.Entity<Product>()
-                .Property(e => e.DiscountMoney)
-                .HasPrecision(10, 0);
+            modelBuilder.Entity<User>()
+                .Property(e => e.password)
+                .IsUnicode(false);
 
-            modelBuilder.Entity<InvoiceDetail>()
-                .Property(e => e.Price)
-                .HasPrecision(10, 0);
+            modelBuilder.Entity<User>()
+                .Property(e => e.address)
+                .IsUnicode(false);
         }
     }
 }
