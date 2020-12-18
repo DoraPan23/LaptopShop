@@ -58,6 +58,7 @@ namespace LaptopShop.Models.Dao
                 cb.StartDate = query.startDate;
                 cb.EndDate = query.endDate;
                 cb.ProductPrice = priceProduct[i];
+                cb.Image = query.Image;
                 list.Add(cb);
             }
             return list;

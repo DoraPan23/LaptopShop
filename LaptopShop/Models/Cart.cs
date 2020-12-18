@@ -17,6 +17,6 @@ namespace LaptopShop.Models
 
         public int? Combo_Id { get; set; }
 
-        public int User_Id { get; set; }
+        public int? User_Id { get; set; }
     }
 }

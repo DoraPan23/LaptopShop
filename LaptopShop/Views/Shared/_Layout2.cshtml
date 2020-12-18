@@ -37,7 +37,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet">
 </head>
 
-<body>
+<body onload="checkvalidate1()">
+
     <!-- top-header -->
     <div class="header-most-top">
         <p>Grocery Offer Zone Top Deals & Discounts</p>
@@ -524,7 +525,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- //navigation -->
     <!-- banner -->
     @RenderSection("banner", required: false)
+    <script>
+        function checkvalidate1() {
+            var url = window.location.href;
+            var input = url.substring(url.length - 13);
+            if (input == "/Home/Index/2") {
+                alert("Username or password is incorrect!");
+            }
 
+        }
+    </script>
     <!-- //banner -->
     <!-- top Products -->
     <div class="ads-grid">
@@ -681,15 +691,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             document.getElementByName("username").onchange = validateSignin;
             document.getElementByName("password").onchange = validateSignin;
             documetn.getElementByName("username").onload = check;
-             
-           
+
+
         }
         function validateUsername() {
             var signup_username = document.getElementsById("signup_username").value;
             if (signup_username is null)
-                document.getElementById("signup_username").setCustomValidity("input username ");
-            else
-                document.getElementById("signup_username").setCustomValidity('');
+            document.getElementById("signup_username").setCustomValidity("input username ");
+                else
+            document.getElementById("signup_username").setCustomValidity('');
         }
         function validatePassword() {
             var pass2 = document.getElementById("password2").value;
@@ -707,42 +717,53 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             {
                 document.getElementByName("firstname").setCustomValidity("please input your first name");
             }
-                else
-                if (l_name is null)
-                {
-                    document.getElementByName("lastname").setCustomValidity("please input your last name");
-
-                }
                     else
+            if (l_name is null)
+            {
+                document.getElementByName("lastname").setCustomValidity("please input your last name");
+
+            }
+                        else
             document.getElementByName("lastname").setCustomValidity('');
         }
-        function validateSignin()
-        {
+        function validateSignin() {
             var signin_username = document.getElementByName("username").value;
             var signin_passwd = document.getElementByName("password").value;
             if (signin_username is null )
             {
                 document.getElementByName("username").setCustomValidity("please input username to login");
             }
-                else
-                if ( signin_passwd is null )
+                    else
+            if (signin_passwd is null )
             {
                 document.getElementByName("password").setCustomValidity("please input password to login");
             }
-                else
+                    else
             document.getElementByName("password").setCustomValidity('');
         }
-        function check()
-        {
-            var message = document.getElementById("message").value;
-            alert(message + " da sai ");
-            if (message == 1) {
-                alert(message + " da sai " + "roi");
-            }
-        }
+
         
     </script>
 
+    <script>
+        function checkValidate9000() {
+            var signup_username = document.getElementById("signup_username").value;
+            var pass1 = document.getElementById("password1").value;
+            var pass2 = document.getElementById("password2").value;
+            var f_name = document.getElementById("signup_firstname").value;
+            var l_name = document.getElementById("signup_lastname").value;
+            var address = document.getElementById("signup_address").value;
+            var birth = document.getElementById("signup_birth").value;
+
+            //alert(signup_username);
+            //alert(pass1);
+            //alert(pass2);
+            //alert(f_name);
+            //alert(l_name);
+            //alert(address);
+            //alert(birth);
+        }
+    </script>
     <!-- //password-script -->
     <!-- smoothscroll -->
     <script src="~/Assets/Layout2/js/SmoothScroll.min.js"></script>

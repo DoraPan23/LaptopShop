@@ -26,6 +26,17 @@ namespace LaptopShop.Models.Dao
             //return db.User.Where(x => x.username == username).SingleOrDefault();
         }
 
+        public List<User> GetListUserById(int id)
+        {
+            return db.User.Where(x=>x.ID==id).ToList();
+            //return db.User.Where(x => x.username == username).SingleOrDefault();
+        }
+
+        public User GetUserById(int id)
+        {
+            return db.User.Where(x => x.ID == id).SingleOrDefault();
+        }
+
         public bool Delete(int id)
         {
             try
@@ -41,6 +52,20 @@ namespace LaptopShop.Models.Dao
             }
 
         }
+        public bool Update(User user)
+        {
+            try
+            {
+                var updatePass = db.User.Find(user.ID);
+                updatePass.password = user.password;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
 
         public int Login(string username, string password)
         {
@@ -53,7 +78,11 @@ namespace LaptopShop.Models.Dao
             {
                 if (result.password == password)
                 {
-                    return 1;
+                    if (result.isDisable == false)
+                    {
+                        return 1;
+                    }
+                    else return -3;  // tai khoan da bi khoa
                 }
                 else return -2;
             }

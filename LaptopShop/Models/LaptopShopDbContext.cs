@@ -1,10 +1,10 @@
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
+using System.Linq;
+
 namespace LaptopShop.Models
 {
-    using System;
-    using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-
     public partial class LaptopShopDbContext : DbContext
     {
         public LaptopShopDbContext()
@@ -26,10 +26,6 @@ namespace LaptopShop.Models
             modelBuilder.Entity<Combo>()
                 .Property(e => e.Product_List)
                 .IsUnicode(false);
-
-            modelBuilder.Entity<Combo>()
-                .Property(e => e.totalMoney)
-                .HasPrecision(10, 0);
 
             modelBuilder.Entity<Product>()
                 .Property(e => e.Price)

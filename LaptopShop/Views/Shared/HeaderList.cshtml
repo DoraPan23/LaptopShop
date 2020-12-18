@@ -16,12 +16,12 @@
     @if (!userName.IsEmpty())
     {
         <li>
-            <a href="#">
+            <a href="http://localhost:14787/User/ViewOrder">
                 <span class="fa fa-truck" aria-hidden="true"></span>Track Order
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="http://localhost:14787/User/UserInfo">
                 <span class="fa fa-unlock-alt" aria-hidden="true"></span>Welcome: @userName
             </a>
         </li>
@@ -112,7 +112,7 @@
                         @Html.ValidationSummary(false, "", new { @class = "text-danger" });
                         <div class="styled-input agile-styled-input-top">
                             @*<input type="text" placeholder="Name" name="Name" required="">*@ 
-                            @Html.TextBoxFor(model => model.username, new { @placeholder = "Name", @name = "Name", @id="signup_username" , @required=""}) @*xét lại id thì dùng cái này mà có gì chạy lại xem thử ,khi thay đổi id rồi cái form còn đăng ký được k tại bên controller sẽ get sai id*@ 
+                            @Html.TextBoxFor(model => model.username, new { @placeholder = "User Name", @name = "Name", @id="signup_username" , @required=""}) @*xét lại id thì dùng cái này mà có gì chạy lại xem thử ,khi thay đổi id rồi cái form còn đăng ký được k tại bên controller sẽ get sai id*@ 
                             @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
                         </div>
 
@@ -129,12 +129,12 @@
                         </div>
 
                         <div class="styled-input agile-styled-input-top">
-                            @Html.TextBoxFor(model => model.firstName, new { @placeholder = "First Name", @name = "firstname", @required="" })
+                            @Html.TextBoxFor(model => model.firstName, new { @placeholder = "First Name", @name = "firstname", @required="" ,@id="signup_firstname"})
                             @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="styled-input agile-styled-input-top">
-                            @Html.TextBoxFor(model => model.lastName, new { @placeholder = "Last Name", @name = "lastname", @required = "" })
+                            @Html.TextBoxFor(model => model.lastName, new { @placeholder = "Last Name", @name = "lastname", @required = "", @id = "signup_lastname" })
                             @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
                         </div>
 
@@ -144,18 +144,18 @@
                         </div>
                         <br />
                         <div class="styled-input agile-styled-input-top">
-                            Birth Day&emsp;<input type="date" name="birth" />
+                            Birth Day&emsp;<input type="date" name="birth" id="signup_birth" />
                             @Html.ValidationMessageFor(model => model.birthDate, "", new { @class = "text-danger" })
                         </div>
                         <br />
                         <div class="styled-input agile-styled-input-top">
-                            @Html.TextBoxFor(model => model.address, new { @placeholder = "Address", @name = "address" })
+                            @Html.TextBoxFor(model => model.address, new { @placeholder = "Address", @name = "address",@id="signup_address"  })
                             @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
                         </div>
                         <p>
-                            <a href="#">By clicking register, I agree to your terms</a>
+                            <a href="#" onclick=" return checkValidate9000()">By clicking register, I agree to your terms</a>
                         </p>
-                        <input type="submit"  value="Sign Up">    @*return kiemtra là nó bằng true kia nó ms chạy*@
+                        <input type="submit"  value="Sign Up" >    @*return kiemtra là nó bằng true kia nó ms chạy*@
                     }
                 </div>
             </div>

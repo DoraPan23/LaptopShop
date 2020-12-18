@@ -288,9 +288,14 @@
     <Content Include="Views\Combo\Index.cshtml" />
     <Content Include="Views\Product\DetailCombo.cshtml" />
     <Content Include="Views\Product\Search.cshtml" />
-    <Content Include="Views\Customer\ViewOrder.cshtml" />
+    <Content Include="Views\User\ViewOrder.cshtml" />
     <Content Include="Views\Shared\HeaderList.cshtml" />
     <Content Include="Views\Shared\ban_top.cshtml" />
+    <Content Include="Views\Cart\Checkout.cshtml" />
+    <Content Include="Views\Product\SearchInCatalog.cshtml" />
+    <Content Include="Views\Product\SearchInBrand.cshtml" />
+    <Content Include="Views\User\UserInfo.cshtml" />
+    <Content Include="Views\User\ViewOrderDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -301,7 +306,6 @@
     <Folder Include="Assets\Layout2\css\" />
     <Folder Include="Assets\Layout2\fonts\" />
     <Folder Include="Assets\Layout2\images\" />
-    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

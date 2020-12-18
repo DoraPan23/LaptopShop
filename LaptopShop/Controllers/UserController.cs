@@ -1,3 +1,8 @@
+
+using LaptopShop.Common;
+using LaptopShop.Models;
+using LaptopShop.Models.Dao;
+using System;
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +17,7 @@ namespace LaptopShop.Controllers
     public class UserController : Controller
     {
         OrderDao orderDao = new OrderDao();
+        CartDao cartDao = new CartDao();
         // GET: User
         public ActionResult Index()
         {
@@ -32,9 +38,10 @@ namespace LaptopShop.Controllers
                     userSession.username = user.username;
                     userSession.ID = user.ID;
                     Session.Add(CommonConstants.USER_SESSION, userSession);
+                    new CartDao().DeleteAll();
                     return RedirectToAction("Index","Home", new { id = 1 });
                 }
-                else if (result == 0)
+                else
                 {
                     return RedirectToAction("Index", "Home", new { id = 2 });
                     //ModelState.AddModelError("", "Tài khoản hoặc mật khẩu không đúng");
@@ -89,7 +96,7 @@ namespace LaptopShop.Controllers
                     {
                         return RedirectToAction("Index", "Home");
                     }
-
+                    userN.Role_ID = 3;
                     long id = dao.Insert(userN);
                     if (id > 0)
                     {
@@ -107,15 +114,85 @@ namespace LaptopShop.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-        public ActionResult ViewOrder(int? id)
+
+
+        [HttpPost]
+        public ActionResult AddOrder()
         {
-            if (id.HasValue)
+             Order order = new Order();
+            var record = cartDao.getListCart();
+            order.User_Id = UserSingleTon.Instance.User.ID;
+            order.Date = DateTime.Now;
+            order.Status = 1;   // 1 la tiep la tiep nhan don hang
+            int id=orderDao.Insert(order);
+            float totalPrice = 0,price;
+            foreach (var item in record)
             {
-                int idConvert = (int)id;
-                var model = orderDao.getListOrderForUser(idConvert);
-                return View(model);
+                OrderDetail orderDetail = new OrderDetail();
+                if (item.Product_Id != null)
+                {
+                    orderDetail.Product_Id = item.Product_Id;
+                    price = new ProductDao().getPriceProduct((int)item.Product_Id);
+                }
+                else
+                {
+                    orderDetail.Combo_Id = item.Combo_Id;
+                    price = new ProductDao().getPriceCombo((int)item.Combo_Id);
+                }
+                
+                orderDetail.Quantity = item.Quantity;
+                
+                totalPrice = totalPrice + price*(float)orderDetail.Quantity;        // them total price cho bang order
+                orderDetail.Price = price;
+                orderDetail.Order_Id = id;
+                orderDao.Insert(orderDetail);
             }
-            return View();
+            order.Total_Price = totalPrice;             
+            orderDao.Update(order);
+            return RedirectToAction("ViewOrder");
+        }
+        public ActionResult ViewOrder()
+        {
+            var model = orderDao.getListOrderForUser(UserSingleTon.Instance.User.ID);
+            
+            if (model.Count>0)
+            {
+                ViewBag.OrderDetail = orderDao.getOrderDetail(model[0].ID);
+            }
+            
+            return View(model);
+        }
+
+        public ActionResult UserInfo()
+        {
+            var model = new UserDao().GetListUserById(UserSingleTon.Instance.User.ID);
+            return View(model);
+        
+        }
+
+        public ActionResult UpdatePassword(string newPass)      // cap nhat pass cua user
+        {
+            // chua kiem tra mat khau cu co trung khop khong
+
+
+            User user = new UserDao().GetUserById(UserSingleTon.Instance.User.ID);
+            user.password = newPass;    //ma hoa
+            new UserDao().Update(user);
+            return RedirectToAction("UserInfo");
+        }
+
+        public ActionResult UpdateOrder(int id)     //huy don hang
+        {
+            Order order = orderDao.getOrderById(id);
+            order.Status = 4;
+            orderDao.Update(order);
+            return RedirectToAction("ViewOrder");
+        }
+
+        public ActionResult ViewOrderDetail(int id)
+        {
+            var model = new OrderDao().getOrderDetail(id);
+            return View(model);
         }
 
         [ChildActionOnly]

@@ -12,7 +12,7 @@
         <h3 class="tittle-w3l">
             Checkout
             <span class="heading-style">
-                <i></i>
+                <i id="session" hidden>@ViewBag.SessionUser</i>
                 <i></i>
                 <i></i>
             </span>
@@ -22,52 +22,52 @@
             <h4>
                 Your shopping cart contains:
                 <span>@Model.Count Products</span>
-                
+
             </h4>
             @if (Model.Count > 0)
             {
-            <div class="table-responsive">
-                <table class="timetable_sub">
-                    <thead>
-                        <tr>
-                            <th>SL No.</th>
-                            <th>Product</th>
-                            <th style="width:200px">Quantity</th>
-                            <th>Product Name</th>
-                            <th>Price</th>
-                            <th>Total</th>
-                            <th>Remove</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <span>@ViewBag.OutOfStock</span>
-                        
+                <div class="table-responsive">
+                    <table class="timetable_sub">
+                        <thead>
+                            <tr>
+                                <th>SL No.</th>
+                                <th>Product</th>
+                                <th style="width:200px">Quantity</th>
+                                <th>Product Name</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                                <th>Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <span>@ViewBag.OutOfStock</span>
+
                             @foreach (var item in Model)
                             {
                                 total = total + (item.Price * item.Quantity);
                                 <tr id="row_@item.Cart_id" class="rem\@stt">
                                     <td class="invert">@stt</td>
-                                    
+
                                     <td class="invert-image">
-                                        <a href="../Product/DetailProduct/@item.Product_id">
+                                        <a href="http://localhost:14787/Product/DetailProduct/@item.Product_id">
                                             <img src="@Url.Content(item.LinkImage)" alt="@item.ProductName" class="img-responsive">
                                         </a>
                                     </td>
-                                    <td class="invert"> 
-                                        <div class="quantity">  
+                                    <td class="invert">
+                                        <div class="quantity">
                                             <div class="quantity-select">
-                                                <div class="entry value-minus"onclick="return DecreaseQuantity(@item.Product_id,@item.Quantity)">&nbsp;</div>
+                                                <div class="entry value-minus" onclick="return DecreaseQuantity(@item.Cart_id,@item.Product_id,@item.Quantity)">&nbsp;</div>
                                                 <div class="entry value">
                                                     <span id="quantityId">@item.Quantity</span>
                                                 </div>
-                                                <div class="entry value-plus active" onclick="return IncreaseQuantity(@item.Product_id,@item.Quantity,@item.Amount)">&nbsp;</div>
+                                                <div class="entry value-plus active" onclick="return IncreaseQuantity(@item.Cart_id,@item.Product_id,@item.Quantity,@item.Amount)">&nbsp;</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="invert">@item.ProductName</td>
                                     <td class="invert">@item.Price</td>
                                     <td class="invert">@(item.Price * item.Quantity)</td>
-                                    
+
                                     <td>
                                         @Ajax.ActionLink("Delete", "Delete", new { @id = @item.Cart_id }, new AjaxOptions
                                    {
@@ -78,92 +78,62 @@
                                     </td>
                                     <td class="invert">
                                         <div class="rem">
-                                            <div class="close"@stt> </div>
+                                            <div class="close" @stt> </div>
                                         </div>
                                     </td>
                                 </tr>
                                 stt = stt + 1;
                             }
 
-                        
-                        <h4>Total: @total</h4>
-                    </tbody>
-                </table>
-            </div>
+
+                            <h4>Total: @total</h4>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="checkout-left">
+                    <div class="address_form_agile">
+                        <div class="checkout-right-basket">
+                            <a onclick="return checkSession()" href="http://localhost:14787/Cart/Checkout">
+                                Make a Payment
+                                <span class="fa fa-hand-o-right" aria-hidden="true"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
             }
             else
             {
                 <span> Nothing in cart </span>
             }
         </div>
-        <div class="checkout-left">
-            <div class="address_form_agile">
-                <h4>Add a new Details</h4>
-                <form action="payment.html" method="post" class="creditly-card-form agileinfo_form">
-                    <div class="creditly-wrapper wthree, w3_agileits_wrapper">
-                        <div class="information-wrapper">
-                            <div class="first-row">
-                                <div class="controls">
-                                    <input class="billing-address-name" type="text" name="name" placeholder="Full Name" required="">
-                                </div>
-                                <div class="w3_agileits_card_number_grids">
-                                    <div class="w3_agileits_card_number_grid_left">
-                                        <div class="controls">
-                                            <input type="text" placeholder="Mobile Number" name="number" required="">
-                                        </div>
-                                    </div>
-                                    <div class="w3_agileits_card_number_grid_right">
-                                        <div class="controls">
-                                            <input type="text" placeholder="Landmark" name="landmark" required="">
-                                        </div>
-                                    </div>
-                                    <div class="clear"> </div>
-                                </div>
-                                <div class="controls">
-                                    <input type="text" placeholder="Town/City" name="city" required="">
-                                </div>
-                                <div class="controls">
-                                    <select class="option-w3ls">
-                                        <option>Select Address type</option>
-                                        <option>Office</option>
-                                        <option>Home</option>
-                                        <option>Commercial</option>
-
-                                    </select>
-                                </div>
-                            </div>
-                            <button class="submit check_out">Delivery to this Address</button>
-                        </div>
-                    </div>
-                </form>
-                <div class="checkout-right-basket">
-                    <a href="payment.html">
-                        Make a Payment
-                        <span class="fa fa-hand-o-right" aria-hidden="true"></span>
-                    </a>
-                </div>
-            </div>
-            <div class="clearfix"> </div>
-        </div>
+       
     </div>
 </div>
 
 <script>
-    function IncreaseQuantity(productId,quantity,amount) {
+    function IncreaseQuantity(cartId, productId, quantity, amount) {
         quantity = Number(quantity) + 1;
         if (quantity > amount) {
-            alert("The number of item "+quantity+" is higher than amount in stock "+amount);
+            alert("The number of item " + quantity + " is higher than amount in stock " + amount);
             return false;
         }
-        alert(productId);
-        location.href = "http://localhost:14787/Cart/UpdateQuantity?productId=" + productId + "&quantity=" + quantity;
+        location.href = "http://localhost:14787/Cart/UpdateQuantity?cartId=" + cartId + "&quantity=" + quantity;
     }
-    function DecreaseQuantity(productId,quantity) {
+    function DecreaseQuantity(cartId, productId, quantity) {
         quantity = Number(quantity) - 1;
         if (quantity < 1) {
             alert("The number of item must be higher than 0");
             return false;
         }
-        location.href = "http://localhost:14787/Cart/UpdateQuantity?productId=" + productId + "&quantity=" + quantity;
+        location.href = "http://localhost:14787/Cart/UpdateQuantity?cartId=" + cartId + "&quantity=" + quantity;
+    }
+    function checkSession() {
+        var session = document.getElementById("session").innerHTML;
+        if (session ==0) {
+            alert("You must to sign in before you checkout!");
+            return false;
+        }
+        return true;
     }
 </script>
