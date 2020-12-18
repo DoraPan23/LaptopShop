@@ -14,7 +14,7 @@ namespace LaptopShop.Controllers
         public const string CartSession = "CartSession";
         ProductDao dao = new ProductDao();
         CartDao cartDao = new CartDao();
-        CustomerDao cusDao = new CustomerDao();
+        UserDao cusDao = new UserDao();
         // GET: Cart
         public ActionResult Index()
         {
@@ -27,7 +27,6 @@ namespace LaptopShop.Controllers
             return View(model);
         }
 
-        [HttpPost]
         public ActionResult Add(int id, int quantity)
         {
             var list = cartDao.getListCart();
@@ -45,7 +44,7 @@ namespace LaptopShop.Controllers
                 cart.Quantity = quantity;
                 if (UserSingleTon.Instance.User.ID > 0)
                 {
-                    cart.Customer_Id = UserSingleTon.Instance.User.ID;
+                    cart.User_Id = UserSingleTon.Instance.User.ID;
                 }
 
                 int cartId = cartDao.Insert(cart);
@@ -54,7 +53,7 @@ namespace LaptopShop.Controllers
         }
 
 
-        [HttpPost]
+        
         public ActionResult AddCombo(int id, int quantity)
         {
             var list = cartDao.getListCart();
@@ -62,7 +61,7 @@ namespace LaptopShop.Controllers
             if (list.Exists(x => x.Combo_Id == id))
             {
 
-                cart = cartDao.getItemByIdProduct(id);
+                cart = cartDao.getItemByIdCombo(id);
                 cart.Quantity = cart.Quantity + 1;
                 cartDao.UpdateQuantity(cart);
             }
@@ -72,31 +71,26 @@ namespace LaptopShop.Controllers
                 cart.Quantity = quantity;
                 if (UserSingleTon.Instance.User.ID > 0)
                 {
-                    cart.Customer_Id = UserSingleTon.Instance.User.ID;
+                    cart.User_Id = UserSingleTon.Instance.User.ID;
                 }
                 int cartId = cartDao.Insert(cart);
             }
             return RedirectToAction("Index");
         }
 
-        public ActionResult UpdateQuantity(int productId, int quantity)
+        public ActionResult UpdateQuantity(int cartId, int quantity)
         {
             if (quantity > 0)
             {
-                int id = (int)productId;
                 int newQuantity = (int)quantity;
-                if (quantity > dao.inStockFromProduct(id))
+                if (quantity > 10 /*dao.inStockFromProduct(cartId)*/)   // chua kiem tra neu gio hang la combo thi se bi loi
                 {
                     ViewBag.OutOfStock = "Product's quantity is higher than amount of product";
                 }
                 else
                 {
 
-                    Cart cart = cartDao.getItemByIdProduct(id);
-                    if (cart == null)
-                    {
-                        cart = cartDao.getItemByIdCombo(id);
-                    }
+                    Cart cart = cartDao.getItemById(cartId);
                     cart.Quantity = newQuantity;
                     cartDao.UpdateQuantity(cart);
                     ViewBag.OutOfStock = "Success";

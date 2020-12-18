@@ -102,20 +102,7 @@
             </div>
             <div class="occasion-cart">
                 <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                    <form action="@Url.Action("Add","Cart",new {id=@ProductDetail.ID,quantity=1 })" target="_blank" method="post">
-                        <fieldset>
-                            <input type="hidden" name="cmd" value="_cart" />
-                            <input type="hidden" name="add" value="1" />
-                            <input type="hidden" name="business" value=" " />
-                            <input type="hidden" name="item_name" value="@ProductDetail.Product_Name" />
-                            <input type="hidden" name="amount" value="@ProductDetail.Price" />
-                            <input type="hidden" name="discount_amount" value="" />
-                            <input type="hidden" name="currency_code" value="VND" />
-                            <input type="hidden" name="return" value=" " />
-                            <input type="hidden" name="cancel_return" value=" " />
-                            <input type="submit" name="submit" value="Add to cart" class="button" />
-                        </fieldset>
-                    </form>
+                    <a href="http://localhost:14787/Cart/Add?id=@ProductDetail&quantity=1"><input type="submit" name="submit" value="Add to cart" onclick="" class="button"></a>
                 </div>
 
             </div>

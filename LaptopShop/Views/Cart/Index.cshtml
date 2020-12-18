@@ -56,11 +56,11 @@
                                     <td class="invert">
                                         <div class="quantity">
                                             <div class="quantity-select">
-                                                <div class="entry value-minus" onclick="return DecreaseQuantity(@item.Product_id,@item.Quantity)">&nbsp;</div>
+                                                <div class="entry value-minus" onclick="return DecreaseQuantity(@item.Cart_id,@item.Product_id,@item.Quantity)">&nbsp;</div>
                                                 <div class="entry value">
                                                     <span id="quantityId">@item.Quantity</span>
                                                 </div>
-                                                <div class="entry value-plus active" onclick="return IncreaseQuantity(@item.Product_id,@item.Quantity,@item.Amount)">&nbsp;</div>
+                                                <div class="entry value-plus active" onclick="return IncreaseQuantity(@item.Cart_id,@item.Product_id,@item.Quantity,@item.Amount)">&nbsp;</div>
                                             </div>
                                         </div>
                                     </td>
@@ -90,43 +90,43 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="checkout-left">
+                    <div class="address_form_agile">
+                        <div class="checkout-right-basket">
+                            <a onclick="return checkSession()" href="http://localhost:14787/Cart/Checkout">
+                                Make a Payment
+                                <span class="fa fa-hand-o-right" aria-hidden="true"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
             }
             else
             {
                 <span> Nothing in cart </span>
             }
         </div>
-        <div class="checkout-left">
-            <div class="address_form_agile">
-                <div class="checkout-right-basket">
-                    <a onclick="return checkSession()" href="http://localhost:14787/Cart/Checkout">
-                        Make a Payment
-                        <span class="fa fa-hand-o-right" aria-hidden="true"></span>
-                    </a>
-                </div>
-            </div>
-            <div class="clearfix"> </div>
-        </div>
+       
     </div>
 </div>
 
 <script>
-    function IncreaseQuantity(productId, quantity, amount) {
+    function IncreaseQuantity(cartId, productId, quantity, amount) {
         quantity = Number(quantity) + 1;
         if (quantity > amount) {
             alert("The number of item " + quantity + " is higher than amount in stock " + amount);
             return false;
         }
-        alert(productId);
-        location.href = "http://localhost:14787/Cart/UpdateQuantity?productId=" + productId + "&quantity=" + quantity;
+        location.href = "http://localhost:14787/Cart/UpdateQuantity?cartId=" + cartId + "&quantity=" + quantity;
     }
-    function DecreaseQuantity(productId, quantity) {
+    function DecreaseQuantity(cartId, productId, quantity) {
         quantity = Number(quantity) - 1;
         if (quantity < 1) {
             alert("The number of item must be higher than 0");
             return false;
         }
-        location.href = "http://localhost:14787/Cart/UpdateQuantity?productId=" + productId + "&quantity=" + quantity;
+        location.href = "http://localhost:14787/Cart/UpdateQuantity?cartId=" + cartId + "&quantity=" + quantity;
     }
     function checkSession() {
         var session = document.getElementById("session").innerHTML;

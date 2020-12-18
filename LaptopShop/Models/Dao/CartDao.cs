@@ -16,7 +16,7 @@ namespace LaptopShop.Models.Dao
         {
             var queryProduct = from c in db.Cart
                             join p in db.Product on c.Product_Id equals p.ID
-                            where c.Customer_Id==null
+                            where c.User_Id==null
                             select new
                             {
                                 Id=c.ID,
@@ -32,7 +32,7 @@ namespace LaptopShop.Models.Dao
             {
                 queryProduct = from c in db.Cart
                                join p in db.Product on c.Product_Id equals p.ID
-                               where c.Customer_Id== UserSingleTon.Instance.User.ID
+                               where c.User_Id== UserSingleTon.Instance.User.ID
                                select new
                                {
                                    Id = c.ID,
@@ -68,12 +68,12 @@ namespace LaptopShop.Models.Dao
 
             var queryCombo   = from c in db.Cart
                                join cb in db.Combo on c.Combo_Id equals cb.ID
-                               where c.Customer_Id == null
+                               where c.User_Id == null
                                select new
                                {
                                    id=c.ID,
                                    combo_Id=cb.ID,
-                                   //image = p.Image,
+                                   image = cb.Image,
                                    name = cb.Combo_Name,
                                    price = cb.totalMoney,
                                    discount=cb.discount,
@@ -83,12 +83,12 @@ namespace LaptopShop.Models.Dao
             {
                 queryCombo = from c in db.Cart
                              join cb in db.Combo on c.Combo_Id equals cb.ID
-                             where c.Customer_Id == UserSingleTon.Instance.User.ID
+                             where c.User_Id == UserSingleTon.Instance.User.ID
                              select new
                              {
                                  id = c.ID,
                                  combo_Id = cb.ID,
-                                 //image = p.Image,
+                                 image = cb.Image,
                                  name = cb.Combo_Name,
                                  price = cb.totalMoney,
                                  discount=cb.discount,
@@ -101,7 +101,7 @@ namespace LaptopShop.Models.Dao
                 CartFormatDao cart = new CartFormatDao();
                 cart.Cart_id = item.id;
                 cart.Product_id = item.combo_Id;
-                cart.LinkImage = "abc";                 /// sua link
+                cart.LinkImage = item.image;                 /// sua link
                 cart.ProductName = item.name;
                 float price = (float)item.price;
                 if (!item.discount.Equals(null))
@@ -149,13 +149,17 @@ namespace LaptopShop.Models.Dao
         {
             return db.Cart.Where(x => x.Combo_Id == id).SingleOrDefault();
         }
+        public Cart getItemById(int id)
+        {
+            return db.Cart.Where(x => x.ID == id).SingleOrDefault();
+        }
 
         public List<Cart> getListCart()
         {
-            var model= db.Cart.Where(x => x.Customer_Id == null).ToList();
+            var model= db.Cart.Where(x => x.User_Id == null).ToList();
             if (UserSingleTon.Instance.User.ID > 0)
             {
-                model = db.Cart.Where(x=>x.Customer_Id== UserSingleTon.Instance.User.ID).ToList();
+                model = db.Cart.Where(x=>x.User_Id== UserSingleTon.Instance.User.ID).ToList();
             }
             return model;
         }

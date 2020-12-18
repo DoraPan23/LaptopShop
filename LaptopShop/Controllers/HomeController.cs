@@ -11,7 +11,7 @@ namespace LaptopShop.Controllers
     {
         // GET: Home
         ProductDao dao = new ProductDao();
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
             ViewBag.LaptopProducts = dao.getListProductLaptop(3);
             ViewBag.MouseProducts  = dao.getListProductMouse(3);

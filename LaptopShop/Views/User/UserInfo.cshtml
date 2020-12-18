@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewBag.Title = "UserInfo";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+
+<div class="privacy">
+    <div class="container">
+        <!-- tittle heading -->
+        <h3 class="tittle-w3l">
+            Your information
+            <span class="heading-style">
+                <i></i>
+                <i></i>
+                <i></i>
+            </span>
+        </h3>
+        <div class="checkout-right-basket">
+            <div class="address_form_agile">
+                
+                <div class="col-md-7">
+                    <table class="table table-bordered">
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <th>User name</th>
+                                <td>@item.firstName @item.lastName</td>
+                            </tr>
+                            <tr>
+                                <th>Day of birth</th>
+                                <td> @item.birthDate</td>
+                            </tr>
+                            <tr>
+                                <th>Gender</th>
+                                <td> @(item.gender==true?"Male":"Female")</td>
+                            </tr>
+                            <tr>
+                                <th>Address</th>
+                                <td>@item.address</td>
+                            </tr>
+
+                        }
+                        <td><input type="button" value="Change password" onclick="openForm()"/></td>
+                    </table>
+                </div>
+                <div class="creditly-wrapper wthree, w3_agileits_wrapper col-md-5" style="display:none" id="formChangePassword">
+                    <h4>Add a new Password</h4>
+                    <div class="information-wrapper">
+                        <div class="first-row ">
+                            <div class="controls">
+                                <input class="billing-address-name" type="password" name="name" placeholder="Old password" required="">
+                            </div>
+                            <div class="controls">
+                                <input class="billing-address-name" type="password" name="passwordNew1" id="passwordNew1" placeholder="New password" required="">
+                            </div>
+                            <div class="controls">
+                                <input class="billing-address-name" type="password" name="passwordNew2" id="passwordNew2" placeholder="Confirm password" required="">
+                            </div>
+                            <div class="clear"> </div>
+                        </div>
+                        <button class="submit check_out" onclick="return validateChangePass()">Delivery to this Address</button>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        
+
+    </div>
+</div>
+        
+<script>
+    function openForm() {
+        document.getElementById("formChangePassword").style.display = "block";
+    }
+
+    function validateChangePass() {
+        var pass1 = document.getElementById("passwordNew1").value;
+        var pass2 = document.getElementById("passwordNew2").value;
+        if (pass1 != pass2) {
+            alert("Password confirm is not match");
+            return false;
+        }
+        location = "http://localhost:14787/User/UpdatePassword?newPass=" + pass1;
+    }
+</script>

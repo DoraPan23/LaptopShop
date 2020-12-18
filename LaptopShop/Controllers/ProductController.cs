@@ -105,7 +105,7 @@ namespace LaptopShop.Controllers
             ViewBag.IdCatelogy = id;
 
             // code phan trang
-            int totalRecord = 0;
+            double totalRecord = 0;
             int rangeNew;
             if (!range.HasValue) { rangeNew = 0; }
             else { rangeNew = (int)range; }
@@ -138,7 +138,7 @@ namespace LaptopShop.Controllers
             // lay ten keyword
             ViewBag.Keyword = keyword;
             // code phan trang
-            int totalRecord = 0;
+            double totalRecord = 0;
             int rangeNew;
             if (!range.HasValue) { rangeNew = 0; }
             else { rangeNew = (int)range; }

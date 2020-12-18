@@ -25,8 +25,10 @@ namespace LaptopShop.Models
         [Column(TypeName = "date")]
         public DateTime endDate { get; set; }
 
-        public decimal totalMoney { get; set; }
+        public double totalMoney { get; set; }
 
         public int discount { get; set; }
+
+        public string Image { get; set; }
     }
 }

@@ -208,9 +208,9 @@
     <Compile Include="Common\UserLogin.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\ComboController.cs" />
-    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -221,19 +221,19 @@
     <Compile Include="Models\Catalog.cs" />
     <Compile Include="Models\Combo.cs" />
     <Compile Include="Models\ComboFormatDao.cs" />
-    <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Dao\CartDao.cs" />
     <Compile Include="Models\Dao\CatalogDao.cs" />
     <Compile Include="Models\Dao\ComboDao.cs" />
-    <Compile Include="Models\Dao\CustomerDao.cs" />
     <Compile Include="Models\Dao\OrderDao.cs" />
     <Compile Include="Models\Dao\ProductDao.cs" />
+    <Compile Include="Models\Dao\UserDao.cs" />
     <Compile Include="Models\Dao\UserSingleTon.cs" />
     <Compile Include="Models\LaptopShopDbContext.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetail.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -288,12 +288,14 @@
     <Content Include="Views\Combo\Index.cshtml" />
     <Content Include="Views\Product\DetailCombo.cshtml" />
     <Content Include="Views\Product\Search.cshtml" />
-    <Content Include="Views\Customer\ViewOrder.cshtml" />
+    <Content Include="Views\User\ViewOrder.cshtml" />
     <Content Include="Views\Shared\HeaderList.cshtml" />
     <Content Include="Views\Shared\ban_top.cshtml" />
     <Content Include="Views\Cart\Checkout.cshtml" />
     <Content Include="Views\Product\SearchInCatalog.cshtml" />
     <Content Include="Views\Product\SearchInBrand.cshtml" />
+    <Content Include="Views\User\UserInfo.cshtml" />
+    <Content Include="Views\User\ViewOrderDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

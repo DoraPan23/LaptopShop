@@ -1,22 +1,24 @@
+
 using LaptopShop.Common;
 using LaptopShop.Models;
 using LaptopShop.Models.Dao;
 using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using LaptopShop.Models.Dao;
 using LaptopShop.Models;
 using LaptopShop.Common;
+using System;
 
 namespace LaptopShop.Controllers
 {
-    public class CustomerController : Controller
+    public class UserController : Controller
     {
         OrderDao orderDao = new OrderDao();
         CartDao cartDao = new CartDao();
-        // GET: Customer
+        // GET: User
         public ActionResult Index()
         {
             return View();
@@ -26,7 +28,7 @@ namespace LaptopShop.Controllers
         {
             if (ModelState.IsValid)
             {
-                var dao = new CustomerDao();
+                var dao = new UserDao();
                 var result = dao.Login(model.username, model.password); ;
                 if (result == 1)
                 {
@@ -36,26 +38,22 @@ namespace LaptopShop.Controllers
                     userSession.username = user.username;
                     userSession.ID = user.ID;
                     Session.Add(CommonConstants.USER_SESSION, userSession);
-                    return RedirectToAction("Index", "Home");
-                }
-                else if (result == 0 && result == -2)
-                {
-                    ViewBag.Message = String.Format("Tài khoản hoặc mật khẩu không đúng", DateTime.Now.ToString());
-                    //ModelState.AddModelError("", "Tài khoản hoặc mật khẩu không đúng");
+                    new CartDao().DeleteAll();
+                    return RedirectToAction("Index","Home", new { id = 1 });
                 }
                 else
                 {
-                    ViewBag.Message = String.Format("Tài khoản hoặc mật khẩu không đúng", DateTime.Now.ToString());
-                    //ModelState.AddModelError("", "Đăng nhập không đúng");
+                    return RedirectToAction("Index", "Home", new { id = 2 });
+                    //ModelState.AddModelError("", "Tài khoản hoặc mật khẩu không đúng");
                 }
             }
+
             return RedirectToAction("Index", "Home");
         }
         public ActionResult SignOut()
         {
             Session[CommonConstants.USER_SESSION] = null;
             UserSingleTon.Instance.User = null;
-            new CartDao().DeleteAll();
             return RedirectToAction("Index", "Home");
         }
         [HttpPost]
@@ -65,41 +63,41 @@ namespace LaptopShop.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var dao = new CustomerDao();
+                    var dao = new UserDao();
                     var user = collection["username"];
                     var pass1 = collection["password"];
                     var pass2 = collection["Confirm Password"];
                     var g = collection["gender"];
-                    var result = dao.SignUp(user, pass1, pass2);
-                    Customer cus = new Customer();
+                    var result = dao.SignUp(user);
+                    User userN = new User();
                     if (result == 1)
                     {
-                        cus.username = user;
-                        cus.password = pass1;
-                        cus.firstName = collection["firstname"];
-                        cus.lastName = collection["lastname"];
+                        userN.username = user;
+                        userN.password = pass1;
+                        userN.firstName = collection["firstname"];
+                        userN.lastName = collection["lastname"];
                         if (g.Equals("Male"))
-                            cus.gender = true;
+                            userN.gender = true;
                         else
-                            cus.gender = false;
+                            userN.gender = false;
                         try
                         {
-                            cus.birthDate = Convert.ToDateTime(collection["birth"]);
+                            userN.birthDate = Convert.ToDateTime(collection["birth"]);
                         }
                         catch
                         {
-                            cus.birthDate = Convert.ToDateTime("1-1-1999");
+                            userN.birthDate = Convert.ToDateTime("1-1-1999");
                         }
 
-                        cus.address = collection["address"];
-                        cus.joinDate = DateTime.Now;
+                        userN.address = collection["address"];
+                        userN.joinDate = DateTime.Now;
                     }
                     else
                     {
                         return RedirectToAction("Index", "Home");
                     }
-
-                    long id = dao.Insert(cus);
+                    userN.Role_ID = 3;
+                    long id = dao.Insert(userN);
                     if (id > 0)
                     {
                         return RedirectToAction("Index", "Home");
@@ -121,20 +119,29 @@ namespace LaptopShop.Controllers
         [HttpPost]
         public ActionResult AddOrder()
         {
-            Order order = new Order();
+             Order order = new Order();
             var record = cartDao.getListCart();
-            order.Customer_Id = UserSingleTon.Instance.User.ID;
+            order.User_Id = UserSingleTon.Instance.User.ID;
             order.Date = DateTime.Now;
             order.Status = 1;   // 1 la tiep la tiep nhan don hang
             int id=orderDao.Insert(order);
-            float totalPrice = 0;
+            float totalPrice = 0,price;
             foreach (var item in record)
             {
                 OrderDetail orderDetail = new OrderDetail();
-                orderDetail.Product_Id = item.Product_Id;
-                orderDetail.Combo_Id = item.Combo_Id;
+                if (item.Product_Id != null)
+                {
+                    orderDetail.Product_Id = item.Product_Id;
+                    price = new ProductDao().getPriceProduct((int)item.Product_Id);
+                }
+                else
+                {
+                    orderDetail.Combo_Id = item.Combo_Id;
+                    price = new ProductDao().getPriceCombo((int)item.Combo_Id);
+                }
+                
                 orderDetail.Quantity = item.Quantity;
-                float price = new ProductDao().getPriceProduct(item.ID);
+                
                 totalPrice = totalPrice + price*(float)orderDetail.Quantity;        // them total price cho bang order
                 orderDetail.Price = price;
                 orderDetail.Order_Id = id;
@@ -146,8 +153,45 @@ namespace LaptopShop.Controllers
         }
         public ActionResult ViewOrder()
         {
-            var model = orderDao.getListOrderForCustomer(UserSingleTon.Instance.User.ID);
-            ViewBag.OrderDetail = orderDao.getOrderDetail(model[0].ID);
+            var model = orderDao.getListOrderForUser(UserSingleTon.Instance.User.ID);
+            
+            if (model.Count>0)
+            {
+                ViewBag.OrderDetail = orderDao.getOrderDetail(model[0].ID);
+            }
+            
+            return View(model);
+        }
+
+        public ActionResult UserInfo()
+        {
+            var model = new UserDao().GetListUserById(UserSingleTon.Instance.User.ID);
+            return View(model);
+        
+        }
+
+        public ActionResult UpdatePassword(string newPass)      // cap nhat pass cua user
+        {
+            // chua kiem tra mat khau cu co trung khop khong
+
+
+            User user = new UserDao().GetUserById(UserSingleTon.Instance.User.ID);
+            user.password = newPass;    //ma hoa
+            new UserDao().Update(user);
+            return RedirectToAction("UserInfo");
+        }
+
+        public ActionResult UpdateOrder(int id)     //huy don hang
+        {
+            Order order = orderDao.getOrderById(id);
+            order.Status = 4;
+            orderDao.Update(order);
+            return RedirectToAction("ViewOrder");
+        }
+
+        public ActionResult ViewOrderDetail(int id)
+        {
+            var model = new OrderDao().getOrderDetail(id);
             return View(model);
         }
 

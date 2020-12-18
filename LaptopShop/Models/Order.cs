@@ -16,7 +16,7 @@ namespace LaptopShop.Models
 
         public double? Total_Price { get; set; }
 
-        public int? Customer_Id { get; set; }
+        public int? User_Id { get; set; }
 
         public int? Status { get; set; }
     }
