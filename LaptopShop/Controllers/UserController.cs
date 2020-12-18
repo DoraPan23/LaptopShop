@@ -54,6 +54,7 @@ namespace LaptopShop.Controllers
         {
             Session[CommonConstants.USER_SESSION] = null;
             UserSingleTon.Instance.User = null;
+            new CartDao().DeleteAll();
             return RedirectToAction("Index", "Home");
         }
         [HttpPost]
