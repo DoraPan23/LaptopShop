@@ -110,6 +110,7 @@ namespace LaptopShop.Controllers
             int rangeNew;
             if (!range.HasValue) { rangeNew = 0; }
             else { rangeNew = (int)range; }
+            ViewBag.Range = rangeNew;
             var model = dao.getListProductByKeyword(keyword, rangeNew,id, ref totalRecord, page, pageSize);  // ref: biến sài ref nó sẽ lưu giá trị khi kết thúc hàm
             ViewBag.ProductByKeyword = model;
             ViewBag.TotalRecord = totalRecord;  // totalRecord ở đây đã được gắn giá trị
@@ -181,6 +182,7 @@ namespace LaptopShop.Controllers
             int rangeNew;
             if (!range.HasValue) { rangeNew = 0; }
             else { rangeNew = (int)range; }
+            ViewBag.Range = rangeNew;
             var model = dao.getListBrandProductByKeyword(keyword, rangeNew, id, ref totalRecord, page, pageSize);  // ref: biến sài ref nó sẽ lưu giá trị khi kết thúc hàm
             ViewBag.ProductByKeyword = model;
             ViewBag.TotalRecord = totalRecord;  // totalRecord ở đây đã được gắn giá trị

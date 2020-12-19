@@ -77,7 +77,6 @@ namespace LaptopShop.Models.Dao
         {
             return db.OrderDetail.Where(x => x.Order_Id == id).ToList();
         }
-
         public List<CartFormatDao> getOrderDetail(int id)
         {
             var queryProduct = from o in db.OrderDetail
