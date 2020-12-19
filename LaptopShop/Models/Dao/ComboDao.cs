@@ -18,6 +18,31 @@ namespace LaptopShop.Models.Dao
             return db.Combo.ToList();
         }
 
+        public Combo getItemyById(int id)
+        {
+            return db.Combo.SingleOrDefault();
+        }
+
+        public void updateAmount(Combo combo, int quantity)
+        {
+            string[] data = combo.Product_List.Split(new string[] { ";" }, StringSplitOptions.None);
+            foreach (string item in data)
+            {
+                Product product = new ProductDao().getItemById(Convert.ToInt32(item));
+                product.Amount = product.Amount - quantity;
+                new ProductDao().UpdateQuantity(product);
+            }
+        }
+        public void updateAmountByCancell(Combo combo,int quantity)
+        {
+            string[] data = combo.Product_List.Split(new string[] { ";" }, StringSplitOptions.None);
+            foreach (string item in data)
+            {
+                Product product = new ProductDao().getItemById(Convert.ToInt32(item));
+                product.Amount = product.Amount + quantity;
+                new ProductDao().UpdateQuantity(product);
+            }
+        }
         public List<ComboFormatDao> getItemById(int id)
         {
             List<int> idProduct = new List<int>();

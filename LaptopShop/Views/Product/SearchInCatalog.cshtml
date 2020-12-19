@@ -9,22 +9,50 @@
     <div class="container">
         <!-- tittle heading -->
         <!-- tittle heading -->
-        <h3 class="tittle-w3l">
-            @ViewBag.CatelogyName
-            <span class="heading-style">
-                <i></i>
-                <i></i>
-                <i></i>
-            </span>
-        </h3>
-        <h3 class="tittle-w3l">
-            Result for keyword: @ViewBag.Keyword
-            <span class="heading-style">
-                <i></i>
-                <i></i>
-                <i></i>
-            </span>
-        </h3>
+        @if (ViewBag.Keyword != "")
+        {
+            <h3 class="tittle-w3l">
+                Result for keyword: @ViewBag.Keyword
+                <span class="heading-style">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </span>
+            </h3>
+        }
+        @if (ViewBag.Range == 1)
+        {
+            <h3 class="tittle-w3l">
+                Result for the range: Less than 15 millions
+                <span class="heading-style">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </span>
+            </h3>
+        }
+        else if (ViewBag.Range == 2)
+        {
+            <h3 class="tittle-w3l">
+                Result for the range: From 15 to 25 millions
+                <span class="heading-style">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </span>
+            </h3>
+        }
+        else if (ViewBag.Range == 3)
+        {
+            <h3 class="tittle-w3l">
+                Result for the range: More than 25 millions
+                <span class="heading-style">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </span>
+            </h3>
+        }
         <!-- //tittle heading -->
         <!-- product left -->
         <div class="side-bar col-md-3">
@@ -49,108 +77,108 @@
                     </div>
                 </form>
             </div>
-            </div>
-            <!-- //product left -->
-            <!-- product right -->
-            <div class="agileinfo-ads-display col-md-9 w3l-rightpro">
-                <div class="wrapper">
-                    <!-- first section -->
-                    <div class="product-sec1">
-                        @if (model.Count > 0)
+        </div>
+        <!-- //product left -->
+        <!-- product right -->
+        <div class="agileinfo-ads-display col-md-9 w3l-rightpro">
+            <div class="wrapper">
+                <!-- first section -->
+                <div class="product-sec1">
+                    @if (model.Count > 0)
+                    {
+                        foreach (var item in model)
                         {
-                            foreach (var item in model)
-                            {
-                                <div class="col-xs-4 product-men">
-                                    <div class="men-pro-item simpleCart_shelfItem">
-                                        <div class="men-thumb-item">
-                                            <img src="@(Url.Content(item.Image))" width="160px" height="150px" alt="@item.Product_Name">
-                                            <div class="men-cart-pro">
-                                                <div class="inner-men-cart-pro">
-                                                    <a href="http://localhost:14787/Product/DetailProduct/@item.ID" class="link-product-add-cart">Quick View</a>
-                                                </div>
+                            <div class="col-xs-4 product-men">
+                                <div class="men-pro-item simpleCart_shelfItem">
+                                    <div class="men-thumb-item">
+                                        <img src="@(Url.Content(item.Image))" width="160px" height="150px" alt="@item.Product_Name">
+                                        <div class="men-cart-pro">
+                                            <div class="inner-men-cart-pro">
+                                                <a href="http://localhost:14787/Product/DetailProduct/@item.ID" class="link-product-add-cart">Quick View</a>
                                             </div>
-                                            <span class="product-new-top">@(item.Discount.HasValue?'-'+item.Discount.Value.ToString()+'%' : "Sale")</span>
                                         </div>
-                                        <div class="item-info-product ">
-                                            <h4>
-                                                <a href="http://localhost:14787/Product/DetailProduct/@item.ID">@item.Product_Name</a>
-                                            </h4>
-                                            <div class="info-product-price">
-                                                <span class="item_price">
-                                                    @(item.Discount.HasValue ? Convert.ToDecimal(
+                                        <span class="product-new-top">@(item.Discount.HasValue?'-'+item.Discount.Value.ToString()+'%' : "Sale")</span>
+                                    </div>
+                                    <div class="item-info-product ">
+                                        <h4>
+                                            <a href="http://localhost:14787/Product/DetailProduct/@item.ID">@item.Product_Name</a>
+                                        </h4>
+                                        <div class="info-product-price">
+                                            <span class="item_price">
+                                                @(item.Discount.HasValue ? Convert.ToDecimal(
                                                                             Decimal.ToDouble((decimal)item.Price) -
                                                                             Decimal.ToDouble((decimal)item.Price) * item.Discount / 100)
                                                                             : item.Price
                                                 )
-                                                </span>
-                                                <del>@(item.Discount.HasValue ? item.Price.ToString() : "")</del>
-                                            </div>
-                                            <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                                <a href="http://localhost:14787/Cart/Add?id=@item.ID&quantity=1"><input type="submit" name="submit" value="Add to cart" onclick="" class="button"></a>
-                                            </div>
-
+                                            </span>
+                                            <del>@(item.Discount.HasValue ? item.Price.ToString() : "")</del>
                                         </div>
+                                        <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+                                            <a href="http://localhost:14787/Cart/Add?id=@item.ID&quantity=1"><input type="submit" name="submit" value="Add to cart" onclick="" class="button"></a>
+                                        </div>
+
                                     </div>
                                 </div>
+                            </div>
 
-                            }
-
-                            @*@Html.PagedListPager(Model,page=>Url.Action("Products",new {page }))*@
-                            <div class="clearfix"></div>
-                            @*Phan trang*@
-                            if (ViewBag.TotalPage > 1)
-                            {
-                                var pageDisplay = (int)ViewBag.MaxPage;
-                                int totalPage = (int)ViewBag.TotalPage;
-                                int currentPage = ((int)ViewBag.Page);
-
-                                // Create numeric links
-                                var startPageIndex = Math.Max(1, currentPage - pageDisplay / 2);
-                                var endPageIndex = Math.Min(totalPage, currentPage + pageDisplay / 2);
-
-                                var link = "/Product/SearchInCatalog?keyword=" + @ViewBag.Keyword + "&id=" + ViewBag.IdCatelogy + "&range=";
-                                <nav>
-                                    <ul class="pagination">
-                                        @if (currentPage > ViewBag.First)
-                                        {
-                                            <li><a href="@link&page=@ViewBag.First" title="Trang đầu" class="first"><i class="fa fa-angle-double-left"></i></a></li>
-                                            <li>
-                                                <a href="@link&page=@ViewBag.Prev" title="Trang trước" class="prev"><i class="fa fa-angle-left"></i></a>
-                                            </li>
-
-                                        }
-                                        @for (int i = startPageIndex; i <= endPageIndex; i++)
-                                        {
-                                            if (currentPage == i)
-                                            {
-
-                                                <li> <a href="@link&page=@i" class="active" title="Trang @i">@i</a></li>
-                                            }
-                                            else
-                                            {
-                                                <li><a href="@link&page=@i" title="Trang @i" class="pos">@i</a></li>
-                                            }
-                                        }
-                                        @if (currentPage < totalPage)
-                                        {
-                                            <li><a href="@link&page=@ViewBag.Next" class="next" title="Trang sau"><i class="fa fa-angle-right"></i></a></li>
-                                            <li> <a href="@link&page=@ViewBag.Last" class="last" title="Trang cuối"><i class="fa fa-angle-double-right"></i></a></li>
-                                        }
-
-                                    </ul>
-                                </nav>
-
-                            }
                         }
-                        else
+
+                        @*@Html.PagedListPager(Model,page=>Url.Action("Products",new {page }))*@
+                        <div class="clearfix"></div>
+                        @*Phan trang*@
+                        if (ViewBag.TotalPage > 1)
                         {
-                            <span>This product is not found</span>
-                        }
-                    </div>
-                    <!-- //first section -->
+                            var pageDisplay = (int)ViewBag.MaxPage;
+                            int totalPage = (int)ViewBag.TotalPage;
+                            int currentPage = ((int)ViewBag.Page);
 
+                            // Create numeric links
+                            var startPageIndex = Math.Max(1, currentPage - pageDisplay / 2);
+                            var endPageIndex = Math.Min(totalPage, currentPage + pageDisplay / 2);
+
+                            var link = "/Product/SearchInCatalog?keyword=" + @ViewBag.Keyword + "&id=" + ViewBag.IdCatelogy + "&range=";
+                            <nav>
+                                <ul class="pagination">
+                                    @if (currentPage > ViewBag.First)
+                                    {
+                                        <li><a href="@link&page=@ViewBag.First" title="Trang đầu" class="first"><i class="fa fa-angle-double-left"></i></a></li>
+                                        <li>
+                                            <a href="@link&page=@ViewBag.Prev" title="Trang trước" class="prev"><i class="fa fa-angle-left"></i></a>
+                                        </li>
+
+                                    }
+                                    @for (int i = startPageIndex; i <= endPageIndex; i++)
+                                    {
+                                        if (currentPage == i)
+                                        {
+
+                                            <li> <a href="@link&page=@i" class="active" title="Trang @i">@i</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a href="@link&page=@i" title="Trang @i" class="pos">@i</a></li>
+                                        }
+                                    }
+                                    @if (currentPage < totalPage)
+                                    {
+                                        <li><a href="@link&page=@ViewBag.Next" class="next" title="Trang sau"><i class="fa fa-angle-right"></i></a></li>
+                                        <li> <a href="@link&page=@ViewBag.Last" class="last" title="Trang cuối"><i class="fa fa-angle-double-right"></i></a></li>
+                                    }
+
+                                </ul>
+                            </nav>
+
+                        }
+                    }
+                    else
+                    {
+                        <span>This product is not found</span>
+                    }
                 </div>
+                <!-- //first section -->
+
             </div>
-            <!-- //product right -->
         </div>
+        <!-- //product right -->
+    </div>
 </div>

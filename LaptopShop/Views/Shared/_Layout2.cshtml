@@ -364,24 +364,74 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <script>
         function checkValidate9000() {
             var signup_username = document.getElementById("signup_username").value;
+            var usernameTest = $("#signup_username").val();
+            alert(usernameTest);
             var pass1 = document.getElementById("password1").value;
             var pass2 = document.getElementById("password2").value;
             var f_name = document.getElementById("signup_firstname").value;
             var l_name = document.getElementById("signup_lastname").value;
             var address = document.getElementById("signup_address").value;
             var birth = document.getElementById("signup_birth").value;
-
-            if (pass1 != pass2) {
-                alert("Confirm password is not correct!");
-                document.getElementById("password2").focus;
-            }
             //alert(signup_username);
             //alert(pass1);
             //alert(pass2);
             //alert(f_name);
             //alert(l_name);
             //alert(address);
-            //alert(birth);
+            //alert(birth
+            if (signup_username.length < 6) {
+                console.log("done checkpass");
+                alert("Username requirement must at least 6 characters");
+                document.getElementById("signup_username").focus;
+                return false;
+            }
+            if (pass1.length<6) {
+                console.log("done checkpass");
+                alert("Password requirement must at least 6 characters");
+                document.getElementById("password1").focus;
+                return false;
+            }
+            if (pass1 != pass2) {
+                console.log("done checkpass");
+                alert("Confirm password is not correct!");
+                document.getElementById("password2").focus;
+                return false;
+            }
+
+            var reg = /^(([a-zA-Z])+(\s)*)+$/;
+            if (reg.test(f_name) == false) {
+                console.log("done checkpass");
+                alert("Wrong format first name");
+                document.getElementById("signup_firstname").focus;
+                return false;
+            }
+            if (reg.test(l_name) == false) {
+                console.log("done checkpass");
+                alert("Wrong format last name");
+                document.getElementById("signup_lastname").focus;
+                return false;
+            }
+            
+            $.ajax({
+                url: "/Home/User/CheckDuplicate",
+                dataType: "json",
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({ uName: usernameTest }),
+                async: true,
+                processData: false,
+                cache: false,
+                success: function (data) {
+                    if (data == "true") {
+                        alert("Username đã tồn tại, xin nhập username khác!!");
+                        $("#signup_username").focus();
+                        return false;
+                    }
+                },
+                error: function (er) {
+                    alert("Lỗi ajax");
+                }
+            });
         }
     </script>
     <!-- //password-script -->

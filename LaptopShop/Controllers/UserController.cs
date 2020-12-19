@@ -117,7 +117,6 @@ namespace LaptopShop.Controllers
         }
 
 
-        [HttpPost]
         public ActionResult AddOrder()
         {
              Order order = new Order();
@@ -133,11 +132,16 @@ namespace LaptopShop.Controllers
                 if (item.Product_Id != null)
                 {
                     orderDetail.Product_Id = item.Product_Id;
+                    Product product = new ProductDao().getItemById((int)item.Product_Id);
+                    product.Amount = product.Amount - (int)item.Quantity;
+                    new ProductDao().UpdateQuantity(product);
                     price = new ProductDao().getPriceProduct((int)item.Product_Id);
                 }
                 else
                 {
                     orderDetail.Combo_Id = item.Combo_Id;
+                    Combo combo = new ComboDao().getItemyById((int)item.Combo_Id);
+                    new ComboDao().updateAmount(combo, (int)item.Quantity);
                     price = new ProductDao().getPriceCombo((int)item.Combo_Id);
                 }
                 
@@ -150,6 +154,7 @@ namespace LaptopShop.Controllers
             }
             order.Total_Price = totalPrice;             
             orderDao.Update(order);
+            new CartDao().DeleteAll();
             return RedirectToAction("ViewOrder");
         }
         public ActionResult ViewOrder()
@@ -164,22 +169,56 @@ namespace LaptopShop.Controllers
             return View(model);
         }
 
-        public ActionResult UserInfo()
+        public ActionResult UserInfo(int? id)
         {
             var model = new UserDao().GetListUserById(UserSingleTon.Instance.User.ID);
+            if (id.HasValue)
+            {
+                ViewBag.Message = "Old password is not correct";
+            }
+            if (id==1)
+            {
+                ViewBag.Message = "Success";
+            }
             return View(model);
         
         }
+        [HttpPost]
+        public JsonResult CheckDuplicateUsername(string uName)
+        {
+            /*
+            var query = new UserDao().GetListUser();
+            if (query.Exists(x => x.username == uName))
+            {
+                return Json("true");
+            }*/
+            return Json("true");
+        }
 
-        public ActionResult UpdatePassword(string newPass)      // cap nhat pass cua user
+        public ActionResult UpdatePassword(string oldPass, string newPass)      // cap nhat pass cua user
         {
             // chua kiem tra mat khau cu co trung khop khong
 
 
             User user = new UserDao().GetUserById(UserSingleTon.Instance.User.ID);
-            user.password = newPass;    //ma hoa
-            new UserDao().Update(user);
-            return RedirectToAction("UserInfo");
+            if (user.password == oldPass)
+            {
+                user.password = newPass;    //ma hoa
+                new UserDao().Update(user);
+                return RedirectToAction("UserInfo",new { id = 1 });
+            }
+            return RedirectToAction("UserInfo",new { id=-1 });
+        }
+
+        public JsonResult CheckOldPass(string uPass)
+        {
+            User user = new UserDao().GetListUserById(UserSingleTon.Instance.User.ID).SingleOrDefault();
+            if (user.password!=uPass)
+            {
+                return Json("true");
+            }
+            return Json("false");
+
         }
 
         public ActionResult UpdateOrder(int id)     //huy don hang
@@ -187,6 +226,21 @@ namespace LaptopShop.Controllers
             Order order = orderDao.getOrderById(id);
             order.Status = 4;
             orderDao.Update(order);
+            List<OrderDetail> list = orderDao.getOrderDetailById(id);
+            foreach(var item in list)
+            {
+                if (item.Product_Id != null)
+                {
+                    Product product = new ProductDao().getItemById((int)item.Product_Id);
+                    product.Amount = product.Amount + (int)item.Quantity;
+                    new ProductDao().UpdateQuantity(product);
+                }
+                else
+                {
+                    Combo combo = new ComboDao().getItemyById((int)item.Combo_Id);
+                    new ComboDao().updateAmountByCancell(combo,(int)item.Quantity);
+                }
+            }
             return RedirectToAction("ViewOrder");
         }
 
