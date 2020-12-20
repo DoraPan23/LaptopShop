@@ -27,6 +27,16 @@ namespace LaptopShop.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public ActionResult CheckAmount(int id)
+        {
+            Product product = new ProductDao().getItemById(id);
+            if (product.Amount < 1)
+            {
+                return Json("true");
+            }
+            return Json("false");
+        }
         public ActionResult Add(int id, int quantity)
         {
             var list = cartDao.getListCart();
@@ -35,9 +45,9 @@ namespace LaptopShop.Controllers
             {
                 cart = cartDao.getItemByIdProduct(id);
                 cart.Quantity = cart.Quantity + 1;
-                //if(new ProductDao().inStockFromProduct(id) < cart.Quantity)
+                //if (new ProductDao().inStockFromProduct(id) < cart.Quantity)          // kiem tra so luong ton kho cua san pham (nen dung ajax)
                 //{
-
+                    
                 //}
                 cartDao.UpdateQuantity(cart);
             }
@@ -55,8 +65,17 @@ namespace LaptopShop.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public ActionResult CheckAmountCombo(int id)
+        {
+            Combo combo = new ComboDao().getItemyById(id);
+            if (new ComboDao().CheckAmountCombo(combo) < 1)
+            {
+                return Json("true");
+            }
+            return Json("false");
+        }
 
-        
         public ActionResult AddCombo(int id, int quantity)
         {
             var list = cartDao.getListCart();
@@ -105,15 +124,7 @@ namespace LaptopShop.Controllers
         public ActionResult Checkout()
         {
             ViewBag.CartUser = cartDao.getListInCart();
-            if (UserSingleTon.Instance.User.username != null)
-            {
-                var model = cusDao.GetByName(UserSingleTon.Instance.User.username);
-                return View(model);
-            }
-            else
-            {
-                return View();
-            }
+            return View();
         }
 
         [HttpDelete]

@@ -15,6 +15,7 @@ namespace LaptopShop.Models
         double productPrice;
         DateTime startDate;
         DateTime endDate;
+        int amount;
         string image;
         public string ComboName
         {
@@ -130,6 +131,19 @@ namespace LaptopShop.Models
             set
             {
                 image = value;
+            }
+        }
+
+        public int Amount
+        {
+            get
+            {
+                return amount;
+            }
+
+            set
+            {
+                amount = value;
             }
         }
     }

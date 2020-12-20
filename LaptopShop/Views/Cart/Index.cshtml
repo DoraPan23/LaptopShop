@@ -129,6 +129,10 @@
             alert("You must to sign in before you checkout!");
             return false;
         }
+        if (session == 0) {
+            alert("You must to sign in before you checkout!");
+            return false;
+        }
         return true;
     }
 </script>

@@ -73,6 +73,7 @@ namespace LaptopShop.Models.Dao
                                {
                                    id=c.ID,
                                    combo_Id=cb.ID,
+                                   listproduct = cb.Product_List,
                                    image = cb.Image,
                                    name = cb.Combo_Name,
                                    price = cb.totalMoney,
@@ -88,6 +89,7 @@ namespace LaptopShop.Models.Dao
                              {
                                  id = c.ID,
                                  combo_Id = cb.ID,
+                                 listproduct=cb.Product_List,
                                  image = cb.Image,
                                  name = cb.Combo_Name,
                                  price = cb.totalMoney,
@@ -95,13 +97,13 @@ namespace LaptopShop.Models.Dao
                                  quantity = c.Quantity
                              };
             }
-
+            int amountCombo = 1000;    // set soluong combo phu thuoc vao san pham trong combo la thap nhat
             foreach (var item in queryCombo)
             {
                 CartFormatDao cart = new CartFormatDao();
                 cart.Cart_id = item.id;
                 cart.Product_id = item.combo_Id;
-                cart.LinkImage = item.image;                 /// sua link
+                cart.LinkImage = item.image;                 
                 cart.ProductName = item.name;
                 float price = (float)item.price;
                 if (!item.discount.Equals(null))
@@ -111,7 +113,17 @@ namespace LaptopShop.Models.Dao
                 }
                 cart.Price = price;
                 cart.Quantity = (int)item.quantity;
-                cart.Amount = 10;
+                string[] data = item.listproduct.Split(new string[] { ";" }, StringSplitOptions.None);
+                foreach(var productId in data)
+                {
+                    Product product = new ProductDao().getItemById(Convert.ToInt32(productId));
+                    if(amountCombo > product.Amount)
+                    {
+                        amountCombo = product.Amount;
+                    }
+                }
+                    
+                cart.Amount = amountCombo;   
                 list.Add(cart);
             }
 

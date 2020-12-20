@@ -68,7 +68,7 @@
                                                         Decimal.ToDouble((decimal)ProductDetail.Price) * ProductDetail.Discount / 100)
                                                         : ProductDetail.Price
                      )
-            </span>
+                </span>
                 <del>@(ProductDetail.Discount.Value==0 ? ProductDetail.Price.ToString() : "")</del>
                 <label>Free delivery</label>
             </p>
@@ -100,12 +100,23 @@
                     <label>returnable.</label>
                 </p>
             </div>
-            <div class="occasion-cart">
-                <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                    <a href="http://localhost:14787/Cart/Add?id=@ProductDetail.ID&quantity=1"><input type="submit" name="submit" value="Add to cart" onclick="" class="button"></a>
-                </div>
+            @if (ProductDetail.Amount > 0)
+            {
+                <div class="occasion-cart">
+                    <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+                        <a href="http://localhost:14787/Cart/Add?id=@ProductDetail.ID&quantity=1"><input type="submit" name="submit" value="Add to cart" class="button"></a>
+                        @*<a onclick="return checkAmount(@ProductDetail.ID)" href="http://localhost:14787/Cart/Add?id=@ProductDetail.ID&quantity=1"><input type="submit" name="submit" value="Add to cart" class="button"></a>*@
+                    </div>
 
-            </div>
+                </div>
+            }
+            else
+            {
+                <p>
+                    <i class="fa fa-refresh" aria-hidden="true"></i>This product is
+                    <label>Out of stock</label>
+                </p>
+            }
 
         </div>
         <div class="clearfix"> </div>
@@ -142,10 +153,6 @@
                                             <a href="http://localhost:14787/Product/DetailProduct/@item.ID">@item.Product_Name</a>
                                         </h4>
                                         <div class="w3l-pricehkj">
-                                            ProductDetail.Discount.Value==0 ? Convert.ToDecimal(
-                                            Decimal.ToDouble((decimal)ProductDetail.Price) -
-                                            Decimal.ToDouble((decimal)ProductDetail.Price) * ProductDetail.Discount / 100)
-                                            : ProductDetail.Price
                                             <h6>@(item.Discount.Value==0? Convert.ToDecimal(
                                             Decimal.ToDouble((decimal)item.Price) -
                                             Decimal.ToDouble((decimal)item.Price) * item.Discount / 100)
@@ -161,3 +168,4 @@
             </div>
     </div>
 </div>
+

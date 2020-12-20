@@ -87,7 +87,7 @@
 
                                         <td>
                                             <input type="submit" value="More detail" class="button" onclick="javascript:location.href='http://localhost:14787/User/ViewOrderDetail/@item.ID'" formtarget="_blank" />
-
+                                            @*<input type="submit" value="More detail 2" class="button" onclick="openForm(@item.ID)" formtarget="_blank" />*@
                                         </td>
                                         <td>
                                             <input type="submit" value="Cancel" class="button" onclick="return confirmCancel(@item.ID)" />
@@ -148,7 +148,7 @@
 </div>
 
 <script>
-    function popupDetail() {
+    @*function popupDetail() {
         var test = document.getElementById("popupDetail").innerHTML;
         alert(test);
          var s3 = ' ';
@@ -160,26 +160,30 @@
 
     }
     function openForm(id) {
-        alert(id);
         $.ajax({
-            type: 'GET',
-            url: '/User/ViewOrder',
-            data: { id: id },
+            url: "/User/ViewOrderDetailUsingAjax",
+            dataType: "json",
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ idOrder: id }),
+            async: true,
+            processData: false,
             cache: false,
-            success: function (result) {
+            success: function (data) {
+                @orderDetailId == data;
+            },
+            error: function (er) {
+                alert("Lỗi ajax");
             }
         });
         document.getElementById("PPminicartk").style.display = "block";
 
-    }
+    }*@
 
-    function closeForm() {
-        document.getElementById("PPminicartk").style.display = "none";
-    }
+    //function closeForm() {
+    //    document.getElementById("PPminicartk").style.display = "none";
+    //}
 
-    function getItemOrderDetailById(id) {
-        return id;
-    }
 
     function confirmCancel(id) {
         var r = confirm("Are you sure want to cancel this order?")

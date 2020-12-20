@@ -72,9 +72,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <!-- cart details -->
                 <div class="top_nav_right">
                     <div class="wthreecartaits wthreecartaits2 cart cart box_1">
-                            <button class="w3view-cart" type="submit" name="submit" onclick="javascript:location.href='http://localhost:14787/Cart/Index'" value="">
-                                <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
-                            </button>
+                        <button class="w3view-cart" type="submit" name="submit" onclick="javascript:location.href='http://localhost:14787/Cart/Index'" value="">
+                            <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+                        </button>
                     </div>
                 </div>
                 <!-- //cart details -->
@@ -148,7 +148,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             if (input == "/Home/Index/2") {
                 alert("Username or password is incorrect!");
             }
-
+            else if (input == "/Home/Index/0") {
+                alert("This account was blocked");
+            }
+            else if (input == "/Home/Index/3") {
+                alert("Signup is success!");
+            }
         }
     </script>
     <!-- //banner -->
@@ -297,69 +302,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </script>
     <!-- //flexisel (for special offers) -->
     <!-- password-script -->
-    <script>
-        window.onload = function () {
-            document.getElementByName("Name").onchange = validateUsername;
-            document.getElementById("password1").onchange = validatePassword;
-            document.getElementById("password2").onchange = validatePassword;
-            document.getElementsByName("firstname").onchange = validatefName;
-            document.getElementsByName("lastname").onchange = validatefName;
-            document.getElementByName("username").onchange = validateSignin;
-            document.getElementByName("password").onchange = validateSignin;
-            documetn.getElementByName("username").onload = check;
-
-
-        }
-        function validateUsername() {
-            var signup_username = document.getElementsById("signup_username").value;
-            if (signup_username is null)
-            document.getElementById("signup_username").setCustomValidity("input username ");
-                else
-            document.getElementById("signup_username").setCustomValidity('');
-        }
-        function validatePassword() {
-            var pass2 = document.getElementById("password2").value;
-            var pass1 = document.getElementById("password1").value;
-            if (pass1 != pass2)
-                document.getElementById("password2").setCustomValidity("Passwords Don't Match");
-            else
-                document.getElementById("password2").setCustomValidity('');
-            //empty string means no validation error
-        }
-        function validatefName() {
-            var f_name = document.getElementsByName("firstname").value;
-            var l_name = document.getElementsByName("lastname").value;
-            if (f_name is null )
-            {
-                document.getElementByName("firstname").setCustomValidity("please input your first name");
-            }
-                    else
-            if (l_name is null)
-            {
-                document.getElementByName("lastname").setCustomValidity("please input your last name");
-
-            }
-                        else
-            document.getElementByName("lastname").setCustomValidity('');
-        }
-        function validateSignin() {
-            var signin_username = document.getElementByName("username").value;
-            var signin_passwd = document.getElementByName("password").value;
-            if (signin_username is null )
-            {
-                document.getElementByName("username").setCustomValidity("please input username to login");
-            }
-                    else
-            if (signin_passwd is null )
-            {
-                document.getElementByName("password").setCustomValidity("please input password to login");
-            }
-                    else
-            document.getElementByName("password").setCustomValidity('');
-        }
-
-        
-    </script>
 
     <script>
         function checkValidate9000() {
@@ -385,7 +327,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 document.getElementById("signup_username").focus;
                 return false;
             }
-            if (pass1.length<6) {
+            if (pass1.length < 6) {
                 console.log("done checkpass");
                 alert("Password requirement must at least 6 characters");
                 document.getElementById("password1").focus;
@@ -411,9 +353,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 document.getElementById("signup_lastname").focus;
                 return false;
             }
-            
+
             $.ajax({
-                url: "/Home/User/CheckDuplicate",
+                url: "/User/CheckDuplicateUsername",
                 dataType: "json",
                 type: "POST",
                 contentType: 'application/json; charset=utf-8',
@@ -423,8 +365,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 cache: false,
                 success: function (data) {
                     if (data == "true") {
-                        alert("Username đã tồn tại, xin nhập username khác!!");
-                        $("#signup_username").focus();
+                        alert("This username was existed, please try another name");
                         return false;
                     }
                 },
@@ -469,6 +410,33 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             });
 
         });
+    </script>
+
+    <script>
+        function checkAmount(id) {
+            $.ajax({
+                url: "/Cart/CheckAmount",
+                dataType: "json",
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({ id: id}),
+                async: true,
+                processData: false,
+                cache: false,
+                success: function (data) {
+                    if (data == "true") {
+                        alert("This product is out of stock, please try a different one");
+                        return false;
+                    }
+                    else {
+                        location.href = "http://localhost:14787/Cart/Add?id=" + id +"&quantity=1";
+                    }
+                },
+                error: function (er) {
+                    alert("Lỗi ajax");
+                }
+            });
+        }
     </script>
     <!-- //smooth-scrolling-of-move-up -->
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>

@@ -11,6 +11,7 @@ using LaptopShop.Models.Dao;
 using LaptopShop.Models;
 using LaptopShop.Common;
 using System;
+using BLL;
 
 namespace LaptopShop.Controllers
 {
@@ -40,6 +41,10 @@ namespace LaptopShop.Controllers
                     Session.Add(CommonConstants.USER_SESSION, userSession);
                     new CartDao().DeleteAll();
                     return RedirectToAction("Index","Home", new { id = 1 });
+                }
+                else if (result == -3)  // -3 la tai khoan bi khoa
+                {
+                    return RedirectToAction("Index", "Home", new { id = 0 });   
                 }
                 else
                 {
@@ -74,7 +79,8 @@ namespace LaptopShop.Controllers
                     if (result == 1)
                     {
                         userN.username = user;
-                        userN.password = pass1;
+                        userN.password = Utils.EncryptString(pass1, Utils.passEncode);
+                        //userN.password = pass1;
                         userN.firstName = collection["firstname"];
                         userN.lastName = collection["lastname"];
                         if (g.Equals("Male"))
@@ -101,7 +107,7 @@ namespace LaptopShop.Controllers
                     long id = dao.Insert(userN);
                     if (id > 0)
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Home",new {id=3 });
                     }
                     else
                     {
@@ -169,48 +175,34 @@ namespace LaptopShop.Controllers
             return View(model);
         }
 
-        public ActionResult UserInfo(int? id)
+        public ActionResult UserInfo()
         {
             var model = new UserDao().GetListUserById(UserSingleTon.Instance.User.ID);
-            if (id.HasValue)
-            {
-                ViewBag.Message = "Old password is not correct";
-            }
-            if (id==1)
-            {
-                ViewBag.Message = "Success";
-            }
             return View(model);
         
         }
         [HttpPost]
-        public JsonResult CheckDuplicateUsername(string uName)
+        public ActionResult CheckDuplicateUsername(string uName)
         {
-            /*
+
             var query = new UserDao().GetListUser();
             if (query.Exists(x => x.username == uName))
             {
                 return Json("true");
-            }*/
-            return Json("true");
-        }
-
-        public ActionResult UpdatePassword(string oldPass, string newPass)      // cap nhat pass cua user
-        {
-            // chua kiem tra mat khau cu co trung khop khong
-
-
-            User user = new UserDao().GetUserById(UserSingleTon.Instance.User.ID);
-            if (user.password == oldPass)
-            {
-                user.password = newPass;    //ma hoa
-                new UserDao().Update(user);
-                return RedirectToAction("UserInfo",new { id = 1 });
             }
-            return RedirectToAction("UserInfo",new { id=-1 });
+            return Json("false");
         }
 
-        public JsonResult CheckOldPass(string uPass)
+        public ActionResult UpdatePassword(string newPass)      // cap nhat pass cua user
+        {
+            User user = new UserDao().GetUserById(UserSingleTon.Instance.User.ID);
+            user.password = newPass;    //chua ma hoa
+            new UserDao().Update(user);
+            return RedirectToAction("UserInfo");
+        }
+
+        [HttpPost]
+        public ActionResult CheckOldPass(string uPass)            // ajax chua chay duoc
         {
             User user = new UserDao().GetListUserById(UserSingleTon.Instance.User.ID).SingleOrDefault();
             if (user.password!=uPass)
@@ -248,6 +240,12 @@ namespace LaptopShop.Controllers
         {
             var model = new OrderDao().getOrderDetail(id);
             return View(model);
+        }
+
+        public ActionResult ViewOrderDetailUsingAjax(int id)    /// chua sai duoc cai nay (popup tai cho)
+        {
+            var model = new OrderDao().getOrderDetailById(id);
+            return Json(model);
         }
 
         [ChildActionOnly]

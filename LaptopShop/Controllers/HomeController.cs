@@ -20,15 +20,6 @@ namespace LaptopShop.Controllers
             ViewBag.CategoryProduct = new CatalogDao().getListCatalog();
             return View();
         }
-        public ActionResult Index_signin()
-        {
-            ViewBag.LaptopProducts = dao.getListProductLaptop(3);
-            ViewBag.MouseProducts = dao.getListProductMouse(3);
-            ViewBag.SpeakerProducts = dao.getListProductSpeaker(3);
-            ViewBag.BrandProducts = dao.getListBrandProductLaptop();
-            ViewBag.CategoryProduct = new CatalogDao().getListCatalog();
-            return View();
-        }
 
         [ChildActionOnly] 
         public PartialViewResult ProductCategory()

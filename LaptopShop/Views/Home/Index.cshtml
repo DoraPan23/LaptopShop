@@ -166,7 +166,7 @@
                                 <span class="txtQuantity" data-id="@item.ID" hidden></span>
                                 
                                 <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                    <a href="http://localhost:14787/Cart/Add?id=@item.ID&quantity=1"><input type="submit" name="submit" value="Add to cart" onclick="" class="button"></a>
+                                    <a onclick="return checkAmount(@item.ID)"><input type="submit" name="submit" value="Add to cart" onclick="" class="button"></a>
                                 </div>
                             </div>
                         </div>
@@ -190,7 +190,7 @@
             <!-- //second section (nuts special) -->
             <!-- third section (speaker) -->
             <div class="product-sec1">
-                <h3 class="heading-tittle">HeadPhone</h3>
+                <h3 class="heading-tittle">Speaker</h3>
                 @foreach (var item in SpeakerProducts)
                 {
                     <div class="col-md-4 product-men">
@@ -219,7 +219,7 @@
                                     <del>@(item.Discount != 0 ? item.Price.ToString() : "")</del>
                                 </div>
                                 <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                    <a href="http://localhost:14787/Cart/Add?id=@item.ID&quantity=1"><input type="submit" name="submit" value="Add to cart" onclick="" class="button"></a>
+                                    <a onclick="return checkAmount(@item.ID)"><input type="submit" name="submit" value="Add to cart" onclick="" class="button"></a>
                                 </div>
 
                             </div>
@@ -258,7 +258,7 @@
                                 <del>@(item.Discount!= 0? item.Price.ToString() : "")</del>
                             </div>
                             <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                <a href="http://localhost:14787/Cart/Add?id=@item.ID&quantity=1"><input type="submit" name="submit" value="Add to cart" onclick="" class="button"></a>
+                                <a onclick="return checkAmount(@item.ID)"><input type="submit" name="submit" value="Add to cart" onclick="" class="button"></a>
                             </div>
 
                         </div>
@@ -272,3 +272,4 @@
     </div>
     <!-- //product right -->
 </div>
+

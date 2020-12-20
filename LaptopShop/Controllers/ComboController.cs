@@ -18,5 +18,7 @@ namespace LaptopShop.Controllers
             var model = cbDao.getListCombo();
             return View(model);
         }
+
+        
     }
 }
