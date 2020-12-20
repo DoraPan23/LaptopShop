@@ -62,7 +62,24 @@ namespace LaptopShop.Models
             }
             return list;
         }
-
+        public bool UpdateQuantity(Product product)
+        {
+            try
+            {
+                var updateQuantity = db.Product.Find(product.ID);
+                updateQuantity.Amount = product.Amount;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public Product getItemById(int id)
+        {
+            return db.Product.Where(x => x.ID == id).SingleOrDefault();
+        }
         public List<Product> getListProductByKeyword(string keyword,int range, ref double totalRecord, int page, int pageSize)
         {
             totalRecord = db.Product.Where(x => x.Product_Name.Contains(keyword)).Count();
@@ -186,10 +203,8 @@ namespace LaptopShop.Models
         }
 
         public int inStockFromProduct(int id)
-        {
-            var product = from p in db.Product
-                          where p.Amount == 1 select p;       // ham bi sai  --// ham get soluong tonkho cua sp 
-            int amount = product.SingleOrDefault().Amount;
+        {     
+            int amount = db.Product.Where(x=>x.ID==id).SingleOrDefault().Amount;
             return amount;
         }
         public string getNameById(int id)

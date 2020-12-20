@@ -25,6 +25,11 @@ namespace LaptopShop.Models.Dao
             return db.User.SingleOrDefault(x => x.username == userName);
             //return db.User.Where(x => x.username == username).SingleOrDefault();
         }
+        public List<User> GetListUser()
+        {
+            return db.User.ToList();
+            //return db.User.Where(x => x.username == username).SingleOrDefault();
+        }
 
         public List<User> GetListUserById(int id)
         {

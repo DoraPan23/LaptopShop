@@ -33,9 +33,12 @@ namespace LaptopShop.Controllers
             Cart cart = new Cart();
             if (list.Exists(x => x.Product_Id == id))
             {
-
                 cart = cartDao.getItemByIdProduct(id);
                 cart.Quantity = cart.Quantity + 1;
+                //if(new ProductDao().inStockFromProduct(id) < cart.Quantity)
+                //{
+
+                //}
                 cartDao.UpdateQuantity(cart);
             }
             else

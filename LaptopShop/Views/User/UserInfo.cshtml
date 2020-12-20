@@ -5,7 +5,7 @@
 }
 
 
-<div class="privacy">
+<div class="privacy" onload="checkOldPass()">
     <div class="container">
         <!-- tittle heading -->
         <h3 class="tittle-w3l">
@@ -16,9 +16,13 @@
                 <i></i>
             </span>
         </h3>
+        @if (ViewBag.Message != "")
+        {
+            <h5>@ViewBag.Message </h5>
+        }
         <div class="checkout-right-basket">
             <div class="address_form_agile">
-                
+
                 <div class="col-md-7">
                     <table class="table table-bordered">
 
@@ -42,15 +46,17 @@
                             </tr>
 
                         }
-                        <td><input type="button" value="Change password" onclick="openForm()"/></td>
+                        <td><input type="button" value="Change password" onclick="openForm()" /></td>
                     </table>
                 </div>
                 <div class="creditly-wrapper wthree, w3_agileits_wrapper col-md-5" style="display:none" id="formChangePassword">
                     <h4>Add a new Password</h4>
+
+
                     <div class="information-wrapper">
                         <div class="first-row ">
                             <div class="controls">
-                                <input class="billing-address-name" type="password" name="name" placeholder="Old password" required="">
+                                <input class="billing-address-name" type="password" name="name" id="passwordOld" placeholder="Old password" required="">
                             </div>
                             <div class="controls">
                                 <input class="billing-address-name" type="password" name="passwordNew1" id="passwordNew1" placeholder="New password" required="">
@@ -60,13 +66,13 @@
                             </div>
                             <div class="clear"> </div>
                         </div>
-                        <button class="submit check_out" onclick="return validateChangePass()">Delivery to this Address</button>
+                        <button class="submit check_out" onclick="return validateChangePass()">Update new password</button>
                     </div>
                 </div>
             </div>
             <div class="clearfix"> </div>
         </div>
-        
+
 
     </div>
 </div>
@@ -77,12 +83,50 @@
     }
 
     function validateChangePass() {
+        var pass = document.getElementById("passwordOld").value;
+        alert(pass);
+        $.ajax({
+            url: "/Home/User/CheckOldPass",
+            dataType: "json",
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ uPass: passwordOld }),
+            async: true,
+            processData: false,
+            cache: false,
+            success: function (data) {
+                if (data == "true") {
+                    alert("The old password is not correct");
+                    $("#passwordOld").focus();
+                    return false;
+                }
+            },
+            error: function (er) {
+                alert("Lỗi ajax");
+            }
+        });
         var pass1 = document.getElementById("passwordNew1").value;
         var pass2 = document.getElementById("passwordNew2").value;
+        if (pass1.length < 6) {
+            alert("Password requirement must at least 6 characters");
+            return false;
+        }
         if (pass1 != pass2) {
             alert("Password confirm is not match");
             return false;
         }
-        location = "http://localhost:14787/User/UpdatePassword?newPass=" + pass1;
+        location = "http://localhost:14787/User/UpdatePassword?oldPass=" + pass +"&newPass=" + pass1;
+    }
+</script>
+
+<script>
+    function checkOldPass() {
+        var url = window.location.href;
+        var input = url.substring(url.length - 13);
+        alert(input);
+        //if (input == "/Home/Index/2") {
+        //    alert("Username or password is incorrect!");
+        //}
+
     }
 </script>

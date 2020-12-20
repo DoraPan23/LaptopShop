@@ -9,36 +9,19 @@
 
 <div class="privacy">
     <div class="container">
+        <h3 class="tittle-w3l">
+            Order
+            <span class="heading-style">
+                <i ></i>
+                <i></i>
+                <i></i>
+            </span>
+        </h3>
         <div class="checkout-right-basket">
             <div class="address_form_agile">
-                <h4>Add a new Details</h4>
-                @*<form action="payment.html" method="post" class="creditly-card-form agileinfo_form col-md-5">*@
-                @using (Html.BeginForm("AddOrder", "User", FormMethod.Post))
-                {
-                    <div class="creditly-wrapper wthree, w3_agileits_wrapper col-md-5">
-                        <div class="information-wrapper">
-                            <div class="first-row ">
-                                <div class="controls">
-                                    @*<input class="billing-address-name" type="text" name="name" placeholder="Full Name" required="">*@
-                                    @Html.TextBox("receiver", "", new { @placeholder = "Receiver" })
-                                </div>
-                                <div class="controls">
-                                    @*<input type="text" placeholder="Mobile Number" name="number" required="">*@
-                                    @Html.TextBox("mobile numeber", "", new { @placeholder = "Mobile Name", @name = "number" })
-                                </div>
-                                <div class="controls">
-                                    @*<input type="text" placeholder="Landmark" name="landmark" required="">*@
-                                    @Html.TextBox("address", "", new { @placeholder = "Address", @name = "address" })
-                                </div>
-                                <div class="clear"> </div>
-                            </div>
-                            <button class="submit check_out" type="submit">Delivery to this Address</button>
-                        </div>
-                    </div>
-                }
 
                 @*</form>*@
-                <div class="col-md-7">
+                <div class="col-md-12">
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -52,12 +35,12 @@
                             @foreach (var item in CartUser)
                             {
                                 total = total + (item.Price * item.Quantity);
-                            <tr>
-                                <td>@stt</td>
-                                <td> @item.ProductName</td>
-                                <td> @item.Quantity</td>
-                                <td>@item.Price</td>
-                            </tr>
+                                <tr>
+                                    <td>@stt</td>
+                                    <td> @item.ProductName</td>
+                                    <td> @item.Quantity</td>
+                                    <td>@item.Price</td>
+                                </tr>
                                 stt = stt + 1;
                             }
 
@@ -69,7 +52,7 @@
                         </tbody>
                     </table>
                 </div>
-
+                <button class="submit check_out" type="submit" onclick="javascript:location.href='http://localhost:14787/User/AddOrder'">Delivery to this Address</button>
             </div>
             <div class="clearfix"> </div>
         </div>
