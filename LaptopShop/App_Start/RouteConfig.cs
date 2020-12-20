@@ -19,16 +19,6 @@ namespace LaptopShop
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
 
-            routes.MapRoute(
-                name: "CheckDuplicateUserName",
-                url: "Home/User/CheckDuplicate",
-                defaults: new { controller = "User", action = "CheckDuplicateUsername", id = UrlParameter.Optional }
-            );
-            routes.MapRoute(
-                name: "ChecOldPass",
-                url: "Home/User/CheckOldPass",
-                defaults: new { controller = "User", action = "CheckOldPass", id = UrlParameter.Optional }
-            );
         }
     }
 }

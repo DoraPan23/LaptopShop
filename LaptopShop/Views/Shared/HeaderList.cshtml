@@ -153,9 +153,9 @@
                             @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
                         </div>
                         <p>
-                            <a href="#" onclick=" return checkValidate9000()">By clicking register, I agree to your terms</a>
+                            <a href="#" >By clicking register, I agree to your terms</a>
                         </p>
-                        <input type="submit"  value="Sign Up" >    @*return kiemtra là nó bằng true kia nó ms chạy*@
+                        <input type="submit" onclick=" return checkValidate9000()"  value="Sign Up" >    @*return kiemtra là nó bằng true kia nó ms chạy*@
                     }
                 </div>
             </div>

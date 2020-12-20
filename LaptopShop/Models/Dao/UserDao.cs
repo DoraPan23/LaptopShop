@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -81,6 +82,7 @@ namespace LaptopShop.Models.Dao
             }
             else
             {
+                password= Utils.EncryptString( password,Utils.passEncode);
                 if (result.password == password)
                 {
                     if (result.isDisable == false)

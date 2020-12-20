@@ -16,10 +16,6 @@
                 <i></i>
             </span>
         </h3>
-        @if (ViewBag.Message != "")
-        {
-            <h5>@ViewBag.Message </h5>
-        }
         <div class="checkout-right-basket">
             <div class="address_form_agile">
 
@@ -84,20 +80,18 @@
 
     function validateChangePass() {
         var pass = document.getElementById("passwordOld").value;
-        alert(pass);
         $.ajax({
-            url: "/Home/User/CheckOldPass",
+            url: "/User/CheckOldPass",
             dataType: "json",
             type: "POST",
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify({ uPass: passwordOld }),
+            data: JSON.stringify({ uPass: pass }),
             async: true,
             processData: false,
             cache: false,
             success: function (data) {
                 if (data == "true") {
                     alert("The old password is not correct");
-                    $("#passwordOld").focus();
                     return false;
                 }
             },
@@ -115,7 +109,8 @@
             alert("Password confirm is not match");
             return false;
         }
-        location = "http://localhost:14787/User/UpdatePassword?oldPass=" + pass +"&newPass=" + pass1;
+
+        location = "http://localhost:14787/User/UpdatePassword?newPass=" + pass1;
     }
 </script>
 

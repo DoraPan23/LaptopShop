@@ -113,7 +113,7 @@
                                             <del>@(item.Discount != 0 ? item.Price.ToString() : "")</del>
                                         </div>
                                         <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                            <a href="http://localhost:14787/Cart/Add?id=@item.ID&quantity=1"><input type="submit" name="submit" value="Add to cart" onclick="" class="button"></a>
+                                            <a onclick="return checkAmount(@item.ID)"><input type="submit" name="submit" value="Add to cart" onclick="" class="button"></a>
                                         </div>
 
                                     </div>
