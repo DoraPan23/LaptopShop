@@ -157,7 +157,7 @@ namespace LaptopShop.Models.Dao
         public List<Cart> getListCart()
         {
             var model= db.Cart.Where(x => x.User_Id == null).ToList();
-            if (UserSingleTon.Instance.User.ID > 0)
+            if (UserSingleTon.Instance.User != null && UserSingleTon.Instance.User.ID > 0)
             {
                 model = db.Cart.Where(x=>x.User_Id== UserSingleTon.Instance.User.ID).ToList();
             }
