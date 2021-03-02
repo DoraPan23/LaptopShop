@@ -30,14 +30,14 @@
                     <div class="flex-viewport" style="overflow: hidden; position: relative;">
                         <ul class="slides" style="width: 1000%; transition-duration: 0s; transform: translate3d(-436px, 0px, 0px);">
                             
-                            <li data-thumb="@(Url.Content(ProductDetail.Image))" class="" style="width: 436px; float: left; display: block;">
+                            <li data-thumb="~/Assets/Layout2/@(Url.Content(ProductDetail.Image))" class="" style="width: 436px; float: left; display: block;">
                                 <div class="thumb-image">
-                                    <img src="@(Url.Content(ProductDetail.Image))" data-imagezoom="true" class="img-responsive" alt="" draggable="false">
+                                    <img src="~/Assets/Layout2/@(Url.Content(ProductDetail.Image))" data-imagezoom="true" class="img-responsive" alt="" draggable="false">
                                 </div>
                             </li>
-                            <li data-thumb="@(Url.Content(ProductDetail.Image))" style="width: 436px; float: left; display: block;" class="clone" aria-hidden="true">
+                            <li data-thumb="~/Assets/Layout2/@(Url.Content(ProductDetail.Image))" style="width: 436px; float: left; display: block;" class="clone" aria-hidden="true">
                                 <div class="thumb-image">
-                                    <img src="@(Url.Content(ProductDetail.Image))" data-imagezoom="true" class="img-responsive" alt="" draggable="false">
+                                    <img src="~/Assets/Layout2/@(Url.Content(ProductDetail.Image))" data-imagezoom="true" class="img-responsive" alt="" draggable="false">
                                 </div>
                             </li>
                         </ul>
@@ -145,7 +145,7 @@
                                 <div class="w3l-specilamk">
                                     <div class="speioffer-agile">
                                         <a href="http://localhost:14787/Product/DetailProduct/@item.ID">
-                                            <img src="@(Url.Content(item.Image))" width="150px" height="150px" alt="@item.Product_Name">
+                                            <img src="~/Assets/Layout2/@(Url.Content(item.Image))" width="150px" height="150px" alt="@item.Product_Name">
                                         </a>
                                     </div>
                                     <div class="product-name-w3l">
