@@ -25,7 +25,7 @@ namespace LaptopShop.Models.Dao
 
         public int CheckAmountCombo(Combo combo)
         {
-            int amount = 1000;
+            int amount = 1000000;
             string[] data = combo.Product_List.Split(new string[] { ";" }, StringSplitOptions.None);
             foreach (string item in data)
             {
@@ -60,7 +60,7 @@ namespace LaptopShop.Models.Dao
         }
         public List<ComboFormatDao> getItemById(int id)
         {
-            int amount = 1000;      // so luong cua combo phu thuoc vao sp trong cb co soluong thap nhat
+            int amount = 1000000;      // so luong cua combo phu thuoc vao sp trong cb co soluong thap nhat
             List<int> idProduct = new List<int>();
             List<string> nameProduct = new List<string>();
             List<double> priceProduct = new List<double>();
