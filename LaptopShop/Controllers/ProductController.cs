@@ -217,5 +217,11 @@ namespace LaptopShop.Controllers
             var model = new CatalogDao().getListCatalog();
             return PartialView(model);
         }
+
+        public PartialViewResult newFunction02()
+        {
+            var model = new CatalogDao().getListCatalog();
+            return PartialView(model);
+        }
     }
 }
