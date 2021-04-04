@@ -1,0 +1,165 @@
+﻿@model LaptopShop.Models.User
+@{
+    string userName = ViewBag.UserName;
+    string loginFalse = ViewBag.Message;
+}
+
+<ul>
+    <li>
+        <a class="play-icon popup-with-zoom-anim" href="#">
+            <span class="fa fa-map-marker" aria-hidden="true"></span> Shop Locator
+        </a>
+    </li>
+    <li>
+        <span class="fa fa-phone" aria-hidden="true"></span> 001 234 5678
+    </li>
+    @if (!userName.IsEmpty())
+    {
+        <li>
+            <a href="http://localhost:14787/User/ViewOrder">
+                <span class="fa fa-truck" aria-hidden="true"></span>Track Order
+            </a>
+        </li>
+        <li>
+            <a href="http://localhost:14787/User/UserInfo">
+                <span class="fa fa-unlock-alt" aria-hidden="true"></span>Welcome: @userName
+            </a>
+        </li>
+        <li>
+            <a href="http://localhost:14787/User/SignOut">
+                <span class="fa fa-pencil-square-o" aria-hidden="true"></span> Logout
+            </a>
+        </li>
+    }
+    else
+    {
+        <li>
+            <a href="#" data-toggle="modal" data-target="#myModal1">
+                <span class="fa fa-unlock-alt" aria-hidden="true"></span> Sign In
+            </a>
+        </li>
+        <li>
+            <a href="#" data-toggle="modal" data-target="#myModal2">
+                <span class="fa fa-pencil-square-o" aria-hidden="true"></span> Sign Up
+            </a>
+        </li>
+    }
+</ul>
+
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body modal-body-sub_agile">
+                <div class="main-mailposi">
+                    <span class="fa fa-envelope-o" aria-hidden="true"></span>
+                </div>
+                <div class="modal_body_left modal_body_left1">
+                    <h3 class="agileinfo_sign">Sign In </h3>
+                    <p>
+                        Sign In now, Let's start your Grocery Shopping. Don't have an account?
+                        <a href="#" data-toggle="modal" data-target="#myModal2">
+                            Sign Up Now
+                        </a>
+                    </p>
+                    @*<form action="#" method="post">*@
+                    @using (Html.BeginForm("Login", "User", FormMethod.Post))   // này là form đăng nhập
+                    {
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" });
+                        <div class="styled-input agile-styled-input-top">
+                            @*<input type="text" placeholder="User Name" name="Name" required="">*@
+                            @Html.TextBoxFor(model => model.username, new { @placeholder = "User Name", @name = "Name", @autofocus ="autofocus", @required = "" })
+                            @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="styled-input">
+                            @*<input type="password" placeholder="Password" name="password" required="">*@
+                            @Html.PasswordFor(model => model.password, new { @placeholder = "Password", @name = "password", @required = "" })
+                            @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                        </div>
+                        <input type="submit" id="check" value="Sign In">
+                    }
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <!-- //Modal content-->
+    </div>
+</div>
+
+
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body modal-body-sub_agile">
+                <div class="main-mailposi">
+                    <span class="fa fa-envelope-o" aria-hidden="true"></span>
+                </div>
+                <div class="modal_body_left modal_body_left1">
+                    <h3 class="agileinfo_sign">Sign Up</h3>
+                    <p>
+                        Come join the Grocery Shoppy! Let's set up your Account.
+                    </p>
+                    @using (Html.BeginForm("Create", "User", FormMethod.Post))  // này là form dăng ký
+                    {
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" });
+                        <div class="styled-input agile-styled-input-top">
+                            @*<input type="text" placeholder="Name" name="Name" required="">*@ 
+                            @Html.TextBoxFor(model => model.username, new { @placeholder = "User Name", @name = "Name", @id="signup_username" , @required=""}) @*xét lại id thì dùng cái này mà có gì chạy lại xem thử ,khi thay đổi id rồi cái form còn đăng ký được k tại bên controller sẽ get sai id*@ 
+                            @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="styled-input">
+                            <input type="password" placeholder="Password" name="password" id="password1" required="">
+                            @*@Html.PasswordFor(model => model.password, new { @placeholder = "Password", @name = "password", @id = "password1" })*@
+                            @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="styled-input">
+                            <input type="password" placeholder="Confirm Password" name="Confirm Password" id="password2" required="">
+                            @*@Html.PasswordFor(model => model.password, new { @placeholder = "Confirm Password", @name = "Confirm Password", @id = "password2" })*@
+                            @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="styled-input agile-styled-input-top">
+                            @Html.TextBoxFor(model => model.firstName, new { @placeholder = "First Name", @name = "firstname", @required="" ,@id="signup_firstname"})
+                            @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="styled-input agile-styled-input-top">
+                            @Html.TextBoxFor(model => model.lastName, new { @placeholder = "Last Name", @name = "lastname", @required = "", @id = "signup_lastname" })
+                            @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="styled-input">
+                            <input type="radio" name="gender" value="Male" checked />Male
+                            <input type="radio" name="gender" value="Female" />Female
+                        </div>
+                        <br />
+                        <div class="styled-input agile-styled-input-top">
+                            Birth Day&emsp;<input type="date" name="birth" id="signup_birth" />
+                            @Html.ValidationMessageFor(model => model.birthDate, "", new { @class = "text-danger" })
+                        </div>
+                        <br />
+                        <div class="styled-input agile-styled-input-top">
+                            @Html.TextBoxFor(model => model.address, new { @placeholder = "Address", @name = "address",@id="signup_address"  })
+                            @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+                        </div>
+                        <p>
+                            <a href="#" onclick=" return checkValidate9000()">By clicking register, I agree to your terms</a>
+                        </p>
+                        <input type="submit"  value="Sign Up" >    @*return kiemtra là nó bằng true kia nó ms chạy*@
+                    }
+                </div>
+            </div>
+        </div>
+        <!-- //Modal content-->
+    </div>
+</div>

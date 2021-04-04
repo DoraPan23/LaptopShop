@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+
+<div class="welcome">
+    <div class="container">
+        <!-- tittle heading -->
+        <h3 class="tittle-w3l">
+            Welcome to our Site
+            <span class="heading-style">
+                <i></i>
+                <i></i>
+                <i></i>
+            </span>
+        </h3>
+        <!-- //tittle heading -->
+        @foreach (var item in Model)
+        {
+            <div class="ads-grid">
+                
+                    <div class="col-sm-6 col-xs-6 welcome-grids">
+                        <div class="welcome-img">
+                            <a href="http://localhost:14787/Product/DetailCombo/@item.ID"><img src="@item.Image" class="img-responsive zoom-img" alt="@item.Image"></a>
+                        </div>
+                    </div>
+                    @*<div class="col-sm-6 col-xs-6 welcome-grids">
+                <div class="welcome-img">
+                    <img src="images/about2.jpg" class="img-responsive zoom-img" alt="">
+                </div>
+            </div>*@
+                <div class="col-sm-6 col-xs-6 welcome-grids">
+                    <a href="http://localhost:14787/Product/DetailCombo/@item.ID"><h5 class="tittle-w3l">@item.Combo_Name</h5></a>
+                        <p>
+                            Start date: @item.startDate   <br />
+                            End date  : @item.endDate
+                        </p>
+                        <p>
+                            Nam libero tempore cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus
+                            omnis optio cumque nihil impedit quo minus id quod maxime placeat facere possimus.Sed ut perspiciatis unde omnis iste
+                            natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis
+                            et quasi architecto beatae vitae
+                        </p>
+</div>
+                    @*<div class="clearfix"> </div>*@
+            </div>
+
+            
+
+            <div class="clearfix"> </div>
+            <div class="clearfix"> </div>
+            <div class="clearfix"> </div>
+        }
+        
+        
+    </div>
+</div>
