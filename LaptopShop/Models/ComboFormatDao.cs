@@ -15,7 +15,8 @@ namespace LaptopShop.Models
         double productPrice;
         DateTime startDate;
         DateTime endDate;
-
+        int amount;
+        string image;
         public string ComboName
         {
             get
@@ -117,6 +118,32 @@ namespace LaptopShop.Models
             set
             {
                 comboId = value;
+            }
+        }
+
+        public string Image
+        {
+            get
+            {
+                return image;
+            }
+
+            set
+            {
+                image = value;
+            }
+        }
+
+        public int Amount
+        {
+            get
+            {
+                return amount;
+            }
+
+            set
+            {
+                amount = value;
             }
         }
     }

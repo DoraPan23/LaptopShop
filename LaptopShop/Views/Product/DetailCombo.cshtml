@@ -24,21 +24,21 @@
                 <div class="flexslider">
 
                     <div class="clearfix"></div>
-                    @*<div class="flex-viewport" style="overflow: hidden; position: relative;">
+                    <div class="flex-viewport" style="overflow: hidden; position: relative;">
                         <ul class="slides" style="width: 1000%; transition-duration: 0s; transform: translate3d(-436px, 0px, 0px);">
 
-                            <li data-thumb="@(Url.Content(ProductCombo.Image))" class="" style="width: 436px; float: left; display: block;">
+                            <li data-thumb="~/Assets/Layout2/@(Url.Content(ProductCombo[0].Image))" class="" style="width: 436px; float: left; display: block;">
                                 <div class="thumb-image">
-                                    <img src="@(Url.Content(ProductCombo.Image))" data-imagezoom="true" class="img-responsive" alt="" draggable="false">
+                                    <img src="~/Assets/Layout2/@(Url.Content(ProductCombo[0].Image))" data-imagezoom="true" class="img-responsive" alt="" draggable="false">
                                 </div>
                             </li>
-                            <li data-thumb="@(Url.Content(ProductCombo.Image))" style="width: 436px; float: left; display: block;" class="clone" aria-hidden="true">
+                            <li data-thumb="~/Assets/Layout2/@(Url.Content(ProductCombo[0].Image))" style="width: 436px; float: left; display: block;" class="clone" aria-hidden="true">
                                 <div class="thumb-image">
-                                    <img src="@(Url.Content(ProductCombo.Image))" data-imagezoom="true" class="img-responsive" alt="" draggable="false">
+                                    <img src="~/Assets/Layout2/@(Url.Content(ProductCombo[0].Image))" data-imagezoom="true" class="img-responsive" alt="" draggable="false">
                                 </div>
                             </li>
                         </ul>
-                    </div>*@
+                    </div>
                 </div>
             </div>
         </div>
@@ -59,8 +59,8 @@
                 </span>
             </div>
             <p>
-                
-                @foreach(var item in ProductCombo)
+
+                @foreach (var item in ProductCombo)
                 {
                     total = total + item.ProductPrice;
                 }
@@ -75,7 +75,7 @@
                         Discount @(ProductCombo[0].Discount)%
                     </li>
                     <li>
-                        Cash on Delivery Eligible.  
+                        Cash on Delivery Eligible.
                     </li>
                     <li>
                         Shipping Speed to Delivery.
@@ -100,27 +100,51 @@
                     <label>returnable.</label>
                 </p>
             </div>
-            <div class="occasion-cart">
-                <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                    <form action="@Url.Action("AddCombo","Cart",new {id=ProductCombo[0].ComboId,quantity=1 })" method="post">
-                        <fieldset>
-                            <input type="hidden" name="cmd" value="_cart" />
-                            <input type="hidden" name="add" value="1" />
-                            <input type="hidden" name="business" value=" " />
-                            <input type="hidden" name="item_name" value="@ProductCombo[0].ProductName" />
-                            <input type="hidden" name="amount" value="@ProductCombo[0].ProductPrice" />
-                            <input type="hidden" name="discount_amount" value="" />
-                            <input type="hidden" name="currency_code" value="VND" />
-                            <input type="hidden" name="return" value=" " />
-                            <input type="hidden" name="cancel_return" value=" " />
-                            <input type="submit" name="submit" value="Add to cart" class="button" />
-                        </fieldset>
-                    </form>
-                </div>
+            @if (ProductCombo[0].Amount > 0)
+            {
+                <div class="occasion-cart">
+                    <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+                        <a><input type="submit" name="submit" value="Add to cart" onclick="return checkAmountCombo(@ProductCombo[0].ComboId)" class="button"></a>
+                    </div>
 
-            </div>
+                </div>
+            }
+            else
+            {
+                <p>
+                    <i class="fa fa-refresh" aria-hidden="true"></i>This Combo are
+                    <label>Out of stock</label>
+                </p>
+            }
 
         </div>
         <div class="clearfix"> </div>
     </div>
 </div>
+
+<script>
+    function checkAmountCombo(id) {
+        $.ajax({
+            url: "/Cart/CheckAmountCombo",
+            dataType: "json",
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ id: id}),
+            async: true,
+            processData: false,
+            cache: false,
+            success: function (data) {
+                if (data == "true") {
+                    alert("This Combo is out of stock, please try a different one");
+                    return false;
+                }
+                else {
+                    location.href = "http://localhost:14787/Cart/AddCombo?id=@ProductCombo[0].ComboId&quantity=1";
+                }
+            },
+            error: function (er) {
+                alert("Lỗi ajax");
+            }
+        });
+    }
+</script>

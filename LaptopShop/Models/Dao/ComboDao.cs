@@ -18,8 +18,49 @@ namespace LaptopShop.Models.Dao
             return db.Combo.ToList();
         }
 
+        public Combo getItemyById(int id)
+        {
+            return db.Combo.Where(x=>x.ID==id).SingleOrDefault();
+        }
+
+        public int CheckAmountCombo(Combo combo)
+        {
+            int amount = 1000000;
+            string[] data = combo.Product_List.Split(new string[] { ";" }, StringSplitOptions.None);
+            foreach (string item in data)
+            {
+                Product product = new ProductDao().getItemById(Convert.ToInt32(item));
+                if (amount > product.Amount)
+                {
+                    amount = product.Amount;
+                }
+            }
+            return amount;
+        }
+
+        public void updateAmount(Combo combo, int quantity)
+        {
+            string[] data = combo.Product_List.Split(new string[] { ";" }, StringSplitOptions.None);
+            foreach (string item in data)
+            {
+                Product product = new ProductDao().getItemById(Convert.ToInt32(item));
+                product.Amount = product.Amount - quantity;
+                new ProductDao().UpdateQuantity(product);
+            }
+        }
+        public void updateAmountByCancell(Combo combo,int quantity)
+        {
+            string[] data = combo.Product_List.Split(new string[] { ";" }, StringSplitOptions.None);
+            foreach (string item in data)
+            {
+                Product product = new ProductDao().getItemById(Convert.ToInt32(item));
+                product.Amount = product.Amount + quantity;
+                new ProductDao().UpdateQuantity(product);
+            }
+        }
         public List<ComboFormatDao> getItemById(int id)
         {
+            int amount = 1000000;      // so luong cua combo phu thuoc vao sp trong cb co soluong thap nhat
             List<int> idProduct = new List<int>();
             List<string> nameProduct = new List<string>();
             List<double> priceProduct = new List<double>();
@@ -34,6 +75,10 @@ namespace LaptopShop.Models.Dao
                     {
                         nameProduct.Add(product.Product_Name);
                         idProduct.Add(product.ID);
+                        if (product.Amount < amount)
+                        {
+                            amount = product.Amount;
+                        }
                         if (product.Discount != null)
                         {
                             priceProduct.Add(Decimal.ToDouble((decimal)product.Price)-Convert.ToDouble(Decimal.ToDouble((decimal)product.Price) * product.Discount/100));
@@ -57,7 +102,9 @@ namespace LaptopShop.Models.Dao
                 cb.ProductName = nameProduct[i];
                 cb.StartDate = query.startDate;
                 cb.EndDate = query.endDate;
+                cb.Amount = amount;
                 cb.ProductPrice = priceProduct[i];
+                cb.Image = query.Image;
                 list.Add(cb);
             }
             return list;

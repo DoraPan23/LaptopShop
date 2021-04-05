@@ -11,15 +11,13 @@ namespace LaptopShop.Models
     {
         public int ID { get; set; }
 
-        public int? Cart_Id { get; set; }
-
         [Column(TypeName = "date")]
         public DateTime? Date { get; set; }
 
         public double? Total_Price { get; set; }
 
-        public int? Customer_Id { get; set; }
+        public int? User_Id { get; set; }
 
-        public bool? Status { get; set; }
+        public int? Status { get; set; }
     }
 }

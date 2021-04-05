@@ -1,0 +1,198 @@
+﻿
+@{
+    ViewBag.Title = "ViewOrder";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+    var stt = 1;
+    double total = 0;
+    var userInfo = ViewBag.UserInfo;
+    var orderDetail =  ViewBag.OrderDetail;
+    var orderDetailId = ViewBag.OrderDetail;
+
+    string status = "";
+}
+
+
+<div class="privacy">
+    <div class="container">
+        <!-- tittle heading -->
+        <h3 class="tittle-w3l">
+            Your order
+            <span class="heading-style">
+                <i></i>
+                <i></i>
+                <i></i>
+            </span>
+        </h3>
+
+        <!-- //tittle heading -->
+        <div class="checkout-right">
+            @if (Model.Count > 0)
+            {
+                <div class="table-responsive">
+                    <table class="timetable_sub">
+                        <thead>
+                            <tr>
+                                <th>SL No.</th>
+                                <th>Date purchase</th>
+                                <th>Total price</th>
+                                <th>Status</th>
+                                <th>#</th>
+                                <th>#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                if (item.Status == 1)
+                                {
+                                    status = "Đang xử lý đơn hàng";
+                                }
+                                else if (item.Status == 2)
+                                {
+                                    status = "Đã tiếp nhận đơn hàng";
+                                }
+                                else if (item.Status == 3)
+                                {
+                                    status = "Đã giao";
+                                }
+                                else
+                                {
+                                    status = "Đã hủy";
+                                }
+
+                                if (item.Status == 4)
+                                {
+                                    <tr id="row_@item.ID" class="rem\@stt" style="background-color:gray">
+                                        <td class="invert">@stt</td>
+                                        <td class="invert">@item.Date</td>
+                                        <td class="invert">@item.Total_Price</td>
+                                        <td class="invert">@status</td>
+                                        <td>
+                                            <input type="submit" value="More detail" class="button" onclick="javascript:location.href='http://localhost:14787/User/ViewOrderDetail/@item.ID'" />
+
+                                        </td>
+                                        <td style="width:auto">
+                                            
+                                        </td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <tr id="row_@item.ID" class="rem\@stt">
+                                        <td class="invert">@stt</td>
+                                        <td class="invert">@item.Date</td>
+                                        <td class="invert">@item.Total_Price</td>
+                                        <td class="invert">@status</td>
+
+                                        <td>
+                                            <input type="submit" value="More detail" class="button" onclick="javascript:location.href='http://localhost:14787/User/ViewOrderDetail/@item.ID'" formtarget="_blank" />
+                                            @*<input type="submit" value="More detail 2" class="button" onclick="openForm(@item.ID)" formtarget="_blank" />*@
+                                        </td>
+                                        <td>
+                                            <input type="submit" value="Cancel" class="button" onclick="return confirmCancel(@item.ID)" />
+                                        </td>
+                                    </tr>
+                                            }
+                                    total = total + item.Total_Price;
+                                    stt = stt + 1;
+                            }
+
+
+                            @*<h4>Total: @total</h4>*@
+                            </tbody>
+                        </table>
+                </div>
+            }
+            else
+            {
+                <span> You don't have any order </span>
+            }
+        </div>
+
+        <div id="PPminicartk" style="display:none">
+            <form method="post">
+                <button type="button" class="minicartk-closer" onclick="closeForm()">×</button>
+                <ul>
+                    @foreach (var item in orderDetailId)
+                    {
+                        <li class="minicartk-item">
+                            <div class="minicartk-details-name">
+                                Product name
+                                <a class="minicartk-name" href="http://localhost:14787/Product/DetailCombo/1">@item.ProductName</a>
+                                <ul class="minicartk-attributes"></ul>
+                            </div>
+                            <div class="minicartk-details-quantity">
+                                Quantity
+                                <input class="minicartk-quantity" data-minicartk-idx="0" name="quantity_1" type="text" pattern="[0-9]*" value="@item.Quantity" readonly>
+                            </div>
+                            <div class="minicartk-details-price">
+                                Price
+                                <span class="minicartk-price">@item.Price</span>
+                            </div>
+                            <input type="hidden" name="item_name_1" value="@item.ProductName">
+                            <input type="hidden" name="amount_1" value="@item.Price">
+                            <input type="hidden" name="shipping_1" value="undefined">
+                            <input type="hidden" name="shipping2_1" value="undefined">
+                        </li>
+
+                    }
+
+                </ul>
+                <div class="minicartk-footer">
+                    <div class="minicartk-subtotal">Subtotal: @total</div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    @*function popupDetail() {
+        var test = document.getElementById("popupDetail").innerHTML;
+        alert(test);
+         var s3 = ' ';
+        var popup =  s3;
+        alert(popup);
+        document.getElementById("popupDetail").innerHTML = popup;
+        var test1 = document.getElementById("popupDetail").innerHTML;
+        alert(test1);
+
+    }
+    function openForm(id) {
+        $.ajax({
+            url: "/User/ViewOrderDetailUsingAjax",
+            dataType: "json",
+            type: "POST",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ idOrder: id }),
+            async: true,
+            processData: false,
+            cache: false,
+            success: function (data) {
+                @orderDetailId == data;
+            },
+            error: function (er) {
+                alert("Lỗi ajax");
+            }
+        });
+        document.getElementById("PPminicartk").style.display = "block";
+
+    }*@
+
+    //function closeForm() {
+    //    document.getElementById("PPminicartk").style.display = "none";
+    //}
+
+
+    function confirmCancel(id) {
+        var r = confirm("Are you sure want to cancel this order?")
+        if (r == true) {
+            location = "http://localhost:14787/User/UpdateOrder/" + id;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+</script>

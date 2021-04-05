@@ -1,8 +1,4 @@
 ﻿using LaptopShop.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace LaptopShop.Controllers
@@ -11,21 +7,12 @@ namespace LaptopShop.Controllers
     {
         // GET: Home
         ProductDao dao = new ProductDao();
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
             ViewBag.LaptopProducts = dao.getListProductLaptop(3);
             ViewBag.MouseProducts  = dao.getListProductMouse(3);
             ViewBag.SpeakerProducts = dao.getListProductSpeaker(3);
             ViewBag.KeyBoardProducts = dao.getListProductKeyBoard(3);
-            ViewBag.CategoryProduct = new CatalogDao().getListCatalog();
-            return View();
-        }
-        public ActionResult Index_signin()
-        {
-            ViewBag.LaptopProducts = dao.getListProductLaptop(3);
-            ViewBag.MouseProducts = dao.getListProductMouse(3);
-            ViewBag.SpeakerProducts = dao.getListProductSpeaker(3);
-            ViewBag.BrandProducts = dao.getListBrandProductLaptop();
             ViewBag.CategoryProduct = new CatalogDao().getListCatalog();
             return View();
         }
@@ -36,7 +23,6 @@ namespace LaptopShop.Controllers
             var model = new CatalogDao().getListCatalog();
             return PartialView(model);
         }
-
 
 
         [ChildActionOnly]
