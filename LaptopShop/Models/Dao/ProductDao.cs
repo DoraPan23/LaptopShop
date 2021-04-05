@@ -13,6 +13,10 @@ namespace LaptopShop.Models
         {
             db = new LaptopShopDbContext();
         }
+        public List<Product> getListAllProduct()
+        {
+            return db.Product.ToList();
+        }
         public List<Product> getListProductLaptop(int quantity)
         {
             return db.Product.Where(x => x.Catalog_ID == 6).Take(quantity).ToList();

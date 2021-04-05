@@ -1,99 +1,98 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout2.cshtml";
-    var LaptopProducts = (List<LaptopShop.Models.Product>) ViewBag.LaptopProducts;
+    var LaptopProducts = (List<LaptopShop.Models.Product>)ViewBag.LaptopProducts;
     var ProductCategory = (List<LaptopShop.Models.Catalog>)ViewBag.CategoryProduct;
-    var SpeakerProducts= (List<LaptopShop.Models.Product>)ViewBag.SpeakerProducts;
+    var SpeakerProducts = (List<LaptopShop.Models.Product>)ViewBag.SpeakerProducts;
     var KeyBoardProducts = (List<LaptopShop.Models.Product>)ViewBag.KeyBoardProducts;
 
 }
 
-@section banner{    
-<div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <span id="message">
-        @ViewBag.Message 
-    </span>
-    <!-- Indicators-->
-    <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1" class=""></li>
-        <li data-target="#myCarousel" data-slide-to="2" class=""></li>
-        <li data-target="#myCarousel" data-slide-to="3" class=""></li>
-    </ol>
-    <div class="carousel-inner" role="listbox">
-        <div class="item active">
-            <div class="container">
-                <div class="carousel-caption">
-                    <h3>
-                        Big
-                        <span>Save</span>
-                    </h3>
-                    <p>
-                        Get flat
-                        <span>10%</span> Cashback
-                    </p>
-                    <a class="button2" href="http://localhost:14787/Product/Search?keyword=">Shop Now </a>
+@section banner{
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <span id="message">
+            @ViewBag.Message
+        </span>
+        <!-- Indicators-->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1" class=""></li>
+            <li data-target="#myCarousel" data-slide-to="2" class=""></li>
+            <li data-target="#myCarousel" data-slide-to="3" class=""></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h3>
+                            Big
+                            <span>Save</span>
+                        </h3>
+                        <p>
+                            Get flat
+                            <span>10%</span> Cashback
+                        </p>
+                        <a class="button2" href="http://localhost:14787/Product/Search?keyword=">Shop Now </a>
+                    </div>
+                </div>
+            </div>
+            <div class="item item2">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h3>
+                            Healthy
+                            <span>Saving</span>
+                        </h3>
+                        <p>
+                            Get Upto
+                            <span>30%</span> Off
+                        </p>
+                        <a class="button2" href="http://localhost:14787/Product/Search?keyword=">Shop Now </a>
+                    </div>
+                </div>
+            </div>
+            <div class="item item3">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h3>
+                            Big
+                            <span>Deal</span>
+                        </h3>
+                        <p>
+                            Get Best Offer Upto
+                            <span>20%</span>
+                        </p>
+                        <a class="button2" href="http://localhost:14787/Product/Search?keyword=">Shop Now </a>
+                    </div>
+                </div>
+            </div>
+            <div class="item item4">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h3>
+                            Today
+                            <span>Discount</span>
+                        </h3>
+                        <p>
+                            Get Now
+                            <span>40%</span> Discount
+                        </p>
+                        <a class="button2" href="http://localhost:14787/Product/Search?keyword=">Shop Now </a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="item item2">
-            <div class="container">
-                <div class="carousel-caption">
-                    <h3>
-                        Healthy
-                        <span>Saving</span>
-                    </h3>
-                    <p>
-                        Get Upto
-                        <span>30%</span> Off
-                    </p>
-                    <a class="button2" href="http://localhost:14787/Product/Search?keyword=">Shop Now </a>
-                </div>
-            </div>
-        </div>
-        <div class="item item3">
-            <div class="container">
-                <div class="carousel-caption">
-                    <h3>
-                        Big
-                        <span>Deal</span>
-                    </h3>
-                    <p>
-                        Get Best Offer Upto
-                        <span>20%</span>
-                    </p>
-                    <a class="button2" href="http://localhost:14787/Product/Search?keyword=">Shop Now </a>
-                </div>
-            </div>
-        </div>
-        <div class="item item4">
-            <div class="container">
-                <div class="carousel-caption">
-                    <h3>
-                        Today
-                        <span>Discount</span>
-                    </h3>
-                    <p>
-                        Get Now
-                        <span>40%</span> Discount
-                    </p>
-                    <a class="button2" href="http://localhost:14787/Product/Search?keyword=">Shop Now </a>
-                </div>
-            </div>
-        </div>
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
     </div>
-    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
-</div>
 }
-<div class="container" >
+<div class="container">
     <!-- tittle heading -->
     <h3 class="tittle-w3l">
         Our Top Products
@@ -110,7 +109,7 @@
             <h3 class="agileits-sear-head">Search Here..</h3>
             <form action="@Url.Action("Search","Product",new {keyword=this }) " method="get">
                 <input type="search" id="txtKeyword" placeholder="Product name..." name="keyword" required="">
-                <input type="submit" value=" " >
+                <input type="submit" value=" ">
             </form>
         </div>
         <!-- category -->
@@ -121,7 +120,7 @@
                 {
                     <li>
                         @*<input type="checkbox" class="checked">
-                        <span class="span">South American</span>*@
+                            <span class="span">South American</span>*@
                         <a href="http://localhost:14787/Product/FillByCatalog/@item.ID">@item.Catalog_Name</a>
                     </li>
                 }
@@ -148,7 +147,7 @@
                                     </div>
                                 </div>
                                 <span class="product-new-top">@(item.Discount!=0?'-'+item.Discount.Value.ToString()+'%' : "Sale")</span>
-                            </div>  
+                            </div>
                             <div class="item-info-product ">
                                 <h4>
                                     <a href="http://localhost:14787/Product/DetailProduct/@item.ID">@item.Product_Name</a>
@@ -164,7 +163,7 @@
                                     <del>@(item.Discount!=0?item.Price.ToString():"")</del>
                                 </div>
                                 <span class="txtQuantity" data-id="@item.ID" hidden></span>
-                                
+
                                 <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
                                     <a onclick="return checkAmount(@item.ID)"><input type="submit" name="submit" value="Add to cart" onclick="" class="button"></a>
                                 </div>
@@ -196,7 +195,7 @@
                     <div class="col-md-4 product-men">
                         <div class="men-pro-item simpleCart_shelfItem">
                             <div class="men-thumb-item">
-                                <img src="~/Assets/Layout2/@(Url.Content(item.Image))"width="160px" height="150px" alt="">
+                                <img src="~/Assets/Layout2/@(Url.Content(item.Image))" width="160px" height="150px" alt="">
                                 <div class="men-cart-pro">
                                     <div class="inner-men-cart-pro">
                                         <a href="http://localhost:14787/Product/DetailProduct/@item.ID" class="link-product-add-cart">Quick View</a>
@@ -232,39 +231,41 @@
             <!-- fourth section (noodles) -->
             <div class="product-sec1">
                 <h3 class="heading-tittle">KeyBoard</h3>
-               @foreach (var item in KeyBoardProducts)
-               {
-                <div class="col-md-4 product-men">
-                    <div class="men-pro-item simpleCart_shelfItem">
-                        <div class="men-thumb-item">
-                            <img src="~/Assets/Layout2/@Url.Content(item.Image)" width="160px" height="150px" alt="">
-                            <div class="men-cart-pro">
-                                <div class="inner-men-cart-pro">
-                                    <a href="http://localhost:14787/Product/DetailProduct/@item.ID" class="link-product-add-cart">Quick View</a>
+                @foreach (var item in KeyBoardProducts)
+                {
+                    <div class="col-md-4 product-men">
+                        <div class="men-pro-item simpleCart_shelfItem">
+                            <div class="men-thumb-item">
+                                <img src="~/Assets/Layout2/@Url.Content(item.Image)" width="160px" height="150px" alt="">
+                                <div class="men-cart-pro">
+                                    <div class="inner-men-cart-pro">
+                                        <a href="http://localhost:14787/Product/DetailProduct/@item.ID" class="link-product-add-cart">Quick View</a>
+                                    </div>
                                 </div>
+                                <span class="product-new-top">New</span>
                             </div>
-                            <span class="product-new-top">New</span>
-                        </div>
-                        <div class="item-info-product ">
-                            <h4>
-                                <a href="http://localhost:14787/Product/DetailProduct/@item.ID">@item.Product_Name</a>
-                            </h4>
-                            <div class="info-product-price">
-                                <span class="item_price">@(item.Discount != 0 ? Convert.ToDecimal(
+                            <div class="item-info-product ">
+                                <h4>
+                                    <a href="http://localhost:14787/Product/DetailProduct/@item.ID">@item.Product_Name</a>
+                                </h4>
+                                <div class="info-product-price">
+                                    <span class="item_price">
+                                        @(item.Discount != 0 ? Convert.ToDecimal(
                                                         Decimal.ToDouble((decimal)item.Price) -
                                                         Decimal.ToDouble((decimal)item.Price) * item.Discount / 100)
                                                         : item.Price
-                                                        )</span>
-                                <del>@(item.Discount!= 0? item.Price.ToString() : "")</del>
-                            </div>
-                            <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                                <a onclick="return checkAmount(@item.ID)"><input type="submit" name="submit" value="Add to cart" onclick="" class="button"></a>
-                            </div>
+                                                        )
+                                    </span>
+                                    <del>@(item.Discount!= 0? item.Price.ToString() : "")</del>
+                                </div>
+                                <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+                                    <a onclick="return checkAmount(@item.ID)"><input type="submit" name="submit" value="Add to cart" onclick="" class="button"></a>
+                                </div>
 
+                            </div>
                         </div>
                     </div>
-                </div>
-               }
+                }
                 <div class="clearfix"></div>
             </div>
             <!-- //fourth section (noodles) -->
@@ -272,4 +273,3 @@
     </div>
     <!-- //product right -->
 </div>
-

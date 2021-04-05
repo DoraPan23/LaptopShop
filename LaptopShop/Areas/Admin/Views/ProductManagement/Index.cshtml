@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "ListProduct";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Tên sản phẩm</th>
+                        <th>Loại</th>
+                        <th>Số lượng</th>
+                        <th>Giá</th>
+                        <th>Ảnh</th>
+                        <th>Giảm giá</th>
+                        <th>Thông tin sản phẩm</th>
+                        <th>Hãng</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Tên sản phẩm</th>
+                        <th>Loại</th>
+                        <th>Số lượng</th>
+                        <th>Giá</th>
+                        <th>Ảnh</th>
+                        <th>Giảm giá</th>
+                        <th>Thông tin sản phẩm</th>
+                        <th>Hãng</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Product_Name</td>
+                            <td>@item.Catalog_ID</td>
+                            <td>@item.Amount</td>
+                            <td>@item.Price</td>
+                            <td><img src="~/Assets/Layout2/@(Url.Content(item.Image))" width="70px" height="60px" alt="@item.Product_Name"></td>
+                            <td>@item.Discount</td>
+                            <td>@item.Detail</td>
+                            <td>@item.Brand_ID</td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+

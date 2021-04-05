@@ -40,6 +40,10 @@ namespace LaptopShop.Controllers
                     userSession.ID = user.ID;
                     Session.Add(CommonConstants.USER_SESSION, userSession);
                     new CartDao().DeleteAll();
+                    if (UserSingleTon.Instance.User.Role_ID == 1|| UserSingleTon.Instance.User.Role_ID == 2)
+                    {
+                        return RedirectToAction("Index", "Admin/Dashboard");
+                    }
                     return RedirectToAction("Index","Home", new { id = 1 });
                 }
                 else if (result == -3)  // -3 la tai khoan bi khoa
