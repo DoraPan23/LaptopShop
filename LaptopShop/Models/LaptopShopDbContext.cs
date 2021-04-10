@@ -20,6 +20,7 @@ namespace LaptopShop.Models
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Brand> Brand { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

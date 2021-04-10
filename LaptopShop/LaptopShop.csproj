@@ -232,6 +232,7 @@
     <Compile Include="Models\Dao\ComboDao.cs" />
     <Compile Include="Models\Dao\OrderDao.cs" />
     <Compile Include="Models\Dao\ProductDao.cs" />
+    <Compile Include="Models\Dao\RoleDao.cs" />
     <Compile Include="Models\Dao\UserDao.cs" />
     <Compile Include="Models\Dao\UserSingleTon.cs" />
     <Compile Include="Models\LaptopShopDbContext.cs" />
@@ -239,6 +240,7 @@
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetail.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -2141,6 +2143,7 @@
     <Content Include="Views\User\UserInfo.cshtml" />
     <Content Include="Views\User\ViewOrderDetail.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\User\UserManager.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
