@@ -58,12 +58,31 @@ namespace LaptopShop.Models.Dao
             }
 
         }
+
         public bool Update(User user)
         {
             try
             {
                 var updatePass = db.User.Find(user.ID);
                 updatePass.password = user.password;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        
+        //Hàm cập nhật role và status account cho user
+        public bool Update(int id_user, int id_role, bool status_user)
+        {
+            try
+            {
+                var update = db.User.Find(id_user);
+                update.Role_ID = id_role;
+                update.isDisable = status_user;
                 db.SaveChanges();
                 return true;
             }
