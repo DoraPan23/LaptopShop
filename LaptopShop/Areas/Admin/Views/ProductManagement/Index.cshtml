@@ -7,7 +7,15 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+        <h6 style="float:left;padding-top:10px" class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+        <div style="float:right">
+            <a href="#" class="btn btn-primary btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-flag"></i>
+                </span>
+                <span class="text">Thêm sản phẩm</span>
+            </a>
+        </div>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -22,6 +30,7 @@
                         <th>Giảm giá</th>
                         <th>Thông tin sản phẩm</th>
                         <th>Hãng</th>
+                        <th>#</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -34,20 +43,28 @@
                         <th>Giảm giá</th>
                         <th>Thông tin sản phẩm</th>
                         <th>Hãng</th>
+                        <th>#</th>
                     </tr>
                 </tfoot>
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
+                        <tr id="row_@item.Id">
                             <td>@item.Product_Name</td>
-                            <td>@item.Catalog_ID</td>
+                            <td>@item.Catalog_Name</td>
                             <td>@item.Amount</td>
                             <td>@item.Price</td>
-                            <td><img src="~/Assets/Layout2/@(Url.Content(item.Image))" width="70px" height="60px" alt="@item.Product_Name"></td>
+                            <td><img src="@(Url.Content(item.Image))" width="70px" height="60px" alt="@item.Product_Name"></td>
                             <td>@item.Discount</td>
                             <td>@item.Detail</td>
-                            <td>@item.Brand_ID</td>
+                            <td>@item.Brand_Name</td>
+                            <td><a href="/Admin/ProductManagement/Edit/@item.Id">Edit</a>| @Ajax.ActionLink("Delete","Delete",new { @id=item.Id }, new AjaxOptions
+                                                 {
+                                                     Confirm="Are you sure to delete this record?",
+                                                     OnComplete="$('#row_"+item.Id+"').remove()",
+                                                     HttpMethod = "Delete"
+                                                 }
+                                                 )</td>
                         </tr>
                     }
 
