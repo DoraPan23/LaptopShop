@@ -1,4 +1,4 @@
-﻿    using PagedList;
+﻿using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,6 +64,7 @@ namespace LaptopShop.Models
         {
             return db.Product.Where(x => x.Catalog_ID == 2).Take(quantity).ToList();
         }
+
         public Product getDetailProduct(int id)
         {
             return db.Product.Find(id);
@@ -112,6 +113,11 @@ namespace LaptopShop.Models
             }
         }
         public Product getItemById(int id)
+        {
+            return db.Product.Where(x => x.ID == id).SingleOrDefault();
+        }
+
+        public Product getItemById(int? id)
         {
             return db.Product.Where(x => x.ID == id).SingleOrDefault();
         }

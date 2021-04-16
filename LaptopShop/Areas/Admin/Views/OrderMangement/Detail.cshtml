@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Detail</h2>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Stt</th>
+                            <th>Loại</th>
+                            <th>Name</th>
+                            <th>Image</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Stt</th>
+                            <th>Loại</th>
+                            <th>Name</th>
+                            <th>Image</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @{
+
+                            int count = 0;
+                            int tongTien = 0;
+                            foreach (var item in ViewBag.listCombo)
+                            {
+                                count++;
+                                tongTien += ViewBag.price[count - 1] * ViewBag.quantity[count - 1];
+                                <tr>
+                                    <td>@count</td>
+                                    <td>Combo</td>
+                                    <td>@item.Combo_Name</td>
+                                    <td>
+                                        <img src="@Url.Content(item.Image)" width="150px" />
+                                    </td>
+                                    <td>@ViewBag.quantity[count - 1]</td>
+                                    <td>@ViewBag.price[count - 1]</td>
+                                </tr>
+                            }
+
+                            foreach (var item in ViewBag.listProduct)
+                            {
+                                count++;
+                                tongTien += ViewBag.price[count - 1] * ViewBag.quantity[count - 1];
+                                <tr>
+                                    <td>@count</td>
+                                    <td>Product</td>
+                                    <td>@item.Product_Name</td>
+                                    <td>
+                                        <img src="@Url.Content(item.Image)" width="150px" />
+                                    </td>
+                                    <td>@ViewBag.quantity[count - 1]</td>
+                                    <td>@ViewBag.price[count - 1]</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+
+                </table>
+                <h1 style="float:right">Tổng tiền : @tongTien</h1>
+            </div>
+        </div>
+        
+    </div>
+
