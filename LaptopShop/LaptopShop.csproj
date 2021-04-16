@@ -2097,6 +2097,9 @@
     <Content Include="Areas\Admin\Views\ProductManagement\Index.cshtml" />
     <Content Include="Areas\Admin\Views\OrderMangement\Index.cshtml" />
     <Content Include="Areas\Admin\Views\UserManagement\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderMangement\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderMangement\Find.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderMangement\Edit.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

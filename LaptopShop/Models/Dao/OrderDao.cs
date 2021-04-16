@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -8,6 +10,10 @@ namespace LaptopShop.Models.Dao
     public class OrderDao
     {
         LaptopShopDbContext db = null;
+        public List<Order> getListAllOrder()
+        {
+            return db.Order.ToList();
+        }
         public OrderDao()
         {
             db = new LaptopShopDbContext();
@@ -66,6 +72,25 @@ namespace LaptopShop.Models.Dao
         public List<Order> getListOrderForUser(int id)
         {
             return db.Order.Where(x => x.User_Id == id).ToList();
+        }
+
+        public List<Order> getListOrderForDate(string dateFrom, string dateTo)
+        {
+            string[] cutDF = dateFrom.Split('-');
+            
+            int day = int.Parse(cutDF[2]);
+            int month = int.Parse(cutDF[1]);
+            int year = int.Parse(cutDF[0]);
+            DateTime dateF = new DateTime(year, month, day);
+
+            string[] cutDT = dateTo.Split('-');
+            day = int.Parse(cutDT[2]);
+            month = int.Parse(cutDT[1]);
+            year = int.Parse(cutDT[0]);
+            DateTime dateT = new DateTime(year, month, day);
+
+            List<Order> list = db.Order.Where(x => (x.Date > dateF && x.Date < dateT)).ToList();
+            return list;
         }
 
         public Order getOrderById(int id)

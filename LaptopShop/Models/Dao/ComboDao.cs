@@ -23,6 +23,11 @@ namespace LaptopShop.Models.Dao
             return db.Combo.Where(x=>x.ID==id).SingleOrDefault();
         }
 
+        public Combo getItemyById(int? id)
+        {
+            return db.Combo.Where(x => x.ID == id).SingleOrDefault();
+        }
+
         public int CheckAmountCombo(Combo combo)
         {
             int amount = 1000000;
