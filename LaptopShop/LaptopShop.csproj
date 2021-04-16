@@ -227,6 +227,7 @@
     <Compile Include="Models\Catalog.cs" />
     <Compile Include="Models\Combo.cs" />
     <Compile Include="Models\ComboFormatDao.cs" />
+    <Compile Include="Models\Dao\BrandDao.cs" />
     <Compile Include="Models\Dao\CartDao.cs" />
     <Compile Include="Models\Dao\CatalogDao.cs" />
     <Compile Include="Models\Dao\ComboDao.cs" />
@@ -240,6 +241,7 @@
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetail.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ProductFormatDao.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Utils.cs" />
@@ -2099,6 +2101,8 @@
     <Content Include="Areas\Admin\Views\ProductManagement\Index.cshtml" />
     <Content Include="Areas\Admin\Views\OrderMangement\Index.cshtml" />
     <Content Include="Areas\Admin\Views\UserManagement\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductManagement\AddProduct.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductManagement\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\OrderMangement\Detail.cshtml" />
     <Content Include="Areas\Admin\Views\OrderMangement\Find.cshtml" />
     <Content Include="Areas\Admin\Views\OrderMangement\Edit.cshtml" />

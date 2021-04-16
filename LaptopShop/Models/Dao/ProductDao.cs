@@ -13,9 +13,40 @@ namespace LaptopShop.Models
         {
             db = new LaptopShopDbContext();
         }
-        public List<Product> getListAllProduct()
+        public List<ProductFormatDao> getListAllProduct()
         {
-            return db.Product.ToList();
+            var query = from p in db.Product
+                        join c in db.Catalog on p.Catalog_ID equals c.ID
+                        join b in db.Brand on p.Brand_ID equals b.ID
+                        select new
+                        {
+                            id = p.ID,
+                            product_Name = p.Product_Name,
+                            catalog_Name = c.Catalog_Name,
+                            amount = p.Amount,
+                            price = p.Price,
+                            image = p.Image,
+                            discount = p.Discount,
+                            detail = p.Detail,
+                            brand_Name = b.Brand_Name
+                        };
+            List<ProductFormatDao> list = new List<ProductFormatDao>();
+            foreach (var item in query)
+            {
+                ProductFormatDao pd = new ProductFormatDao();
+                pd.Id = item.id;
+                pd.Product_Name = item.product_Name;
+                pd.Catalog_Name = item.catalog_Name;
+                pd.Amount = item.amount;
+                pd.Price = item.price;
+                pd.Image = item.image;
+                pd.Discount = (float)item.discount;
+                pd.Detail = item.detail;
+                pd.Brand_Name = item.brand_Name;
+                list.Add(pd);
+
+            }
+            return list;
         }
         public List<Product> getListProductLaptop(int quantity)
         {
@@ -245,6 +276,49 @@ namespace LaptopShop.Models
                 price = price - (price * discount / 100);
             }
             return price;
+        }
+
+        public long Insert(Product product)
+        {
+            db.Product.Add(product);
+            db.SaveChanges();
+            return product.ID;
+        }
+        public bool Delete(int id)
+        {
+            try
+            {
+                var product = db.Product.Find(id);
+                db.Product.Remove(product);
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool Update (Product entity)
+        {
+            try
+            {
+                var product = db.Product.Find(entity.ID);
+                product.Product_Name = entity.Product_Name;
+                product.Catalog_ID = entity.Catalog_ID;
+                product.Amount = entity.Amount;
+                product.Price = entity.Price;
+                product.Image = entity.Image;
+                product.Discount = entity.Discount;
+                product.Detail = entity.Detail;
+                product.Brand_ID = entity.Brand_ID;
+                db.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
