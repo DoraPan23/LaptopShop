@@ -18,20 +18,6 @@ namespace LaptopShop
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
-
-            //Quản lý User
-            routes.MapRoute(
-                name: "UserManager",
-                url: "{controller}/UserManager",
-                defaults: new { controller = "User", action = "UserManager", id = UrlParameter.Optional }
-            );
-
-            //Update User
-            routes.MapRoute(
-                name: "UpdateUser",
-                url: "{controller}/User/Update/{id}",
-                defaults: new { controller = "User", action = "UserManager", id = UrlParameter.Optional }
-            );
         }
     }
 }
