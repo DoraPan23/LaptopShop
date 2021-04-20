@@ -164,5 +164,114 @@ namespace LaptopShop.Models.Dao
             }
             return list;
         }
+
+        
+
+        //khach hang mua hang thanh cong nhieu nhat
+        public string getCustomerBuyMost()
+        {
+            int id=0;
+            foreach (var line in db.Order.Where(o => o.Status == 3)
+                        .GroupBy(x => x.User_Id)
+                        .Select(group => new
+                        {
+                            User_Id = group.Key,
+                            Count = group.Count()
+                        })
+                        .OrderByDescending(x => x.User_Id))
+            {
+                id = (int)line.User_Id;
+                break;
+            }
+            if (id == 0)
+            {
+                return "...";
+            }
+            return new UserDao().getNameUserById(id);
+
+        }
+
+        public string getProductBuyMost()
+        {
+            int sum=0,id=0;
+            var productBuyMost = from o in db.Order
+                                 join od in db.OrderDetail on o.ID equals od.Order_Id
+                                 where o.Status == 3 && od.Product_Id > 0
+                                 group od by od.Product_Id into grp
+                                 select new { Product_Id = grp.Key, sum = grp.Sum(x => x.Quantity) };
+            foreach(var item in productBuyMost) 
+            {
+                if (item.sum > sum)             // vi k them dc descending trong linq nen phai duyet tung item trong cau truy van de lay max (sum)
+                {   
+                    sum = (int)item.sum;
+                    id = (int)item.Product_Id;
+                }
+                
+            }
+            if (id == 0)
+            {
+                return "...";
+            }
+            return  new ProductDao().getItemById(id).Product_Name;
+        }
+
+        public string getComboBuyMost()
+        {
+            int sum = 0, id = 0;
+            var productBuyMost = from o in db.Order
+                                 join od in db.OrderDetail on o.ID equals od.Order_Id
+                                 where o.Status == 3 && od.Combo_Id > 0
+                                 group od by od.Combo_Id into grp
+                                 select new { Combo_Id = grp.Key, sum = grp.Sum(x => x.Quantity) };
+            foreach (var item in productBuyMost)
+            {
+                if (item.sum > sum)             // vi k them dc descending trong linq nen phai duyet tung item trong cau truy van de lay max (sum)
+                {
+                    sum = (int)item.sum;
+                    id = (int)item.Combo_Id;
+                }
+
+            }
+            if (id == 0)
+            {
+                return "...";
+            }
+            return new ComboDao().getItemById(id).FirstOrDefault().ComboName;
+        }
+
+        public List<double> getRevenueByYear(int year)
+        {
+            List<Order> list = db.Order.ToList().Where(x => Convert.ToDateTime(x.Date).Year == year && x.Status == 3).ToList();
+            List<double> listRevenue = new List<double>();
+            int check = 0;
+            double revenueInMonth = 0;
+            double revenueInYear = 0;
+            for (int i = 1; i <= 12; i++)
+            {
+                foreach (Order order in list)
+                {
+                    if (Convert.ToDateTime(order.Date).Month == i)
+                    {
+                        check = 1;
+                        revenueInMonth = (double)(revenueInMonth + order.Total_Price);
+                        
+                    }
+                    
+                }
+                if (check == 0)
+                {
+                    listRevenue.Add(0);
+                }
+                else if (check == 1)
+                {
+                    listRevenue.Add(revenueInMonth);
+                    revenueInYear = revenueInYear + revenueInMonth;
+                }
+                check = 0;
+                revenueInMonth = 0;
+            }
+            listRevenue.Add(revenueInYear);
+            return listRevenue;
+        }
     }
 }

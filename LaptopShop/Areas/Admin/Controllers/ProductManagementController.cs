@@ -15,12 +15,20 @@ namespace LaptopShop.Areas.Admin.Controllers
         ProductDao dao = new ProductDao();
         public ActionResult Index()
          {
+            if (UserSingleTon.Instance.User.Role_ID == 3|| UserSingleTon.Instance.User.Role_ID == 0)        // kiem tra session, neu chua dang nhap la id = 0
+            {
+                return RedirectToAction("Index", "../Home");
+            }
             var model = dao.getListAllProduct();
             return View(model);
         }
 
         public ActionResult AddProduct()
          {
+            if (UserSingleTon.Instance.User.Role_ID == 3 || UserSingleTon.Instance.User.Role_ID == 0)        // kiem tra session, neu chua dang nhap la id = 0
+            {
+                return RedirectToAction("Index", "../Home");
+            }
             SelectList CategoryList = new SelectList(new CatalogDao().getListCatalog(), "ID", "Catalog_Name");
             ViewBag.CategoryList = CategoryList;
             SelectList BrandList = new SelectList(new BrandDao().getListBrand().Where(x=>x.Brand_Name!="0"), "ID", "Brand_Name",3);
@@ -133,6 +141,10 @@ namespace LaptopShop.Areas.Admin.Controllers
 
         public ActionResult Edit(int id)
         {
+            if (UserSingleTon.Instance.User.Role_ID == 3 || UserSingleTon.Instance.User.Role_ID == 0)        // kiem tra session, neu chua dang nhap la id = 0
+            {
+                return RedirectToAction("Index", "../Home");
+            }
             var model = new ProductDao().getDetailProduct(id);
             SelectList CategoryList = new SelectList(new CatalogDao().getListCatalog(), "ID", "Catalog_Name",model.Catalog_ID);
             ViewBag.CategoryList = CategoryList;

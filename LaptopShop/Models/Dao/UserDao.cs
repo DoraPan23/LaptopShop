@@ -123,5 +123,14 @@ namespace LaptopShop.Models.Dao
             }
             return 1;
         }
+
+        public string getNameUserById(int id)
+        {
+            User u = new User();
+            u = db.User.Where(x => x.ID == id).FirstOrDefault();
+            return u.firstName +" "+ u.lastName;
+
+        }
+
     }
 }

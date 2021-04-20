@@ -207,7 +207,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
-    <Compile Include="Areas\Admin\Controllers\OrderMangementController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrderManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserManagementController.cs" />
     <Compile Include="Common\CommonConstants.cs" />
@@ -2099,13 +2099,13 @@
     <Content Include="Areas\Admin\Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ProductManagement\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\OrderMangement\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderManagement\Index.cshtml" />
     <Content Include="Areas\Admin\Views\UserManagement\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ProductManagement\AddProduct.cshtml" />
     <Content Include="Areas\Admin\Views\ProductManagement\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\OrderMangement\Detail.cshtml" />
-    <Content Include="Areas\Admin\Views\OrderMangement\Find.cshtml" />
-    <Content Include="Areas\Admin\Views\OrderMangement\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderManagement\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderManagement\Find.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderManagement\Edit.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

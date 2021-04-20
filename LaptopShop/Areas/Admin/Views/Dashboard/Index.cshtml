@@ -2,7 +2,112 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var ListRevenue = (List<double>)ViewBag.ListRevenue;
+    int year = ViewBag.RevenueOfYear;
 }
 
-<h2>Index</h2>
+<!-- Area Chart -->
 
+<div class="row">
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Khách hàng mua nhiều nhất
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.NameUserBuyMost</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Sản phầm được mua nhiều nhất
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.NameProductBuyMost</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Combo được mua nhiều nhất
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.NameComboBuyMost</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*<p  id="ggggg">["10", "25", "55", "120", "10", "25", "55", "120", "10", "25", "55", "120"]</p>
+<button onclick="test1()">click</button>*@
+
+<select id="changeYear" onchange="changeYear()">
+    <option value="">Chọn năm</option>
+    <option value="2019">2019</option>
+    <option value="2020">2020</option>
+    <option value="2021">2021</option>
+</select>
+<table hidden class="table table-bordered" id="dataTableForChart">
+    <thead>
+        <th>Year</th>
+    </thead>
+        <tbody>
+            @if (ListRevenue != null)
+            {
+                for (int i = 0; i < 12; i++)
+                {
+                    <tr>
+                        <td>@ListRevenue[i]</td>
+                    </tr>
+                }
+            }
+
+
+        </tbody>
+</table>
+    <div class="row">
+        <div class="col-xl-11 col-lg-7 col-md-7">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            Revenue of year @year: @ListRevenue[12]
+                        </h6>
+                    </div>
+                <div class="card-body">
+                    <div class="chart-area">
+                        <canvas id="myAreaChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    function changeYear() {
+                        var year = document.getElementById("changeYear").value;
+                        location.href = "http://localhost:14787/Admin/Dashboard/Index?year=" + year;
+                    }
+</script>

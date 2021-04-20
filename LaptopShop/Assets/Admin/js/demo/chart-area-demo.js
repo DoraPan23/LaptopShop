@@ -29,6 +29,28 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 
 // Area Chart Example
 var ctx = document.getElementById("myAreaChart");
+/*var test12 = document.getElementById("ggggg").innerHTML; */   // getElementById lay duoc dang chuoi json ma k hieu tai sao data o duoi no lai k chiu cai bien nay
+var table = document.getElementById('dataTableForChart');
+var json = []; // first row needs to be headers 
+var headers = [];
+for (var i = 0; i < table.rows[0].cells.length; i++) {
+    headers[i] = table.rows[0].cells[i].innerHTML.toLowerCase().replace(/ /gi, '');
+}
+// go through cells 
+for (var i = 1; i < table.rows.length; i++) {
+    var tableRow = table.rows[i];
+    var rowData = {};
+    for (var j = 0; j < tableRow.cells.length; j++) {
+        rowData[headers[j]] = tableRow.cells[j].innerHTML;
+    }
+    json.push(rowData);
+}
+console.log(json);
+// Map json values back to label array
+var labels = json.map(function (e) {
+    return e.year;
+});
+
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
@@ -45,8 +67,8 @@ var myLineChart = new Chart(ctx, {
       pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
-      pointBorderWidth: 2,
-      data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
+        pointBorderWidth: 2,
+        data: labels,               // data o day can dang chuoi json
     }],
   },
   options: {
@@ -77,9 +99,9 @@ var myLineChart = new Chart(ctx, {
           maxTicksLimit: 5,
           padding: 10,
           // Include a dollar sign in the ticks
-          callback: function(value, index, values) {
-            return '$' + number_format(value);
-          }
+          //callback: function(value, index, values) {
+          //  return '$' + number_format(value);
+          //}
         },
         gridLines: {
           color: "rgb(234, 236, 244)",
