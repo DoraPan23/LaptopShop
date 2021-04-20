@@ -117,10 +117,6 @@ namespace LaptopShop.Models
             return db.Product.Where(x => x.ID == id).SingleOrDefault();
         }
 
-        public Product getItemById(int? id)
-        {
-            return db.Product.Where(x => x.ID == id).SingleOrDefault();
-        }
         public List<Product> getListProductByKeyword(string keyword,int range, ref double totalRecord, int page, int pageSize)
         {
             totalRecord = db.Product.Where(x => x.Product_Name.Contains(keyword)).Count();
@@ -243,11 +239,6 @@ namespace LaptopShop.Models
             return list;
         }
 
-        public int inStockFromProduct(int id)
-        {     
-            int amount = db.Product.Where(x=>x.ID==id).SingleOrDefault().Amount;
-            return amount;
-        }
         public string getNameById(int id)
         {
             var res = db.Brand.Where(x => x.ID == id).SingleOrDefault();
@@ -320,5 +311,6 @@ namespace LaptopShop.Models
                 return false;
             }
         }
+
     }
 }

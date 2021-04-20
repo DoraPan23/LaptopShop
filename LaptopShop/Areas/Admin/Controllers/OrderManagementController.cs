@@ -9,11 +9,15 @@ using System.Web.Mvc;
 
 namespace LaptopShop.Areas.Admin.Controllers
 {
-    public class OrderMangementController : Controller
+    public class OrderManagementController : Controller
     {
         // GET: Admin/OrderMangement
         public ActionResult Detail(int id)
         {
+            if (UserSingleTon.Instance.User.Role_ID == 3 || UserSingleTon.Instance.User.Role_ID == 0)        // kiem tra session, neu chua dang nhap la id = 0
+            {
+                return RedirectToAction("Index", "../Home");
+            }
             List<OrderDetail> listOrderDetail = new OrderDao().getOrderDetailById(id);
             
             List<Combo> listCombo = new List<Combo>();
@@ -50,6 +54,10 @@ namespace LaptopShop.Areas.Admin.Controllers
         }
         public ActionResult Edit(int id)
         {
+            if (UserSingleTon.Instance.User.Role_ID == 3 || UserSingleTon.Instance.User.Role_ID == 0)        // kiem tra session, neu chua dang nhap la id = 0
+            {
+                return RedirectToAction("Index", "../Home");
+            }
             var model = new OrderDao().getOrderById(id);
             ViewBag.Status = model.Status;
             return View(model);
@@ -69,12 +77,20 @@ namespace LaptopShop.Areas.Admin.Controllers
         }
         public ActionResult Index()
         {
+            if (UserSingleTon.Instance.User.Role_ID == 3 || UserSingleTon.Instance.User.Role_ID == 0)        // kiem tra session, neu chua dang nhap la id = 0
+            {
+                return RedirectToAction("Index", "../Home");
+            }
             OrderDao order = new OrderDao();
             var model = order.getListAllOrder();
             return View(model);
         }
         public ActionResult Find(string id)
         {
+            if (UserSingleTon.Instance.User.Role_ID == 3 || UserSingleTon.Instance.User.Role_ID == 0)        // kiem tra session, neu chua dang nhap la id = 0
+            {
+                return RedirectToAction("Index", "../Home");
+            }
             ViewBag.date = id;
             String[] date = id.Split('_');
             OrderDao order = new OrderDao();
