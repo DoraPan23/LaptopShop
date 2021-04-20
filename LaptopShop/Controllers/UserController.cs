@@ -261,26 +261,5 @@ namespace LaptopShop.Controllers
             }
             return PartialView();
         }
-
-        public ActionResult UserManager()
-        {
-            var model = new UserDao().GetListUser();
-            ViewBag.role = new RoleDao().getListRole();
-            return View(model); 
-        }
-
-        [HttpPost]
-        public ActionResult UserManager(FormCollection form)
-        {
-            int ID_User = int.Parse(form["id"]);
-            int role = new RoleDao().getIdByName(form["role"]);
-            // string status = form["status"];
-            //bool status1 = (bool) status;
-            bool status = bool.Parse(form["status"]);
-            new UserDao().Update(ID_User, role, status);
-            var model = new UserDao().GetListUser();
-            ViewBag.role = new RoleDao().getListRole();
-            return View(model);
-        }
     }
 }

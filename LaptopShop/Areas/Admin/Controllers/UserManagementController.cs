@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LaptopShop.Models.Dao;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +10,26 @@ namespace LaptopShop.Areas.Admin.Controllers
     public class UserManagementController : Controller
     {
         // GET: Admin/UserManagement
+        [HttpGet]
         public ActionResult Index()
         {
-            return View();
+            var model = new UserDao().GetListUser();
+            ViewBag.role = new RoleDao().getListRole();
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Index(FormCollection form)
+        {
+            int ID_User = int.Parse(form["id"]);
+            int role = new RoleDao().getIdByName(form["role"]);
+            //string status = form["status"];
+            //bool status1 = (bool) status;
+            bool status = bool.Parse(form["status"]);
+            new UserDao().Update(ID_User, role, status);
+            var model = new UserDao().GetListUser();
+            ViewBag.role = new RoleDao().getListRole();
+            return View(model);
         }
     }
 }
