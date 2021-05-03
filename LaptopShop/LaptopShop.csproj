@@ -2100,12 +2100,12 @@
     <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ProductManagement\Index.cshtml" />
     <Content Include="Areas\Admin\Views\OrderManagement\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\UserManagement\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ProductManagement\AddProduct.cshtml" />
     <Content Include="Areas\Admin\Views\ProductManagement\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\OrderManagement\Detail.cshtml" />
     <Content Include="Areas\Admin\Views\OrderManagement\Find.cshtml" />
     <Content Include="Areas\Admin\Views\OrderManagement\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\UserManagement\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

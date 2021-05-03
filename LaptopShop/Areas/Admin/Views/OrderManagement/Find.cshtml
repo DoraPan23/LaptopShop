@@ -10,7 +10,7 @@
         var toDay = document.getElementById("ToDay");
         var text = formDay.value + "_" + toDay.value;
         if (formDay.value != "" && toDay.value != "") {
-            window.location = "/Admin/OrderMangement/Find/" + text;
+            window.location = "/Admin/OrderManagement/Find/" + text;
         }
     }
 </script>
@@ -82,11 +82,11 @@
                                                                             <td>
                                 -->
                                 <td>
-                                    <a href="/Admin/OrderMangement/Edit/@item.ID">Edit</a>
+                                    <a href="/Admin/OrderManagement/Edit/@item.ID">Edit</a>
                                 </td>
 
                                 <td>
-                                    <a href="/Admin/OrderMangement/Detail/@item.ID">Xem</a>
+                                    <a href="/Admin/OrderManagement/Detail/@item.ID">Xem</a>
                                 </td>
                             </tr>
                         }

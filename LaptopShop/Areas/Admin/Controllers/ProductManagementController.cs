@@ -257,5 +257,6 @@ namespace LaptopShop.Areas.Admin.Controllers
             new ProductDao().Delete(id);
             return RedirectToAction("Index");
         }
+
     }
 }
