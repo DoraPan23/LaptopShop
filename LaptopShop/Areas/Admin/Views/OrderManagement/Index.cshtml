@@ -9,33 +9,23 @@
             return false;
         }
 
-        var yearFD = Number.parseInt(formDay.value.split("-")[0]);
-        if (yearFD > 2019) {
-            return false;
-        }
-
-        var yearTD = Number.parseInt(toDay.value.split("-")[0]);
-        alert(yearTD);
-        if (yearTD > 2019) {
-            return false;
-        }
-
         return true;
 
     }
     function find() {
         var formDay = document.getElementById("FromDay");
         var toDay = document.getElementById("ToDay");
-        if (this.checkDate(formDay, toDay)) {
+        if (this.checkDate(formDay, toDay)) { // => tra ve false
+            
             var text = formDay.value + "_" + toDay.value;
-            window.location = "/Admin/OrderMangement/Find/" + text;
+            window.location = "/Admin/OrderManagement/Find/" + text;
         }
     }
 </script>
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Order Managerment</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -100,11 +90,11 @@
                                                                     <td>
                         -->
                                 <td>
-                                    <a href="/Admin/OrderMangement/Edit/@item.ID">Edit</a>
+                                    <a href="/Admin/OrderManagement/Edit/@item.ID">Edit</a>
                                 </td>
 
                                 <td>
-                                    <a href="/Admin/OrderMangement/Detail/@item.ID">Xem</a>
+                                    <a href="/Admin/OrderManagement/Detail/@item.ID">Xem</a>
                                 </td>
                             </tr>
                         }

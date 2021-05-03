@@ -12,11 +12,10 @@
     @Html.AntiForgeryToken()
     
 <div class="form-horizontal">
-    <h4>Product</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(model => model.Product_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.Label("Product name", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.Product_Name, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Product_Name, "", new { @class = "text-danger" })
@@ -24,7 +23,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Catalog_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.Label("Catalog", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.DropDownList("Catalog", (IEnumerable<SelectListItem>)ViewBag.CategoryList, new { onchange="displayBrand(this.value)", @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Catalog_ID, "", new { @class = "text-danger" })
@@ -47,21 +46,6 @@
         </div>
     </div>
 
-    @*<div class="form-group">
-            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-    @*<div class="form-inline">
-            Chon hinh anh <input type="text" name="picture" id="picture" class="form-control" />
-            <input type="file" id="fileUpload" name="fileUpload" style="display:none" />
-            <input type="button" id="btnUpload" value="..." class="btn btn-success" />
-            <hr />
-        </div>
-        <img id="pictureUpload" width="300px" />*@
 
     <label for="file">Upload Image:</label>
     <input type="file" name="file" id="file" /><br><br>
@@ -92,7 +76,7 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+            <input onclick="return validate()" type="submit" value="Create" class="btn btn-default" />
         </div>
     </div>
 </div>
@@ -111,5 +95,39 @@
         else {
             p.setAttribute("hidden",'');
         }
+    }
+
+    function validate() {
+        var checkProductName = document.getElementById("Product_Name").value;
+        var checkAmount = document.getElementById("Amount").value;
+        var checkPrice = document.getElementById("Price").value;
+        var checkDiscount = document.getElementById("Discount").value;
+        var checkDetail = document.getElementById("Detail").value;
+        if (checkProductName == "") {
+            alert("Please type product name");
+            document.getElementById("Product_Name").focus();
+            return false;
+        }
+        if (checkAmount == "") {
+            alert("Please type Amount");
+            document.getElementById("Amount").focus();
+            return false;
+        }
+        if (checkPrice == "") {
+            alert("Please type Price");
+            document.getElementById("Price").focus();
+            return false;
+        }
+        if (checkDiscount == "") {
+            alert("Please type Discount");
+            document.getElementById("Discount").focus();
+            return false;
+        }
+        if (checkDetail == "") {
+            alert("Please type Detail");
+            document.getElementById("Detail").focus();
+            return false;
+        }
+        return true;
     }
 </script>

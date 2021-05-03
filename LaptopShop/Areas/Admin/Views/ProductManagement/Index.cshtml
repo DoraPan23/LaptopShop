@@ -7,7 +7,7 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 style="float:left;padding-top:10px" class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+        <h6 style="float:left;padding-top:10px" class="m-0 font-weight-bold text-primary">Product Managerment</h6>
         <div style="float:right">
             <a href="/Admin/ProductManagement/AddProduct" class="btn btn-primary btn-icon-split">
                 <span class="icon text-white-50">
@@ -58,7 +58,8 @@
                             <td>@item.Discount</td>
                             <td>@item.Detail</td>
                             <td>@item.Brand_Name</td>
-                            <td><a href="/Admin/ProductManagement/Edit/@item.Id">Edit</a>| @Ajax.ActionLink("Delete","Delete",new { @id=item.Id }, new AjaxOptions
+                            <td><a href="/Admin/ProductManagement/Edit/@item.Id">Edit</a>|
+                                                @Ajax.ActionLink("Delete","Delete",new { @id=item.Id }, new AjaxOptions
                                                  {
                                                      Confirm="Are you sure to delete this record?",
                                                      OnComplete="$('#row_"+item.Id+"').remove()",

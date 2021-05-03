@@ -1,12 +1,14 @@
-﻿@{
-    ViewBag.Title = "ListProduct";
+﻿
+@{
+    ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
+
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+        <h6 class="m-0 font-weight-bold text-primary">User Managerment</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -47,7 +49,7 @@
                         //Format ngày bắt đàu công việc
                         string[] joinDate = (Convert.ToString(item.joinDate)).Split(' ');
 
-                        <form action="/Admin/UserManagement/Index" method="post">
+                        @*<form action="/Admin/UserManagement/Index" method="post">*@
                             <tr>
                                 <input type="hidden" id="Id" value="@item.ID" name="Id">
                                 <td>@item.ID</td>
@@ -90,7 +92,7 @@
                                     <a href="/Admin/UserManagement/Index"><input tabindex="3" class="btn btn-primary large" type="submit" id="submit" value="Save"></a>
                                 </td>
                             </tr>
-                        </form>
+                        @*</form>*@
 
                     }
                 </tbody>
